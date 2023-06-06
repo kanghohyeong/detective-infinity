@@ -18,7 +18,8 @@ export const AIChatProvider = ({children, baseScenario, apiKey}) => {
     }, [apiKey]);
 
     useEffect(() => {
-        setChatLog([new SystemChatMessage(getGameHostSystemPrompt(JSON.stringify(baseScenario)))]);
+        if(baseScenario === null) return;
+        setChatLog([new SystemChatMessage(getGameHostSystemPrompt(baseScenario))]);
     }, [baseScenario]);
 
     const addAIMessage = (message) => {

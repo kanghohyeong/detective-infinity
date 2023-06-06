@@ -19,7 +19,7 @@ const SuspectScheme = z.object({
     isMurderer: z.boolean().describe("Whether this suspect is the murderer or not")
 });
 
-const ClearConditionScheme = z.object({
+const TruthScheme = z.object({
     name: z.string().describe("name of murderer"),
     how: z.string().describe("how to murder(method of murder)"),
     why: z.string().describe("why murder(motive of murder)")
@@ -29,9 +29,8 @@ const ScenarioScheme = z.object({
     title: z.string().describe("title of scenario"),
     victim: VictimScheme.describe("information of the victim"),
     crimeScene: z.string().describe("Describe the crime scene"),
-    suspects: z.array(SuspectScheme).describe("information of the suspects"),
-    clearCondition: ClearConditionScheme.describe("The truth of the murder that the player (== detective role) must reveal"),
-    // murderStory: z.string().describe("the whole story of a murder. Include who is the murderer, why and how did murderer kill victim."),
+    suspects: z.array(SuspectScheme).describe("information of the suspects. One of the suspects must be a murderer(set 'isMurderer: true')."),
+    truth: TruthScheme.describe("The truth of the murder that the player (== detective role) must reveal"),
     prologue: z.string().describe("prologue of the game."),
 });
 

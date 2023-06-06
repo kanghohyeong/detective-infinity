@@ -3,8 +3,7 @@ import {useContext, useEffect, useRef, useState} from "react";
 import {AIChatContext} from "../context/AIChatContextProvider";
 import Modal from "./Modal";
 
-const SuspectInterview = ({name, messages, setMessages, offInterview}) => {
-
+const WatsonSurvey = ({messages, setMessages, offSurvey}) => {
     const {executeHumanQuestion, addAIMessage} = useContext(AIChatContext);
 
     const [input, setInput] = useState('');
@@ -26,19 +25,18 @@ const SuspectInterview = ({name, messages, setMessages, offInterview}) => {
         setMessages(currentMessages);
         setWaiting(true);
 
-        const interviewPrompt = `
-        Question type: Interview 
-        Interviewee: ${name} 
-        Question: ${input}`;
-        const aiMessage = await executeHumanQuestion(interviewPrompt);
+        const watsonPrompt = `
+        Question type: Watson
+        Question: ${input}`
+        const aiMessage = await executeHumanQuestion(watsonPrompt);
         addAIMessage(aiMessage);
-        setMessages(currentMessages.concat({type: name, message: aiMessage}));
+        setMessages(currentMessages.concat({type: 'watson', message: aiMessage}));
         setWaiting(false);
         setInput('');
     }
 
     return (
-        <Modal offModal={offInterview}>
+        <Modal offModal={offSurvey}>
             <div className="chat">
                 <div className="chat-messages">
                     {messages.map((msg, index) => (
@@ -49,7 +47,7 @@ const SuspectInterview = ({name, messages, setMessages, offInterview}) => {
                     <div ref={endOfMessages}></div>
                 </div>
                 <form className="chat-input" onSubmit={handleSend}>
-                    <input value={input} onChange={e => setInput(e.target.value)} placeholder="Type a interview question"
+                    <input value={input} onChange={e => setInput(e.target.value)} placeholder="Type a message"
                            disabled={waiting}/>
                     <button type="submit" disabled={waiting}>Send</button>
                 </form>
@@ -58,4 +56,4 @@ const SuspectInterview = ({name, messages, setMessages, offInterview}) => {
     );
 };
 
-export default SuspectInterview;
+export default WatsonSurvey;
