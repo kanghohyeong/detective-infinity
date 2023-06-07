@@ -3,7 +3,7 @@ import styled from "styled-components";
 import SuspectInterview from "./SuspectInterview";
 
 const SuspectDiv = styled.div`
-  border: 1px solid black;
+  border: 1px solid #ffffff;
   margin: 5px 5px;
   cursor: pointer;
 `

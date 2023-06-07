@@ -19,10 +19,11 @@ const ModalDiv = styled.div`
   width: 80%;
   max-width: 500px;
   max-height: 70%;
-  background-color: white;
+  background-color: #ffffff;
+  color: #000000;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
   z-index: 100;
   overflow-y: scroll;
 `
@@ -41,7 +42,7 @@ const Modal = ({children, offModal}) => {
             }}>
                 <button onClick={closeModal}>x</button>
                 {children}
-            </ModalDiv>f
+            </ModalDiv>
         </BackgroundPanel>
     );
 };

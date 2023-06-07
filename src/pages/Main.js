@@ -45,7 +45,7 @@ const Main = ({setGameStatus}) => {
 
     return (
         <div>
-            <h1>AI DETECTIVE GAME</h1>
+            <h1 style={{color: '#8b0000'}}>DETECTIVE INFINITY</h1>
             <h2>100% AI generated game powered by chatGPT</h2>
             <p>You're a detective investigating a murder case</p>
             <div>

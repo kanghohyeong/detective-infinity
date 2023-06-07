@@ -49,7 +49,9 @@ const WatsonSurvey = ({messages, setMessages, offSurvey}) => {
                 <form className="chat-input" onSubmit={handleSend}>
                     <input value={input} onChange={e => setInput(e.target.value)} placeholder="Type a message"
                            disabled={waiting}/>
-                    <button type="submit" disabled={waiting}>Send</button>
+                    <button style={{backgroundColor: "#5f9ea0", color: "#ffffff"}} type="submit"
+                            disabled={waiting}>Send
+                    </button>
                 </form>
             </div>
         </Modal>

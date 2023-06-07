@@ -49,9 +49,12 @@ const SuspectInterview = ({name, messages, setMessages, offInterview}) => {
                     <div ref={endOfMessages}></div>
                 </div>
                 <form className="chat-input" onSubmit={handleSend}>
-                    <input value={input} onChange={e => setInput(e.target.value)} placeholder="Type a interview question"
+                    <input value={input} onChange={e => setInput(e.target.value)}
+                           placeholder="Type a interview question"
                            disabled={waiting}/>
-                    <button type="submit" disabled={waiting}>Send</button>
+                    <button style={{backgroundColor: "#2f4f4f", color: "#ffffff"}} type="submit"
+                            disabled={waiting}>Send
+                    </button>
                 </form>
             </div>
         </Modal>

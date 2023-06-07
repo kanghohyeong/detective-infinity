@@ -2,7 +2,7 @@ import React, {useContext, useState} from 'react';
 import Suspect from "../components/Suspect";
 import {ScenarioContext} from "../context/ScenarioContextProvider";
 import {GAME_STATUS, GAME_TABS} from "../model/enums";
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 import Watson from "../components/Watson";
 import Guessing from "../components/Guessing";
 
@@ -29,8 +29,19 @@ const AccordionHeader = styled.div`
 
 const AccordionContent = styled.div`
   padding: 10px;
-  overflow: auto;
-  display: ${({isOpen}) => (isOpen ? 'block' : 'none')};
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+  // display: ${({isOpen}) => (isOpen ? 'block' : 'none')};
+
+  transition: opacity 0.3s ease, height 0.8s ease;
+
+  ${(props) =>
+          props.isOpen &&
+          css`
+            opacity: 1;
+            height: auto;
+          `}
 `;
 
 const Playing = ({setGameStatus}) => {
@@ -46,7 +57,8 @@ const Playing = ({setGameStatus}) => {
     return (
         <AccordionContainer>
             <AccordionItem key={1}>
-                <AccordionHeader onClick={() => changeActiveTab(GAME_TABS.PROLOGUE)}>
+                <AccordionHeader style={{backgroundColor: "#696969"}}
+                                 onClick={() => changeActiveTab(GAME_TABS.PROLOGUE)}>
                     Prologue
                 </AccordionHeader>
                 <AccordionContent isOpen={activeTab === GAME_TABS.PROLOGUE}>
@@ -59,7 +71,7 @@ const Playing = ({setGameStatus}) => {
                 </AccordionContent>
             </AccordionItem>
             <AccordionItem key={2}>
-                <AccordionHeader style={{backgroundColor: "green", color: "white"}}
+                <AccordionHeader style={{backgroundColor: "#2f4f4f"}}
                                  onClick={() => changeActiveTab(GAME_TABS.SUSPECTS)}>
                     Suspects - interview
                 </AccordionHeader>
@@ -76,7 +88,7 @@ const Playing = ({setGameStatus}) => {
                 </AccordionContent>
             </AccordionItem>
             <AccordionItem>
-                <AccordionHeader style={{backgroundColor: "blue", color: "white"}}
+                <AccordionHeader style={{backgroundColor: "#4682b4"}}
                                  onClick={() => changeActiveTab(GAME_TABS.WATSON)}>
                     Watson - helpful assistant
                 </AccordionHeader>
@@ -85,7 +97,7 @@ const Playing = ({setGameStatus}) => {
                 </AccordionContent>
             </AccordionItem>
             <AccordionItem>
-                <AccordionHeader style={{backgroundColor: "red", color: "white"}}
+                <AccordionHeader style={{backgroundColor: "#8b0000"}}
                                  onClick={() => changeActiveTab(GAME_TABS.GUESSING)}>
                     I got it!!!
                 </AccordionHeader>
