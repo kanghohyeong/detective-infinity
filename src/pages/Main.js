@@ -14,9 +14,13 @@ const Main = ({setGameStatus}) => {
     const [background, setBackground] = useState("")
 
     const handlePlayBtn = async (e) => {
+        if (apiKey === '') {
+            window.alert("enter api key");
+            return;
+        }
         setGameStatus(GAME_STATUS.LOADING);
 
-        if (apiKey === "test") {
+        if (background === "skip generate") {
             updateScenario(testScenario);
             setGameStatus(GAME_STATUS.PLAYING);
             return;
