@@ -12,11 +12,11 @@ const GuessingForm = styled.form`
   border: 1px solid black;
 `
 
-const Guessing = ({ending}) => {
+const Guessing = ({suspects, finishGame}) => {
 
     const {executeHumanQuestion, addAIMessage} = useContext(AIChatContext);
 
-    const [who, setWho] = useState('');
+    const [who, setWho] = useState(suspects[0].name);
     const [how, setHow] = useState('');
     const [why, setWhy] = useState('');
     const [waiting, setWaiting] = useState(false);
@@ -43,8 +43,9 @@ const Guessing = ({ending}) => {
         try {
             const guessingJson = await GuessingParser.parse(aiMessage);
             if (guessingJson.isTrue) {
-                window.alert('Congratulation!!')
-                // ending();
+                window.alert('Congratulation!!');
+                finishGame();
+                return;
             }
             setGuessHistory(guessHistory.concat({
                 "name": who,
@@ -82,7 +83,10 @@ const Guessing = ({ending}) => {
             <GuessingForm onSubmit={handleSend}>
                 <div>
                     <label>who</label>
-                    <input value={who} onChange={e => setWho(e.target.value)} placeholder="who is murderer"/>
+                    <select value={who} onChange={e => setWho(e.target.value)}>
+                        {suspects.map((suspect, index) =>
+                            <option key={index} value={suspect.name}>{suspect.name}</option>)}
+                    </select>
                 </div>
                 <div>
                     <label>why</label>
@@ -94,7 +98,7 @@ const Guessing = ({ending}) => {
                 </div>
                 <button type="submit" disabled={waiting}>Busted!</button>
             </GuessingForm>
-            <button type="button" onClick={ending}>give up..</button>
+            <button type="button" onClick={finishGame}>give up..</button>
         </div>
     );
 };

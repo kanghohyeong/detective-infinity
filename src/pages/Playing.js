@@ -90,7 +90,7 @@ const Playing = ({setGameStatus}) => {
                     I got it!!!
                 </AccordionHeader>
                 <AccordionContent isOpen={activeTab === GAME_TABS.GUESSING}>
-                    <Guessing ending={() => setGameStatus(GAME_STATUS.FINISH)}/>
+                    <Guessing suspects={scenario.suspects} finishGame={() => setGameStatus(GAME_STATUS.FINISH)}/>
                 </AccordionContent>
             </AccordionItem>
         </AccordionContainer>
