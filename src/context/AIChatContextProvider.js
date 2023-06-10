@@ -18,12 +18,16 @@ export const AIChatProvider = ({children, baseScenario, apiKey}) => {
     }, [apiKey]);
 
     useEffect(() => {
-        if(baseScenario === null) return;
+        if (baseScenario === null) return;
         setChatLog([new SystemChatMessage(getGameHostSystemPrompt(baseScenario))]);
     }, [baseScenario]);
 
     const addAIMessage = (message) => {
         setChatLog(chatLog.concat(new AIChatMessage(message)));
+        model.current.getNumTokensFromMessages(chatLog)
+            .then(res => {
+                console.log(`token count : ${res.totalCount}`);
+            })
     };
 
     const executeHumanQuestion = async (message) => {
