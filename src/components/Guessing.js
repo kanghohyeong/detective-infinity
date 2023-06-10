@@ -36,7 +36,7 @@ const Guessing = ({suspects, finishGame}) => {
         setWaiting(true);
 
         const guessPrompt = `
-        Question type: Guessing
+        Command type: Guessing
         My guessing:
         - name: ${who}
         - how: ${how}
@@ -61,7 +61,7 @@ const Guessing = ({suspects, finishGame}) => {
             window.alert("Ai Error. retry.");
         } finally {
             setWaiting(false);
-            setWho('');
+            setWho(suspects[0].name);
             setWhy('');
             setHow('');
         }

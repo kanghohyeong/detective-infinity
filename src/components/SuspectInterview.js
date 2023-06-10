@@ -26,7 +26,7 @@ const SuspectInterview = ({name, messages, setMessages, offInterview, chat, coun
         setWaiting(true);
 
         const interviewQuestion = `
-        Question type: Interview 
+        Command type: Interview 
         Interviewee: ${name} 
         Question: ${input}`;
         const aiMessage = await chat(interviewQuestion);

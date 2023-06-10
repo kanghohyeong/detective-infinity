@@ -21,6 +21,14 @@ export function useChatGpt(apiKey, baseScenario) {
         setChatLog([new SystemChatMessage(getGameHostSystemPrompt(baseScenario))]);
     }, [baseScenario]);
 
+    useEffect(()=>{
+        if(model.current == null || chatLog == null) return;
+        model.current.getNumTokensFromMessages(chatLog)
+            .then(res=>{
+                console.log(res.totalCount);
+            });
+    },[chatLog]);
+
     const executeHumanQuestion = async (message) => {
         try {
             const response = await model.current.call(chatLog.concat(new HumanChatMessage(message)));

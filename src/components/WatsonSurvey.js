@@ -25,7 +25,7 @@ const WatsonSurvey = ({messages, setMessages, offSurvey, chat, count}) => {
         setWaiting(true);
 
         const watsonQuestion = `
-        Question type: Watson
+        Command type: Watson
         Question: ${input}`
         const aiMessage = await chat(watsonQuestion);
         if (aiMessage == null) {
