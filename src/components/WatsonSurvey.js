@@ -1,10 +1,9 @@
 import React from 'react';
-import {useContext, useEffect, useRef, useState} from "react";
-import {AIChatContext} from "../context/AIChatContextProvider";
+import {useEffect, useRef, useState} from "react";
 import Modal from "./Modal";
 
-const WatsonSurvey = ({messages, setMessages, offSurvey}) => {
-    const {executeHumanQuestion, addAIMessage} = useContext(AIChatContext);
+const WatsonSurvey = ({messages, setMessages, offSurvey, chat, count}) => {
+    // const {executeHumanQuestion, addAIMessage} = useContext(AIChatContext);
 
     const [input, setInput] = useState('');
     const [waiting, setWaiting] = useState(false);
@@ -25,12 +24,15 @@ const WatsonSurvey = ({messages, setMessages, offSurvey}) => {
         setMessages(currentMessages);
         setWaiting(true);
 
-        const watsonPrompt = `
+        const watsonQuestion = `
         Question type: Watson
         Question: ${input}`
-        const aiMessage = await executeHumanQuestion(watsonPrompt);
-        addAIMessage(aiMessage);
-        setMessages(currentMessages.concat({type: 'watson', message: aiMessage}));
+        const aiMessage = await chat(watsonQuestion);
+        if (aiMessage == null) {
+            setMessages(currentMessages.concat({type: "error", message: "AI Error"}));
+        } else {
+            setMessages(currentMessages.concat({type: "watson", message: aiMessage}));
+        }
         setWaiting(false);
         setInput('');
     }
@@ -47,10 +49,12 @@ const WatsonSurvey = ({messages, setMessages, offSurvey}) => {
                     <div ref={endOfMessages}></div>
                 </div>
                 <form className="chat-input" onSubmit={handleSend}>
-                    <input value={input} onChange={e => setInput(e.target.value)} placeholder="Type a message"
+                    <p>Questions : {count}/15</p>
+                    <input value={input} onChange={e => setInput(e.target.value)}
+                           placeholder={count >= 15 ? "No more question" : "Type a interview question"}
                            disabled={waiting}/>
                     <button style={{backgroundColor: "#5f9ea0", color: "#ffffff"}} type="submit"
-                            disabled={waiting}>Send
+                            disabled={waiting || count >= 15}>Send
                     </button>
                 </form>
             </div>

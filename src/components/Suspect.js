@@ -1,6 +1,10 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
 import SuspectInterview from "./SuspectInterview";
+import {useContext} from "react";
+import {ApiKeyContext} from "../context/ApiKeyContextProvider";
+import {ScenarioContext} from "../context/ScenarioContextProvider";
+import {useChatGpt} from "../hooks/useChatGpt";
 
 const SuspectDiv = styled.div`
   border: 1px solid #ffffff;
@@ -12,6 +16,9 @@ const Suspect = ({info}) => {
 
     const [onInterview, setOnInterview] = useState(false);
     const [messages, setMessages] = useState([]);
+    const {apiKey} = useContext(ApiKeyContext);
+    const {scenario} = useContext(ScenarioContext);
+    const {count, chat} = useChatGpt(apiKey, scenario);
 
     return (
         <SuspectDiv onClick={(e) => {
@@ -24,7 +31,7 @@ const Suspect = ({info}) => {
             <p>alibi : {info.alibi}</p>
             {onInterview &&
                 <SuspectInterview name={info.name} messages={messages} setMessages={setMessages}
-                                  offInterview={() => setOnInterview(false)}/>}
+                                  offInterview={() => setOnInterview(false)} chat={chat} count={count}/>}
         </SuspectDiv>
     );
 };

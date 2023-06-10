@@ -3,15 +3,6 @@ import {ChatPromptTemplate, HumanMessagePromptTemplate, SystemMessagePromptTempl
 import {ScenarioParser} from "../model/ScenarioScheme";
 
 export const getGameHostSystemPrompt = (baseScenario) => `You're the host of the detective game. I'm the game player. The purpose of this detective game is for me to become a detective, investigate cases, and find murderers.
-        You should answer by reflecting the following good host characteristics as much as possible.
-        1. The criminal must be able to judge through logical reasoning. There must be a way to logically solve the case, that is, a path to understand the overall situation of the case by interpreting various contexts. If the case is solved only by hiding one so-called "decisive evidence" in several clues and finding the evidence, it is not a good mystery game.
-        2. There may be an aid or accomplice, but there must be a clear one real murderer.
-        3. Every action must have a reason. Nothing happens "just" and no clue is found "just". There's no strange behavior that the character in the story "just" does.
-        4. You shouldn't create problems that can be interpreted in any way, but you should prove that you can definitely reach a single real criminal through the clues and information given to the player.
-        5. Each suspects has his or her own story, but the stories must come together to create a story.
-        6. Every suspects must have motive and opportunity to murder.
-        7. You don't have to be obsessed with the reality of the story, but the murder method and trick should be realistic.
-         
         The basic scenario is provided. The basic scenario contains only the core content, so you add and enrich the additional content.
         basic scenario : ${JSON.stringify(baseScenario)}
         All I know of the basic scenario is suspect's name, description, alibi, all of victim, and prologue.
@@ -26,7 +17,7 @@ export const getGameHostSystemPrompt = (baseScenario) => `You're the host of the
 
         ----
         Question type: 'Watson'
-        Description: Watson is an assistant to the detective(==player, me). You have to answer by playing Watson. Follow my instructions and help with the case investigation(e.g., on-site investigation, surrounding investigation, etc.). Respond 'Unanswered' to questions that are not relevant to the case investigation.
+        Description: You have to answer by playing Watson. Watson is a game character who helps detectives(==player, me). Follow my instructions and help with the case investigation(e.g., on-site investigation, surrounding investigation, etc.). Respond 'Unanswered' to questions that are not relevant to the case investigation.
         
         ----
         Question type: 'Guessing'

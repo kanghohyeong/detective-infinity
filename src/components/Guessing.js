@@ -1,8 +1,10 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useContext} from "react";
-import {AIChatContext} from "../context/AIChatContextProvider";
 import {GuessingParser} from "../model/GuessingScheme";
 import styled from "styled-components";
+import {ApiKeyContext} from "../context/ApiKeyContextProvider";
+import {ScenarioContext} from "../context/ScenarioContextProvider";
+import {useChatGpt} from "../hooks/useChatGpt";
 
 const HistoryDiv = styled.div`
   border: 1px solid black;
@@ -14,7 +16,10 @@ const GuessingForm = styled.form`
 
 const Guessing = ({suspects, finishGame}) => {
 
-    const {executeHumanQuestion, addAIMessage} = useContext(AIChatContext);
+    // const {executeHumanQuestion, addAIMessage} = useContext(AIChatContext);
+    const {apiKey} = useContext(ApiKeyContext);
+    const {scenario} = useContext(ScenarioContext);
+    const {count, chat} = useChatGpt(apiKey, scenario);
 
     const [who, setWho] = useState(suspects[0].name);
     const [how, setHow] = useState('');
@@ -37,8 +42,7 @@ const Guessing = ({suspects, finishGame}) => {
         - how: ${how}
         - why: ${why}
         `;
-        const aiMessage = await executeHumanQuestion(guessPrompt);
-        addAIMessage(aiMessage);
+        const aiMessage = await chat(guessPrompt);
 
         try {
             const guessingJson = await GuessingParser.parse(aiMessage);
@@ -54,13 +58,7 @@ const Guessing = ({suspects, finishGame}) => {
                 "hint": guessingJson.hint
             }));
         } catch (e) {
-            console.error("parse error");
-            setGuessHistory(guessHistory.concat({
-                "name": who,
-                "how": how,
-                "why": why,
-                "hint": "error"
-            }))
+            window.alert("Ai Error. retry.");
         } finally {
             setWaiting(false);
             setWho('');
@@ -69,8 +67,17 @@ const Guessing = ({suspects, finishGame}) => {
         }
     };
 
+    useEffect(() => {
+        if (count >= 5) {
+            window.alert("No more try..");
+            finishGame();
+        }
+
+    }, [count]);
+
     return (
         <div>
+            <h1>Max Try : {count}/5</h1>
             {guessHistory.map((history, index) => (
                 <HistoryDiv key={index}>
                     <h3>try {index + 1}</h3>

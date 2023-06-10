@@ -1,11 +1,10 @@
 import React from 'react';
-import {useContext, useEffect, useRef, useState} from "react";
-import {AIChatContext} from "../context/AIChatContextProvider";
+import {useEffect, useRef, useState} from "react";
 import Modal from "./Modal";
 
-const SuspectInterview = ({name, messages, setMessages, offInterview}) => {
+const SuspectInterview = ({name, messages, setMessages, offInterview, chat, count}) => {
 
-    const {executeHumanQuestion, addAIMessage} = useContext(AIChatContext);
+    // const {executeHumanQuestion, addAIMessage} = useContext(AIChatContext);
 
     const [input, setInput] = useState('');
     const [waiting, setWaiting] = useState(false);
@@ -26,13 +25,16 @@ const SuspectInterview = ({name, messages, setMessages, offInterview}) => {
         setMessages(currentMessages);
         setWaiting(true);
 
-        const interviewPrompt = `
+        const interviewQuestion = `
         Question type: Interview 
         Interviewee: ${name} 
         Question: ${input}`;
-        const aiMessage = await executeHumanQuestion(interviewPrompt);
-        addAIMessage(aiMessage);
-        setMessages(currentMessages.concat({type: name, message: aiMessage}));
+        const aiMessage = await chat(interviewQuestion);
+        if (interviewQuestion == null) {
+            setMessages(currentMessages.concat({type: "error", message: "AI Error"}));
+        } else {
+            setMessages(currentMessages.concat({type: name, message: aiMessage}));
+        }
         setWaiting(false);
         setInput('');
     }
@@ -49,11 +51,12 @@ const SuspectInterview = ({name, messages, setMessages, offInterview}) => {
                     <div ref={endOfMessages}></div>
                 </div>
                 <form className="chat-input" onSubmit={handleSend}>
+                    <p>Questions : {count}/15</p>
                     <input value={input} onChange={e => setInput(e.target.value)}
-                           placeholder="Type a interview question"
+                           placeholder={count >= 15 ? "No more question" : "Type a interview question"}
                            disabled={waiting}/>
                     <button style={{backgroundColor: "#2f4f4f", color: "#ffffff"}} type="submit"
-                            disabled={waiting}>Send
+                            disabled={waiting || count >= 15}>Send
                     </button>
                 </form>
             </div>
