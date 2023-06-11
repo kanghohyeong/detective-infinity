@@ -44,6 +44,15 @@ const AccordionContent = styled.div`
           `}
 `;
 
+const VictimInfoDiv = styled.div`
+  span {
+    border: 1px solid #ffffff;
+  }
+  p {
+    margin: 5px;
+  }
+`
+
 const Playing = ({setGameStatus}) => {
 
     const {scenario} = useContext(ScenarioContext);
@@ -64,9 +73,19 @@ const Playing = ({setGameStatus}) => {
                 <AccordionContent isOpen={activeTab === GAME_TABS.PROLOGUE}>
                     <h1>{scenario.title}</h1>
                     <p>{scenario.prologue}</p>
-                    <h2>victim</h2>
-                    <p>{JSON.stringify(scenario.victim)}</p>
-                    <h2>crime scene</h2>
+                    <h2>VICTIM</h2>
+                    <h3>{scenario.victim.name} / {scenario.victim.age} / {scenario.victim.gender}</h3>
+                    <VictimInfoDiv>
+                        <span>occupation</span>
+                        <p>{scenario.victim.occupation}</p>
+                        <span>appearance</span>
+                        <p>{scenario.victim.appearance}</p>
+                        <span>description</span>
+                        <p>{scenario.victim.description}</p>
+                        <span>cause of death</span>
+                        <p>{scenario.victim.causeOfDeath}</p>
+                    </VictimInfoDiv>
+                    <h2>CRIME SCENE</h2>
                     <p>{scenario.crimeScene}</p>
                 </AccordionContent>
             </AccordionItem>

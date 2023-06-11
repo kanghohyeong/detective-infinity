@@ -9,11 +9,12 @@ import Ending from "./pages/Ending";
 function App() {
 
     const [gameStatus, setGameStatus] = useState(GAME_STATUS.INIT);
+    const [progress, setProgress] = useState(0);
 
     return (
         <div className="App">
-            {gameStatus === GAME_STATUS.INIT && <Main setGameStatus={setGameStatus}/>}
-            {gameStatus === GAME_STATUS.LOADING && <Loading/>}
+            {gameStatus === GAME_STATUS.INIT && <Main setGameStatus={setGameStatus} setProgress={setProgress}/>}
+            {gameStatus === GAME_STATUS.LOADING && <Loading progress={progress}/>}
             {gameStatus === GAME_STATUS.PLAYING && <Playing setGameStatus={setGameStatus}/>}
             {gameStatus === GAME_STATUS.FINISH && <Ending setGameStatus={setGameStatus}/>}
         </div>

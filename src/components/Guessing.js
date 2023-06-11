@@ -8,11 +8,49 @@ import {useChatGpt} from "../hooks/useChatGpt";
 import {getScorerSystemMessage} from "../prompt/prompt";
 
 const HistoryDiv = styled.div`
-  border: 1px solid black;
+  border: 1px dotted #ffffff;
+  margin-bottom: 20px;
 `
 
 const GuessingForm = styled.form`
   border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+  button {
+    width: 200px;
+    height: 30px;
+    background: #8b0000;
+    color: #ffffff;
+  }
+`
+
+const GuessingInputContainer = styled.div`
+  width: 80%;
+  max-width: 800px;
+  display: flex;
+  justify-content: space-between;
+
+  label {
+    border: 1px solid #ffffff;
+    width: 100px;
+  }
+  
+  select {
+    width: 60%;
+  }
+  
+  textarea {
+    width: 60%;
+    height: 100px;
+    resize: none;
+  }
+  
+  
+
+  margin-bottom: 10px;
 `
 
 const Guessing = ({suspects, finishGame}) => {
@@ -87,17 +125,18 @@ const Guessing = ({suspects, finishGame}) => {
                 </HistoryDiv>
             ))}
             <GuessingForm onSubmit={handleSend}>
-                <div>
+                <GuessingInputContainer>
                     <label>who</label>
                     <select value={who} onChange={e => setWho(e.target.value)}>
                         {suspects.map((suspect, index) =>
                             <option key={index} value={suspect.name}>{suspect.name}</option>)}
                     </select>
-                </div>
-                <div>
+                </GuessingInputContainer>
+                <GuessingInputContainer>
                     <label>reasoning</label>
-                    <input value={reasoning} onChange={e => setReasoning(e.target.value)} placeholder="your reasoning"/>
-                </div>
+                    <textarea value={reasoning} onChange={e => setReasoning(e.target.value)}
+                              placeholder="your reasoning"/>
+                </GuessingInputContainer>
                 <button type="submit" disabled={waiting}>Busted!</button>
             </GuessingForm>
             <button type="button" onClick={finishGame}>give up..</button>

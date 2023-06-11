@@ -1,6 +1,38 @@
 import React from 'react';
 import {useEffect, useRef, useState} from "react";
 import Modal from "./Modal";
+import styled from "styled-components";
+
+const SurveyForm = styled.form`
+  input {
+    width: 80%;
+    border: 1px solid black;
+  }
+
+  p {
+    margin: 0;
+  }
+`
+
+const SurveyChatDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+
+  strong {
+    border: 1px solid #000000;
+    width: 100px;
+    flex-shrink: 0;
+    background: ${({type}) => (type === 'user' ? 'white' : '#4682b4')};
+    color: ${({type}) => (type === 'user' ? 'black' : 'white')};
+  }
+
+  span {
+    text-align: left;
+    width: 100%;
+    margin-left: 5px;
+  }
+`
 
 const WatsonSurvey = ({messages, setMessages, offSurvey, chat, count}) => {
     // const {executeHumanQuestion, addAIMessage} = useContext(AIChatContext);
@@ -39,21 +71,21 @@ const WatsonSurvey = ({messages, setMessages, offSurvey, chat, count}) => {
             <div className="chat">
                 <div className="chat-messages">
                     {messages.map((msg, index) => (
-                        <div key={index}>
-                            <p><strong>{msg.type}</strong>: {msg.message}</p>
-                        </div>
+                        <SurveyChatDiv type={msg.type} key={index}>
+                            <strong>{msg.type}</strong><span>{msg.message}</span>
+                        </SurveyChatDiv>
                     ))}
                     <div ref={endOfMessages}></div>
                 </div>
-                <form className="chat-input" onSubmit={handleSend}>
-                    <p>Questions : {count}/15</p>
+                <SurveyForm className="chat-input" onSubmit={handleSend}>
                     <input value={input} onChange={e => setInput(e.target.value)}
-                           placeholder={count >= 15 ? "No more question" : "Type a interview question"}
+                           placeholder={count >= 15 ? "No more question" : "Type a survey question"}
                            disabled={waiting}/>
-                    <button style={{backgroundColor: "#5f9ea0", color: "#ffffff"}} type="submit"
+                    <button style={{backgroundColor: "#4682b4", color: "#ffffff"}} type="submit"
                             disabled={waiting || count >= 15}>Send
                     </button>
-                </form>
+                    <p>Questions : {count}/15</p>
+                </SurveyForm>
             </div>
         </Modal>
     );

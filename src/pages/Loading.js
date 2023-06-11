@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
 
-const Loading = props => {
+const Loading = ({progress}) => {
     const [loadingText, setLoadingText] = useState("Loading...");
+    const [progressText, setProgressText] = useState("XXXXXXXXXXXXXXXXXXXX");
 
     const loadingTextArray = [
         'Deciphering clues...',
@@ -28,13 +29,21 @@ const Loading = props => {
             setLoadingText(pickRandomText());
         }, 3000);
 
-        return () => clearInterval(interval);
-    })
+        setProgressText("XXXXXXXXXXXXXXXXXXXX");
 
+        return () => clearInterval(interval);
+    },[]);
+
+    useEffect(() => {
+        const ok = Math.floor((progress / 5) + 0.5);
+        const notOk = 20 - ok;
+        setProgressText('O'.repeat(ok) + 'X'.repeat(notOk));
+    }, [progress]);
 
     return (
         <div>
-            {loadingText}
+            <h3>{loadingText}</h3>
+            <p>{progressText}</p>
         </div>
     );
 };

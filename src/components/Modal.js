@@ -26,6 +26,15 @@ const ModalDiv = styled.div`
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
   z-index: 100;
   overflow-y: scroll;
+  
+  button.close-btn {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background: black;
+    color: white;
+    cursor: pointer;
+  }
 `
 
 const Modal = ({children, offModal}) => {
@@ -40,7 +49,7 @@ const Modal = ({children, offModal}) => {
             <ModalDiv onClick={(e) => {
                 e.stopPropagation();
             }}>
-                <button onClick={closeModal}>x</button>
+                <button className="close-btn" onClick={closeModal}>x</button>
                 {children}
             </ModalDiv>
         </BackgroundPanel>

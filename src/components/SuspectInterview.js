@@ -1,6 +1,38 @@
 import React from 'react';
 import {useEffect, useRef, useState} from "react";
 import Modal from "./Modal";
+import styled from "styled-components";
+
+const InterviewForm = styled.form`
+  input {
+    width: 80%;
+    border: 1px solid black;
+  }
+
+  p {
+    margin: 0;
+  }
+`
+
+const InterviewChatDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+
+  strong {
+    border: 1px solid #000000;
+    width: 100px;
+    flex-shrink: 0;
+    background: ${({type}) => (type === 'user' ? 'white' : '#2f4f4f')};
+    color: ${({type}) => (type === 'user' ? 'black' : 'white')};
+  }
+
+  span {
+    text-align: left;
+    width: 100%;
+    margin-left: 5px;
+  }
+`
 
 const SuspectInterview = ({name, messages, setMessages, offInterview, chat, count}) => {
 
@@ -41,21 +73,21 @@ const SuspectInterview = ({name, messages, setMessages, offInterview, chat, coun
             <div className="chat">
                 <div className="chat-messages">
                     {messages.map((msg, index) => (
-                        <div key={index}>
-                            <p><strong>{msg.type}</strong>: {msg.message}</p>
-                        </div>
+                        <InterviewChatDiv type={msg.type} key={index}>
+                            <strong>{msg.type}</strong> <span>{msg.message}</span>
+                        </InterviewChatDiv>
                     ))}
                     <div ref={endOfMessages}></div>
                 </div>
-                <form className="chat-input" onSubmit={handleSend}>
-                    <p>Questions : {count}/15</p>
+                <InterviewForm onSubmit={handleSend}>
                     <input value={input} onChange={e => setInput(e.target.value)}
                            placeholder={count >= 15 ? "No more question" : "Type a interview question"}
                            disabled={waiting}/>
                     <button style={{backgroundColor: "#2f4f4f", color: "#ffffff"}} type="submit"
                             disabled={waiting || count >= 15}>Send
                     </button>
-                </form>
+                    <p>Questions : {count}/15</p>
+                </InterviewForm>
             </div>
         </Modal>
     );
