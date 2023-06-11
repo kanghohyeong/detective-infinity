@@ -13,6 +13,8 @@ const Ending = ({setGameStatus}) => {
                 <p>name : {scenario.truth.name}</p>
                 <p>how : {scenario.truth.how}</p>
                 <p>why : {scenario.truth.why}</p>
+                <p>trick : {scenario.truth.trick}</p>
+                <p>story : ${scenario.suspects.find(suspect => suspect.isMurderer).story}</p>
             </div>
             <h3>Suspects</h3>
             {scenario.suspects.filter(suspect => !suspect.isMurderer).map((suspect, index) => (

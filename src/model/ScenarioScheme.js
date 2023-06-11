@@ -5,7 +5,9 @@ const VictimScheme = z.object({
     name: z.string().describe("name of victim"),
     gender: z.string().describe("gender(male or female)"),
     age: z.number().describe("age"),
-    description: z.string().describe("A description of a victim's appearance and outfit for identification."),
+    occupation: z.string().describe("occupation"),
+    appearance: z.string().describe("A victim's appearance and outfit for identification."),
+    description: z.string().describe("A description of a victim."),
     causeOfDeath: z.string().describe("cause of death")
 });
 
@@ -13,16 +15,20 @@ const SuspectScheme = z.object({
     name: z.string().describe("name of suspect"),
     gender: z.string().describe("gender(male or female)"),
     age: z.number().describe("age"),
-    description: z.string().describe("A description of a suspect's appearance and outfit for identification."),
-    alibi: z.string().describe("alibi at the time of the incident"),
-    story: z.string().describe("this suspect's story related to the case including a motive and opportunity to murder. Even if suspect is not a murderer, suspect must have a motive and opportunity for the murder."),
-    isMurderer: z.boolean().describe("Whether this suspect is the murderer or not")
+    occupation: z.string().describe("occupation"),
+    appearance: z.string().describe("A suspect's appearance and outfit for identification."),
+    alibi: z.string().describe("alibi"),
+    motive: z.string().describe("motive for murder"),
+    isMurderer: z.boolean().describe("Whether this suspect is the murderer or not"),
+    story: z.string().describe("a story related to a case")
 });
 
 const TruthScheme = z.object({
-    name: z.string().describe("name of murderer"),
+    murderer: z.string().describe("name of murderer"),
     how: z.string().describe("how to murder(method of murder)"),
-    why: z.string().describe("why murder(motive of murder)")
+    why: z.string().describe("why murder(motive of murder)"),
+    trick: z.string().describe("trick to escape"),
+    loophole: z.string().describe("loophole in the trick")
 });
 
 const ScenarioScheme = z.object({

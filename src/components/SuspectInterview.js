@@ -4,8 +4,6 @@ import Modal from "./Modal";
 
 const SuspectInterview = ({name, messages, setMessages, offInterview, chat, count}) => {
 
-    // const {executeHumanQuestion, addAIMessage} = useContext(AIChatContext);
-
     const [input, setInput] = useState('');
     const [waiting, setWaiting] = useState(false);
     const endOfMessages = useRef(null);
@@ -26,11 +24,10 @@ const SuspectInterview = ({name, messages, setMessages, offInterview, chat, coun
         setWaiting(true);
 
         const interviewQuestion = `
-        Command type: Interview 
         Interviewee: ${name} 
         Question: ${input}`;
         const aiMessage = await chat(interviewQuestion);
-        if (interviewQuestion == null) {
+        if (aiMessage == null) {
             setMessages(currentMessages.concat({type: "error", message: "AI Error"}));
         } else {
             setMessages(currentMessages.concat({type: name, message: aiMessage}));

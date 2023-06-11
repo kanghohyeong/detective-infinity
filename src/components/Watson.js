@@ -5,6 +5,7 @@ import {useContext} from "react";
 import {ApiKeyContext} from "../context/ApiKeyContextProvider";
 import {ScenarioContext} from "../context/ScenarioContextProvider";
 import {useChatGpt} from "../hooks/useChatGpt";
+import {getWatsonSystemMessage} from "../prompt/prompt";
 
 const Watson = () => {
 
@@ -12,7 +13,7 @@ const Watson = () => {
     const [messages, setMessages] = useState([]);
     const {apiKey} = useContext(ApiKeyContext);
     const {scenario} = useContext(ScenarioContext);
-    const {count, chat} = useChatGpt(apiKey, scenario);
+    const {count, chat} = useChatGpt(apiKey, getWatsonSystemMessage(scenario));
 
     return (
         <div>

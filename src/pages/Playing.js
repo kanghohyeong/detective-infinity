@@ -32,7 +32,7 @@ const AccordionContent = styled.div`
   opacity: 0;
   height: 0;
   overflow: hidden;
-  // display: ${({isOpen}) => (isOpen ? 'block' : 'none')};
+    // display: ${({isOpen}) => (isOpen ? 'block' : 'none')};
 
   transition: opacity 0.3s ease, height 0.8s ease;
 
@@ -77,13 +77,7 @@ const Playing = ({setGameStatus}) => {
                 </AccordionHeader>
                 <AccordionContent isOpen={activeTab === GAME_TABS.SUSPECTS}>
                     {scenario.suspects.map((suspect, index) =>
-                        <Suspect key={index} info={{
-                            name: suspect.name,
-                            gender: suspect.gender,
-                            age: suspect.age,
-                            description: suspect.description,
-                            alibi: suspect.alibi
-                        }}/>
+                        <Suspect key={index} info={suspect}/>
                     )}
                 </AccordionContent>
             </AccordionItem>

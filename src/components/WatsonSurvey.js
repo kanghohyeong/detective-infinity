@@ -24,10 +24,7 @@ const WatsonSurvey = ({messages, setMessages, offSurvey, chat, count}) => {
         setMessages(currentMessages);
         setWaiting(true);
 
-        const watsonQuestion = `
-        Command type: Watson
-        Question: ${input}`
-        const aiMessage = await chat(watsonQuestion);
+        const aiMessage = await chat(input);
         if (aiMessage == null) {
             setMessages(currentMessages.concat({type: "error", message: "AI Error"}));
         } else {

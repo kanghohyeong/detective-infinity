@@ -5,6 +5,7 @@ import styled from "styled-components";
 import {ApiKeyContext} from "../context/ApiKeyContextProvider";
 import {ScenarioContext} from "../context/ScenarioContextProvider";
 import {useChatGpt} from "../hooks/useChatGpt";
+import {getScorerSystemMessage} from "../prompt/prompt";
 
 const HistoryDiv = styled.div`
   border: 1px solid black;
@@ -16,14 +17,14 @@ const GuessingForm = styled.form`
 
 const Guessing = ({suspects, finishGame}) => {
 
-    // const {executeHumanQuestion, addAIMessage} = useContext(AIChatContext);
     const {apiKey} = useContext(ApiKeyContext);
     const {scenario} = useContext(ScenarioContext);
-    const {count, chat} = useChatGpt(apiKey, scenario);
+    const {count, chat} = useChatGpt(apiKey, getScorerSystemMessage(scenario), 0.4);
 
     const [who, setWho] = useState(suspects[0].name);
-    const [how, setHow] = useState('');
-    const [why, setWhy] = useState('');
+    const [reasoning, setReasoning] = useState('');
+    // const [how, setHow] = useState('');
+    // const [why, setWhy] = useState('');
     const [waiting, setWaiting] = useState(false);
 
     const [guessHistory, setGuessHistory] = useState([]);
@@ -31,30 +32,29 @@ const Guessing = ({suspects, finishGame}) => {
     const handleSend = async (e) => {
         e.preventDefault();
 
-        if (who === '' || why === '' || why === '') return;
+        if (who === '' || reasoning === '') return;
 
         setWaiting(true);
 
-        const guessPrompt = `
-        Command type: Guessing
-        My guessing:
-        - name: ${who}
-        - how: ${how}
-        - why: ${why}
+        const guessPrompt = `This is my reasoning.
+        - murderer: ${who}
+        - reasoning: ${reasoning}
+        ---
+        ${GuessingParser.getFormatInstructions()}
         `;
         const aiMessage = await chat(guessPrompt);
 
         try {
             const guessingJson = await GuessingParser.parse(aiMessage);
-            if (guessingJson.isTrue) {
+            if (guessingJson.grade === "S") {
                 window.alert('Congratulation!!');
                 finishGame();
                 return;
             }
             setGuessHistory(guessHistory.concat({
                 "name": who,
-                "how": how,
-                "why": why,
+                "reasoning": reasoning,
+                "grade": guessingJson.grade,
                 "hint": guessingJson.hint
             }));
         } catch (e) {
@@ -62,8 +62,7 @@ const Guessing = ({suspects, finishGame}) => {
         } finally {
             setWaiting(false);
             setWho(suspects[0].name);
-            setWhy('');
-            setHow('');
+            setReasoning('');
         }
     };
 
@@ -82,8 +81,8 @@ const Guessing = ({suspects, finishGame}) => {
                 <HistoryDiv key={index}>
                     <h3>try {index + 1}</h3>
                     <p>name: {history.name}</p>
-                    <p>how: {history.how}</p>
-                    <p>why: {history.why}</p>
+                    <p>reasoning: {history.reasoning}</p>
+                    <p>grade: {history.grade}</p>
                     <p>hint : {history.hint}</p>
                 </HistoryDiv>
             ))}
@@ -96,12 +95,8 @@ const Guessing = ({suspects, finishGame}) => {
                     </select>
                 </div>
                 <div>
-                    <label>why</label>
-                    <input value={why} onChange={e => setWhy(e.target.value)} placeholder="what is the motive"/>
-                </div>
-                <div>
-                    <label>how</label>
-                    <input value={how} onChange={e => setHow(e.target.value)} placeholder="how to kill"/>
+                    <label>reasoning</label>
+                    <input value={reasoning} onChange={e => setReasoning(e.target.value)} placeholder="your reasoning"/>
                 </div>
                 <button type="submit" disabled={waiting}>Busted!</button>
             </GuessingForm>
