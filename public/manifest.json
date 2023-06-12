@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Detective Infinity",
+  "name": "Detective mystery game powered by chatGPT",
   "icons": [
     {
       "src": "favicon.ico",
