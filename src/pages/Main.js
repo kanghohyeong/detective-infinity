@@ -52,7 +52,7 @@ const Main = ({setGameStatus, setProgress}) => {
     const {apiKey, updateApiKey} = useContext(ApiKeyContext)
     const {updateScenario} = useContext(ScenarioContext)
     const [background, setBackground] = useState("")
-    const {chat: writerChat} = useChatGpt(apiKey, getStoryWriterSystemMessage(background));
+    const {chat: writerChat} = useChatGpt(apiKey, getStoryWriterSystemMessage());
     const {chat: formatterChat} = useChatGpt(apiKey, getStoryFormatterSystemMessage(), 0);
 
     const handlePlayBtn = async () => {
@@ -70,8 +70,9 @@ const Main = ({setGameStatus, setProgress}) => {
 
         try {
             console.log("start generate");
-            const victim = await writerChat(`From now on, you have to make a story in order according to my request.
-First, Define the victim. The victim's name, age, personality, occupation, appearance etc`);
+            const victim = await writerChat(`From now on, let's make a story in order according to my request step by step considering the following keywords.
+        keywords : ${background}
+        First, Define the victim. The victim's name, age, personality, occupation, appearance etc`);
             setProgress(20);
             const suspects = await writerChat(`Define the suspect. There are a total of four suspects. Name, personality, age, occupation, appearance etc. of the suspect. Every suspect must have an motive for murder the victim.`);
             setProgress(35);
