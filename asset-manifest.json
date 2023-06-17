@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/detective-infinity/static/css/main.e0a2691c.css",
-    "main.js": "/detective-infinity/static/js/main.b4f05d30.js",
+    "main.js": "/detective-infinity/static/js/main.5ef4b80d.js",
     "static/js/714.73e0ee62.chunk.js": "/detective-infinity/static/js/714.73e0ee62.chunk.js",
     "static/js/794.cc8c443b.chunk.js": "/detective-infinity/static/js/794.cc8c443b.chunk.js",
     "static/js/331.335233fb.chunk.js": "/detective-infinity/static/js/331.335233fb.chunk.js",
@@ -19,7 +19,7 @@
     "index.html": "/detective-infinity/index.html",
     "static/media/button.svg": "/detective-infinity/static/media/button.692d8269c01a5c4053ec.svg",
     "main.e0a2691c.css.map": "/detective-infinity/static/css/main.e0a2691c.css.map",
-    "main.b4f05d30.js.map": "/detective-infinity/static/js/main.b4f05d30.js.map",
+    "main.5ef4b80d.js.map": "/detective-infinity/static/js/main.5ef4b80d.js.map",
     "714.73e0ee62.chunk.js.map": "/detective-infinity/static/js/714.73e0ee62.chunk.js.map",
     "794.cc8c443b.chunk.js.map": "/detective-infinity/static/js/794.cc8c443b.chunk.js.map",
     "331.335233fb.chunk.js.map": "/detective-infinity/static/js/331.335233fb.chunk.js.map",
@@ -28,6 +28,6 @@
   },
   "entrypoints": [
     "static/css/main.e0a2691c.css",
-    "static/js/main.b4f05d30.js"
+    "static/js/main.5ef4b80d.js"
   ]
 }
