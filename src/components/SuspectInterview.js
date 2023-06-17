@@ -69,7 +69,7 @@ const SuspectInterview = ({name, messages, setMessages, offInterview, chat, coun
     }
 
     return (
-        <Modal offModal={offInterview}>
+        <Modal offModal={offInterview} title={`interview-${name}`}>
             <div className="chat">
                 <div className="chat-messages">
                     {messages.map((msg, index) => (
@@ -79,15 +79,15 @@ const SuspectInterview = ({name, messages, setMessages, offInterview, chat, coun
                     ))}
                     <div ref={endOfMessages}></div>
                 </div>
-                <InterviewForm onSubmit={handleSend}>
+                <InterviewForm className={"field-row"} onSubmit={handleSend}>
                     <input value={input} onChange={e => setInput(e.target.value)}
                            placeholder={count >= 15 ? "No more question" : "Type a interview question"}
                            disabled={waiting}/>
-                    <button style={{backgroundColor: "#2f4f4f", color: "#ffffff"}} type="submit"
+                    <button className={"btn"}  type="submit"
                             disabled={waiting || count >= 15}>Send
                     </button>
-                    <p>Questions : {count}/15</p>
                 </InterviewForm>
+                <div className={"field-row" }>Questions : {count}/15</div>
             </div>
         </Modal>
     );

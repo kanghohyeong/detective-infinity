@@ -22,10 +22,11 @@ const MainContainer = styled.div`
 `
 
 const InputContainer = styled.div`
-  width: 100%;
-  border: 1px dotted #ffffff;
+  width: 80%;
+  border: 1px solid #000000;
   padding-bottom: 10px;
   margin-bottom: 20px;
+  text-align: center;
 
   label {
     border: 1px solid #ffffff;
@@ -37,15 +38,13 @@ const InputContainer = styled.div`
   }
 
   a {
-    color: white;
+    color: blue;
   }
 `
 
 const StartBtn = styled.button`
   width: 100px;
   height: 30px;
-  background: #556b2f;
-  color: #ffffff;
 `
 
 const Main = ({setGameStatus, setProgress}) => {
@@ -120,20 +119,26 @@ First, Define the victim. The victim's name, age, personality, occupation, appea
             <h2>100% AI generated game powered by chatGPT</h2>
             <p>You become a detective and investigate a murder case.</p>
             <p>Nobody knows the truth of the case. Every time you face a new incident that no one has ever seen.</p>
-            <InputContainer>
+            <InputContainer className={"window"}>
+                <div className="title-bar">
+                    <h1 className="title">API KEY</h1>
+                </div>
+                <div className="separator"></div>
                 <p>You need OpenAi API Key. You can create API Key <a
                     href="https://platform.openai.com/account/api-keys">HERE</a></p>
-                <label>api key</label>
                 <input type={"text"} placeholder={"sk-xxxx.."} value={apiKey}
                        onChange={(e) => updateApiKey(e.target.value)}/>
             </InputContainer>
-            <InputContainer>
-                <p>You can set the background for the scenario you're investigating if you want</p>
-                <label>scenario background</label>
+            <InputContainer className={"window"}>
+                <div className="title-bar">
+                    <h1 className="title">CUSTOM SCENE</h1>
+                </div>
+                <div className="separator"></div>
+                <p>You can set the background for the case you're investigating if you want</p>
                 <input type={"text"} placeholder={"ex> school, office, airplane, chosun dynasty..?"} value={background}
                        onChange={(e) => setBackground(e.target.value)}/>
             </InputContainer>
-            <StartBtn type={"button"} onClick={handlePlayBtn}>START</StartBtn>
+            <StartBtn className={"btn"} type={"button"} onClick={handlePlayBtn}>START</StartBtn>
         </MainContainer>
     );
 };

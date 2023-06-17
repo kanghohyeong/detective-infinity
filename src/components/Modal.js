@@ -19,25 +19,10 @@ const ModalDiv = styled.div`
   width: 80%;
   max-width: 500px;
   max-height: 70%;
-  background-color: #ffffff;
-  color: #000000;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
   z-index: 100;
-  overflow-y: scroll;
-  
-  button.close-btn {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    background: black;
-    color: white;
-    cursor: pointer;
-  }
 `
 
-const Modal = ({children, offModal}) => {
+const Modal = ({children, offModal, title = "title"}) => {
 
     const closeModal = (e) => {
         e.stopPropagation();
@@ -46,11 +31,18 @@ const Modal = ({children, offModal}) => {
 
     return (
         <BackgroundPanel onClick={closeModal}>
-            <ModalDiv onClick={(e) => {
+            <ModalDiv className={"modal-dialog outer-border"} onClick={(e) => {
                 e.stopPropagation();
             }}>
-                <button className="close-btn" onClick={closeModal}>x</button>
-                {children}
+                <div className={"inner-border"}>
+                    <div className={"modal-contents"}>
+                        <h1 className="modal-text">{title}</h1>
+                        <div className="separator"></div>
+                        <div className={"modeless-dialog"}>
+                            {children}
+                        </div>
+                    </div>
+                </div>
             </ModalDiv>
         </BackgroundPanel>
     );

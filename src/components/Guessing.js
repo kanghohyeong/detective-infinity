@@ -8,22 +8,21 @@ import {useChatGpt} from "../hooks/useChatGpt";
 import {getScorerSystemMessage} from "../prompt/prompt";
 
 const HistoryDiv = styled.div`
-  border: 1px dotted #ffffff;
+  border: 1px solid #000000;
   margin-bottom: 20px;
+  padding: 5px 5px;
 `
 
 const GuessingForm = styled.form`
-  border: 1px solid black;
+  //border: 1px solid black;
+  padding: 5px 5px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  
+
   button {
-    width: 200px;
-    height: 30px;
-    background: #8b0000;
-    color: #ffffff;
+    margin: 0px 10px;
   }
 `
 
@@ -37,18 +36,17 @@ const GuessingInputContainer = styled.div`
     border: 1px solid #ffffff;
     width: 100px;
   }
-  
+
   select {
     width: 60%;
   }
-  
+
   textarea {
     width: 60%;
     height: 100px;
     resize: none;
   }
-  
-  
+
 
   margin-bottom: 10px;
 `
@@ -113,7 +111,7 @@ const Guessing = ({suspects, finishGame}) => {
     }, [count]);
 
     return (
-        <div>
+        <div className={"modal-dialog"}>
             <h1>Max Try : {count}/5</h1>
             {guessHistory.map((history, index) => (
                 <HistoryDiv key={index}>
@@ -124,22 +122,25 @@ const Guessing = ({suspects, finishGame}) => {
                     <p>hint : {history.hint}</p>
                 </HistoryDiv>
             ))}
-            <GuessingForm onSubmit={handleSend}>
-                <GuessingInputContainer>
-                    <label>who</label>
+            <GuessingForm className={"inner-border"} onSubmit={handleSend}>
+                <GuessingInputContainer className={"modal-contents"}>
+                    <label>murderer</label>
                     <select value={who} onChange={e => setWho(e.target.value)}>
                         {suspects.map((suspect, index) =>
                             <option key={index} value={suspect.name}>{suspect.name}</option>)}
                     </select>
                 </GuessingInputContainer>
-                <GuessingInputContainer>
+                <GuessingInputContainer className={"modal-contents"}>
                     <label>reasoning</label>
                     <textarea value={reasoning} onChange={e => setReasoning(e.target.value)}
                               placeholder="your reasoning"/>
                 </GuessingInputContainer>
-                <button type="submit" disabled={waiting}>Busted!</button>
+                <div>
+                    <button className={"btn"} type="button" onClick={finishGame}>give up..</button>
+                    <button className={"btn btn-default"} type="submit" disabled={waiting}>Busted!</button>
+                </div>
             </GuessingForm>
-            <button type="button" onClick={finishGame}>give up..</button>
+
         </div>
     );
 };

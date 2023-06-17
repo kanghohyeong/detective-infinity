@@ -67,7 +67,7 @@ const WatsonSurvey = ({messages, setMessages, offSurvey, chat, count}) => {
     }
 
     return (
-        <Modal offModal={offSurvey}>
+        <Modal offModal={offSurvey} title={`Watson`}>
             <div className="chat">
                 <div className="chat-messages">
                     {messages.map((msg, index) => (
@@ -77,15 +77,15 @@ const WatsonSurvey = ({messages, setMessages, offSurvey, chat, count}) => {
                     ))}
                     <div ref={endOfMessages}></div>
                 </div>
-                <SurveyForm className="chat-input" onSubmit={handleSend}>
+                <SurveyForm className={"field-row"} onSubmit={handleSend}>
                     <input value={input} onChange={e => setInput(e.target.value)}
                            placeholder={count >= 15 ? "No more question" : "Type a survey question"}
                            disabled={waiting}/>
-                    <button style={{backgroundColor: "#4682b4", color: "#ffffff"}} type="submit"
+                    <button className={"btn"} type="submit"
                             disabled={waiting || count >= 15}>Send
                     </button>
-                    <p>Questions : {count}/15</p>
                 </SurveyForm>
+                <div className={"field-row" }>Questions : {count}/15</div>
             </div>
         </Modal>
     );

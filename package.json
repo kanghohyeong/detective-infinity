@@ -4,6 +4,7 @@
   "homepage": "https://kanghohyeong.github.io/detective-infinity",
   "private": true,
   "dependencies": {
+    "@sakun/system.css": "^0.1.11",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",

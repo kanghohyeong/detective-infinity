@@ -15,20 +15,15 @@ const AccordionContainer = styled.div`
 `;
 
 const AccordionItem = styled.div`
-  border: 1px solid #ccc;
   margin-bottom: 10px;
   width: 100%;
 `;
 
 const AccordionHeader = styled.div`
-  background-color: #f1f1f1;
-  padding: 10px;
   cursor: pointer;
-  height: 40px;
 `;
 
 const AccordionContent = styled.div`
-  padding: 10px;
   opacity: 0;
   height: 0;
   overflow: hidden;
@@ -45,9 +40,6 @@ const AccordionContent = styled.div`
 `;
 
 const VictimInfoDiv = styled.div`
-  span {
-    border: 1px solid #ffffff;
-  }
   p {
     margin: 5px;
   }
@@ -65,56 +57,68 @@ const Playing = ({setGameStatus}) => {
 
     return (
         <AccordionContainer>
-            <AccordionItem key={1}>
-                <AccordionHeader style={{backgroundColor: "#696969"}}
+            <AccordionItem key={1} className={"window"}>
+                <AccordionHeader className={"title-bar"}
                                  onClick={() => changeActiveTab(GAME_TABS.PROLOGUE)}>
-                    Prologue
+                    <h1 className={"title"}>Prologue</h1>
+                    <button aria-label="Resize" className="resize"></button>
                 </AccordionHeader>
-                <AccordionContent isOpen={activeTab === GAME_TABS.PROLOGUE}>
+                <div className="separator"></div>
+                <AccordionContent className={"window-pane"} isOpen={activeTab === GAME_TABS.PROLOGUE}>
                     <h1>{scenario.title}</h1>
                     <p>{scenario.prologue}</p>
+                    <div className="separator"></div>
                     <h2>VICTIM</h2>
                     <h3>{scenario.victim.name} / {scenario.victim.age} / {scenario.victim.gender}</h3>
-                    <VictimInfoDiv>
-                        <span>occupation</span>
+                    <VictimInfoDiv className={"modeless-dialog"}>
+                        <span className={"modeless-text field-row"}>occupation</span>
                         <p>{scenario.victim.occupation}</p>
-                        <span>appearance</span>
+                        <span className={"modeless-text field-row"}>appearance</span>
                         <p>{scenario.victim.appearance}</p>
-                        <span>description</span>
+                        <span className={"modeless-text field-row"}>description</span>
                         <p>{scenario.victim.description}</p>
-                        <span>cause of death</span>
+                        <span className={"modeless-text field-row"}>cause of death</span>
                         <p>{scenario.victim.causeOfDeath}</p>
                     </VictimInfoDiv>
+                    <div className="separator"></div>
                     <h2>CRIME SCENE</h2>
                     <p>{scenario.crimeScene}</p>
                 </AccordionContent>
             </AccordionItem>
-            <AccordionItem key={2}>
-                <AccordionHeader style={{backgroundColor: "#2f4f4f"}}
+            <AccordionItem key={2} className={"window"}>
+                <AccordionHeader className={"title-bar"}
                                  onClick={() => changeActiveTab(GAME_TABS.SUSPECTS)}>
-                    Suspects - interview
+                    <h1 className={"title"}>Suspects - interview</h1>
+                    <button aria-label="Resize" className="resize"></button>
                 </AccordionHeader>
-                <AccordionContent isOpen={activeTab === GAME_TABS.SUSPECTS}>
+                <div className="separator"></div>
+                <AccordionContent className={"window-pane"} isOpen={activeTab === GAME_TABS.SUSPECTS}>
+                    <p>Click suspect..</p>
                     {scenario.suspects.map((suspect, index) =>
                         <Suspect key={index} info={suspect}/>
                     )}
                 </AccordionContent>
             </AccordionItem>
-            <AccordionItem>
-                <AccordionHeader style={{backgroundColor: "#4682b4"}}
+            <AccordionItem key={3} className={"window"}>
+                <AccordionHeader className={"title-bar"}
                                  onClick={() => changeActiveTab(GAME_TABS.WATSON)}>
-                    Watson - helpful assistant
+                    <h1 className={"title"}>Watson - helpful assistant</h1>
+                    <button aria-label="Resize" className="resize"></button>
                 </AccordionHeader>
-                <AccordionContent isOpen={activeTab === GAME_TABS.WATSON}>
+                <div className="separator"></div>
+                <AccordionContent className={"window-pane"} style={{textAlign: "center"}}
+                                  isOpen={activeTab === GAME_TABS.WATSON}>
                     <Watson/>
                 </AccordionContent>
             </AccordionItem>
-            <AccordionItem>
-                <AccordionHeader style={{backgroundColor: "#8b0000"}}
+            <AccordionItem key={4} className={"window"}>
+                <AccordionHeader className={"title-bar"}
                                  onClick={() => changeActiveTab(GAME_TABS.GUESSING)}>
-                    I got it!!!
+                    <h1 className={"title"}>I got it!!!</h1>
+                    <button aria-label="Resize" className="resize"></button>
                 </AccordionHeader>
-                <AccordionContent isOpen={activeTab === GAME_TABS.GUESSING}>
+                <div className="separator"></div>
+                <AccordionContent className={"window-pane"} isOpen={activeTab === GAME_TABS.GUESSING}>
                     <Guessing suspects={scenario.suspects} finishGame={() => setGameStatus(GAME_STATUS.FINISH)}/>
                 </AccordionContent>
             </AccordionItem>

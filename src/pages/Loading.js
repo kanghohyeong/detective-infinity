@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 const Loading = ({progress}) => {
-    const [loadingText, setLoadingText] = useState("Loading...");
+    const [loadingText, setLoadingText] = useState("Please wait..");
     const [progressText, setProgressText] = useState("XXXXXXXXXXXXXXXXXXXX");
 
     const loadingTextArray = [
@@ -41,9 +41,15 @@ const Loading = ({progress}) => {
     }, [progress]);
 
     return (
-        <div>
-            <h3>{loadingText}</h3>
-            <p>{progressText}</p>
+        <div className="window">
+            <div className="title-bar">
+                <h1 className="title">Loading</h1>
+            </div>
+            <div className="separator"></div>
+            <div className={"window-pane"} >
+                <h3>{loadingText}</h3>
+                <p>{progressText}</p>
+            </div>
         </div>
     );
 };
