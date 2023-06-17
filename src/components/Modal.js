@@ -38,7 +38,7 @@ const Modal = ({children, offModal, title = "title"}) => {
                     <div className={"modal-contents"}>
                         <h1 className="modal-text">{title}</h1>
                         <div className="separator"></div>
-                        <div className={"modeless-dialog"}>
+                        <div className={"modeless-dialog"} style={{overflowY: "scroll", maxHeight: "500px"}}>
                             {children}
                         </div>
                     </div>
