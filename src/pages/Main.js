@@ -8,6 +8,7 @@ import { getStoryWriterSystemMessage } from "../prompt/prompt";
 import { useChatGpt } from "../hooks/useChatGpt";
 import { ChatOpenAI } from "@langchain/openai";
 import styled from "styled-components";
+import useGameStore from "../store/gameStore";
 
 const MainContainer = styled.div`
   display: flex;
@@ -46,12 +47,12 @@ const StartBtn = styled.button`
   height: 30px;
 `
 
-const Main = ({ setGameStatus, setProgress }) => {
-
+const Main = () => {
     const { apiKey, updateApiKey } = useContext(ApiKeyContext)
     const { updateScenario } = useContext(ScenarioContext)
     const [background, setBackground] = useState("")
     const { chat: writerChat } = useChatGpt(apiKey, getStoryWriterSystemMessage());
+    const { setGameStatus, setProgress } = useGameStore();
 
     const handlePlayBtn = async () => {
         if (apiKey === '') {

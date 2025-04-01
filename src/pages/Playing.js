@@ -5,6 +5,7 @@ import {GAME_STATUS, GAME_TABS} from "../model/enums";
 import styled, {css} from "styled-components";
 import Watson from "../components/Watson";
 import Guessing from "../components/Guessing";
+import useGameStore from "../store/gameStore";
 
 const AccordionContainer = styled.div`
   width: 100%;
@@ -45,10 +46,10 @@ const VictimInfoDiv = styled.div`
   }
 `
 
-const Playing = ({setGameStatus}) => {
-
+const Playing = () => {
     const {scenario} = useContext(ScenarioContext);
     const [activeTab, setActiveTab] = useState(GAME_TABS.PROLOGUE);
+    const { setGameStatus } = useGameStore();
 
     const changeActiveTab = (tab) => {
         const actived = Object.values(GAME_TABS).find(value => value === tab) ?? GAME_TABS.PROLOGUE;

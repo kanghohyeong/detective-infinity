@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from 'react';
+import useGameStore from "../store/gameStore";
 
-const Loading = ({progress}) => {
+const Loading = () => {
     const [loadingText, setLoadingText] = useState("Please wait..");
     const [progressText, setProgressText] = useState("XXXXXXXXXXXXXXXXXXXX");
+    const { progress } = useGameStore();
 
     const loadingTextArray = [
         'Deciphering clues...',

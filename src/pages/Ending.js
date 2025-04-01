@@ -1,9 +1,11 @@
 import React, {useContext} from 'react';
 import {GAME_STATUS} from "../model/enums";
 import {ScenarioContext} from "../context/ScenarioContextProvider";
+import useGameStore from "../store/gameStore";
 
-const Ending = ({setGameStatus}) => {
+const Ending = () => {
     const {scenario} = useContext(ScenarioContext);
+    const { setGameStatus } = useGameStore();
 
     return (
         <div className={"window"}>
