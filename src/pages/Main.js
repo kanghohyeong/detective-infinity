@@ -6,8 +6,8 @@ import {ScenarioParser} from "../model/ScenarioScheme";
 import testScenario from "../test_scenario.json";
 import {getStoryFormatterSystemMessage, getStoryWriterSystemMessage} from "../prompt/prompt";
 import {useChatGpt} from "../hooks/useChatGpt";
-import {OutputFixingParser} from "langchain/output_parsers";
-import {ChatOpenAI} from "langchain/chat_models/openai";
+import {OutputFunctionsParser} from "@langchain/core/output_parsers/openai_functions";
+import {ChatOpenAI} from "@langchain/openai";
 import styled from "styled-components";
 
 const MainContainer = styled.div`
@@ -98,7 +98,7 @@ const Main = ({setGameStatus, setProgress}) => {
                 setGameStatus(GAME_STATUS.PLAYING);
             } catch (e) {
                 console.error("parse error. try fix", e);
-                const fixParser = OutputFixingParser.fromLLM(new ChatOpenAI({
+                const fixParser = OutputFunctionsParser.fromLLM(new ChatOpenAI({
                     openAIApiKey: apiKey,
                     temperature: 0
                 }), ScenarioParser);
