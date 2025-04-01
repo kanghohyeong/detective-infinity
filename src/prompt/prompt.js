@@ -1,4 +1,3 @@
-import {ScenarioParser} from "../model/ScenarioScheme";
 
 export const getStoryWriterSystemMessage = () => `You are a game screenwriter.
 
@@ -12,12 +11,6 @@ In particular, a good scenario has the following characteristics and you should 
 5. Each suspects has his or her own story, but the stories must come together to create a story.
 6. Every suspects must have motive and opportunity to murder.
 7. You don't have to be obsessed with the reality of the story, but the murder method and trick should be realistic.
-`
-
-export const getStoryFormatterSystemMessage = () => `You are the formatter. Respond by converting the user-entered story to the following format.
-Write everything from an omniscient writer's point of view. Fill in all the fields.
-
-${ScenarioParser.getFormatInstructions()}
 `
 
 export const getInterviewSystemMessage = (intervieweeInfo, scenario) => {

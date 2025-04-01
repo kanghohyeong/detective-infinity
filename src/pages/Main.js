@@ -1,13 +1,12 @@
-import React, {useContext, useState} from 'react';
-import {GAME_STATUS} from "../model/enums";
-import {ApiKeyContext} from "../context/ApiKeyContextProvider";
-import {ScenarioContext} from "../context/ScenarioContextProvider";
-import {ScenarioParser} from "../model/ScenarioScheme";
+import React, { useContext, useState } from 'react';
+import { GAME_STATUS } from "../model/enums";
+import { ApiKeyContext } from "../context/ApiKeyContextProvider";
+import { ScenarioContext } from "../context/ScenarioContextProvider";
+import { ScenarioScheme } from "../model/ScenarioScheme";
 import testScenario from "../test_scenario.json";
-import {getStoryFormatterSystemMessage, getStoryWriterSystemMessage} from "../prompt/prompt";
-import {useChatGpt} from "../hooks/useChatGpt";
-import {OutputFunctionsParser} from "@langchain/core/output_parsers/openai_functions";
-import {ChatOpenAI} from "@langchain/openai";
+import { getStoryWriterSystemMessage } from "../prompt/prompt";
+import { useChatGpt } from "../hooks/useChatGpt";
+import { ChatOpenAI } from "@langchain/openai";
 import styled from "styled-components";
 
 const MainContainer = styled.div`
@@ -47,13 +46,12 @@ const StartBtn = styled.button`
   height: 30px;
 `
 
-const Main = ({setGameStatus, setProgress}) => {
+const Main = ({ setGameStatus, setProgress }) => {
 
-    const {apiKey, updateApiKey} = useContext(ApiKeyContext)
-    const {updateScenario} = useContext(ScenarioContext)
+    const { apiKey, updateApiKey } = useContext(ApiKeyContext)
+    const { updateScenario } = useContext(ScenarioContext)
     const [background, setBackground] = useState("")
-    const {chat: writerChat} = useChatGpt(apiKey, getStoryWriterSystemMessage());
-    const {chat: formatterChat} = useChatGpt(apiKey, getStoryFormatterSystemMessage(), 0);
+    const { chat: writerChat } = useChatGpt(apiKey, getStoryWriterSystemMessage());
 
     const handlePlayBtn = async () => {
         if (apiKey === '') {
@@ -80,32 +78,32 @@ const Main = ({setGameStatus, setProgress}) => {
             setProgress(50);
             const story = await writerChat('Describe the story, alibi, of the other three suspects, excluding the murderer, among the four suspects defined above. The suspects had a chance to commit the crime and a motive for the murder, but they did not actually kill.');
             setProgress(75);
-            const scenario = await formatterChat(`This is story to convert. 
-        victim : ${victim}
-        ----
-        suspects : ${suspects}
-        ----
-        murderer : ${murderer}
-        ----
-        suspects story : ${story}
-        `);
-            setProgress(85);
-            try {
-                const scenarioJson = await ScenarioParser.parse(scenario);
-                console.log(`scenario parse ok`);
-                setProgress(100);
-                updateScenario(scenarioJson);
-                setGameStatus(GAME_STATUS.PLAYING);
-            } catch (e) {
-                console.error("parse error. try fix", e);
-                const fixParser = OutputFunctionsParser.fromLLM(new ChatOpenAI({
-                    openAIApiKey: apiKey,
-                    temperature: 0
-                }), ScenarioParser);
-                const fixedOutput = await fixParser.parse(scenario);
-                updateScenario(fixedOutput);
-                setGameStatus(GAME_STATUS.PLAYING);
-            }
+
+            // Create a model with structured output capability
+            const model = new ChatOpenAI({
+                openAIApiKey: apiKey,
+                temperature: 0,
+                model: "gpt-4o-mini-2024-07-18"
+            }).withStructuredOutput(ScenarioScheme);
+
+            // Generate the final structured output directly
+            const scenarioJson = await model.invoke(`
+                Based on the following story elements, generate a structured scenario:
+                
+                Victim: ${victim}
+                ----
+                Suspects: ${suspects}
+                ----
+                Murderer: ${murderer}
+                ----
+                Suspects' Stories: ${story}
+            `);
+
+            console.log(`scenario parse ok`);
+            setProgress(100);
+            updateScenario(scenarioJson);
+            setGameStatus(GAME_STATUS.PLAYING);
+
         } catch (e) {
             console.error(e);
             window.alert("game boot failed. please retry.");
@@ -116,7 +114,7 @@ const Main = ({setGameStatus, setProgress}) => {
 
     return (
         <MainContainer>
-            <h1 style={{color: '#8b0000'}}>DETECTIVE INFINITY</h1>
+            <h1 style={{ color: '#8b0000' }}>DETECTIVE INFINITY</h1>
             <h2>100% AI generated game powered by chatGPT</h2>
             <p>You become a detective and investigate a murder case.</p>
             <p>Nobody knows the truth of the case. Every time you face a new incident that no one has ever seen.</p>
@@ -128,7 +126,7 @@ const Main = ({setGameStatus, setProgress}) => {
                 <p>You need OpenAi API Key. You can create API Key <a
                     href="https://platform.openai.com/account/api-keys">HERE</a></p>
                 <input type={"text"} placeholder={"sk-xxxx.."} value={apiKey}
-                       onChange={(e) => updateApiKey(e.target.value)}/>
+                    onChange={(e) => updateApiKey(e.target.value)} />
             </InputContainer>
             <InputContainer className={"window"}>
                 <div className="title-bar">
@@ -137,7 +135,7 @@ const Main = ({setGameStatus, setProgress}) => {
                 <div className="separator"></div>
                 <p>You can set the background for the case you're investigating if you want</p>
                 <input type={"text"} placeholder={"ex> school, office, airplane, chosun dynasty..?"} value={background}
-                       onChange={(e) => setBackground(e.target.value)}/>
+                    onChange={(e) => setBackground(e.target.value)} />
             </InputContainer>
             <StartBtn className={"btn"} type={"button"} onClick={handlePlayBtn}>START</StartBtn>
         </MainContainer>

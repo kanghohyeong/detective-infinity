@@ -1,5 +1,4 @@
 import {z} from "zod";
-import {StructuredOutputParser} from "langchain/output_parsers";
 
 const VictimScheme = z.object({
     name: z.string().describe("name of victim"),
@@ -31,7 +30,7 @@ const TruthScheme = z.object({
     loophole: z.string().describe("loophole in the trick")
 });
 
-const ScenarioScheme = z.object({
+export const ScenarioScheme = z.object({
     title: z.string().describe("title of scenario"),
     victim: VictimScheme.describe("information of the victim"),
     crimeScene: z.string().describe("Describe the crime scene"),
@@ -39,5 +38,3 @@ const ScenarioScheme = z.object({
     truth: TruthScheme.describe("The truth of the murder that the player (== detective role) must reveal"),
     prologue: z.string().describe("prologue of the game."),
 });
-
-export const ScenarioParser = StructuredOutputParser.fromZodSchema(ScenarioScheme);
