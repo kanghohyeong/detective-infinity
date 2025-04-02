@@ -1,3 +1,14 @@
+/*!
+ * https://github.com/Starcounter-Jack/JSON-Patch
+ * (c) 2013-2021 Joachim Wester
+ * MIT license
+ */
+
+/*!
+ * mustache.js - Logic-less {{mustache}} templates with JavaScript
+ * http://github.com/janl/mustache.js
+ */
+
 /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */
 
 /**
