@@ -34,6 +34,37 @@ const SurveyChatDiv = styled.div`
   }
 `
 
+const ChatContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`
+
+const ChatMessages = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`
+
+const FieldRow = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`
+
+const Button = styled.button`
+  padding: 5px 10px;
+  background: #000;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  
+  &:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+`
+
 const WatsonSurvey = ({messages, setMessages, offSurvey, chat, count}) => {
     // const {executeHumanQuestion, addAIMessage} = useContext(AIChatContext);
 
@@ -68,25 +99,27 @@ const WatsonSurvey = ({messages, setMessages, offSurvey, chat, count}) => {
 
     return (
         <Modal offModal={offSurvey} title={`Watson`}>
-            <div className="chat">
-                <div className="chat-messages">
+            <ChatContainer>
+                <ChatMessages>
                     {messages.map((msg, index) => (
                         <SurveyChatDiv type={msg.type} key={index}>
                             <strong>{msg.type}</strong><span>{msg.message}</span>
                         </SurveyChatDiv>
                     ))}
                     <div ref={endOfMessages}></div>
-                </div>
-                <SurveyForm className={"field-row"} onSubmit={handleSend}>
-                    <input value={input} onChange={e => setInput(e.target.value)}
-                           placeholder={count >= 15 ? "No more question" : "Type a survey question"}
-                           disabled={waiting}/>
-                    <button className={"btn"} type="submit"
-                            disabled={waiting || count >= 15}>Send
-                    </button>
+                </ChatMessages>
+                <SurveyForm onSubmit={handleSend}>
+                    <FieldRow>
+                        <input value={input} onChange={e => setInput(e.target.value)}
+                               placeholder={count >= 15 ? "No more question" : "Type a survey question"}
+                               disabled={waiting}/>
+                        <Button type="submit"
+                                disabled={waiting || count >= 15}>Send
+                        </Button>
+                    </FieldRow>
                 </SurveyForm>
-                <div className={"field-row" }>Questions : {count}/15</div>
-            </div>
+                <FieldRow>Questions : {count}/15</FieldRow>
+            </ChatContainer>
         </Modal>
     );
 };

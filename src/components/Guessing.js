@@ -13,15 +13,25 @@ const HistoryDiv = styled.div`
 `
 
 const GuessingForm = styled.form`
-  //border: 1px solid black;
   padding: 5px 5px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 10px;
 
   button {
     margin: 0px 10px;
+    padding: 5px 10px;
+    background: #000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    
+    &:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
   }
 `
 
@@ -30,24 +40,38 @@ const GuessingInputContainer = styled.div`
   max-width: 800px;
   display: flex;
   justify-content: space-between;
+  gap: 10px;
 
   label {
     border: 1px solid #ffffff;
     width: 100px;
+    padding: 5px;
+    background: #000;
+    color: #fff;
   }
 
   select {
     width: 60%;
+    padding: 5px;
   }
 
   textarea {
     width: 60%;
     height: 100px;
     resize: none;
+    padding: 5px;
   }
+`
 
+const ButtonContainer = styled.div`
+  display: flex;
+  gap: 10px;
+`
 
-  margin-bottom: 10px;
+const GuessingContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 `
 
 const Guessing = ({ suspects }) => {
@@ -58,10 +82,7 @@ const Guessing = ({ suspects }) => {
 
     const [who, setWho] = useState(suspects[0].name);
     const [reasoning, setReasoning] = useState('');
-    // const [how, setHow] = useState('');
-    // const [why, setWhy] = useState('');
     const [waiting, setWaiting] = useState(false);
-
     const [guessHistory, setGuessHistory] = useState([]);
 
     const handleSend = async (e) => {
@@ -106,11 +127,10 @@ const Guessing = ({ suspects }) => {
             window.alert("No more try..");
             finishGame();
         }
-
     }, [count, finishGame]);
 
     return (
-        <div className={"modal-dialog"}>
+        <GuessingContainer>
             <h1>Max Try : {count}/5</h1>
             {guessHistory.map((history, index) => (
                 <HistoryDiv key={index}>
@@ -121,26 +141,25 @@ const Guessing = ({ suspects }) => {
                     <p>hint : {history.hint}</p>
                 </HistoryDiv>
             ))}
-            <GuessingForm className={"inner-border"} onSubmit={handleSend}>
-                <GuessingInputContainer className={"modal-contents"}>
+            <GuessingForm onSubmit={handleSend}>
+                <GuessingInputContainer>
                     <label>murderer</label>
                     <select value={who} onChange={e => setWho(e.target.value)}>
                         {suspects.map((suspect, index) =>
                             <option key={index} value={suspect.name}>{suspect.name}</option>)}
                     </select>
                 </GuessingInputContainer>
-                <GuessingInputContainer className={"modal-contents"}>
+                <GuessingInputContainer>
                     <label>reasoning</label>
                     <textarea value={reasoning} onChange={e => setReasoning(e.target.value)}
                         placeholder="your reasoning" />
                 </GuessingInputContainer>
-                <div>
-                    <button className={"btn"} type="button" onClick={finishGame}>give up..</button>
-                    <button className={"btn btn-default"} type="submit" disabled={waiting}>Busted!</button>
-                </div>
+                <ButtonContainer>
+                    <button type="button" onClick={finishGame}>give up..</button>
+                    <button type="submit" disabled={waiting}>Busted!</button>
+                </ButtonContainer>
             </GuessingForm>
-
-        </div>
+        </GuessingContainer>
     );
 };
 

@@ -9,6 +9,9 @@ import {getInterviewSystemMessage} from "../prompt/prompt";
 const SuspectDiv = styled.div`
   margin: 10px 0px;
   cursor: pointer;
+  border: 1px solid #000;
+  padding: 10px;
+  background: #fff;
 `
 
 const Suspect = ({info}) => {
@@ -19,7 +22,7 @@ const Suspect = ({info}) => {
     const {count, chat} = useChatGpt(apiKey, getInterviewSystemMessage(info, scenario));
 
     return (
-        <SuspectDiv className={"standard-dialog"} onClick={() => {
+        <SuspectDiv onClick={() => {
             setOnInterview(true);
         }}>
             <p>name : {info.name}</p>

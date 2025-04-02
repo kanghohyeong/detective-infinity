@@ -34,8 +34,38 @@ const InterviewChatDiv = styled.div`
   }
 `
 
-const SuspectInterview = ({name, messages, setMessages, offInterview, chat, count}) => {
+const ChatContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`
 
+const ChatMessages = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`
+
+const FieldRow = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`
+
+const Button = styled.button`
+  padding: 5px 10px;
+  background: #000;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  
+  &:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+`
+
+const SuspectInterview = ({name, messages, setMessages, offInterview, chat, count}) => {
     const [input, setInput] = useState('');
     const [waiting, setWaiting] = useState(false);
     const endOfMessages = useRef(null);
@@ -70,25 +100,27 @@ const SuspectInterview = ({name, messages, setMessages, offInterview, chat, coun
 
     return (
         <Modal offModal={offInterview} title={`interview-${name}`}>
-            <div className="chat">
-                <div className="chat-messages">
+            <ChatContainer>
+                <ChatMessages>
                     {messages.map((msg, index) => (
                         <InterviewChatDiv type={msg.type} key={index}>
                             <strong>{msg.type}</strong> <span>{msg.message}</span>
                         </InterviewChatDiv>
                     ))}
                     <div ref={endOfMessages}></div>
-                </div>
-                <InterviewForm className={"field-row"} onSubmit={handleSend}>
-                    <input value={input} onChange={e => setInput(e.target.value)}
-                           placeholder={count >= 15 ? "No more question" : "Type a interview question"}
-                           disabled={waiting}/>
-                    <button className={"btn"}  type="submit"
-                            disabled={waiting || count >= 15}>Send
-                    </button>
+                </ChatMessages>
+                <InterviewForm onSubmit={handleSend}>
+                    <FieldRow>
+                        <input value={input} onChange={e => setInput(e.target.value)}
+                               placeholder={count >= 15 ? "No more question" : "Type a interview question"}
+                               disabled={waiting}/>
+                        <Button type="submit"
+                                disabled={waiting || count >= 15}>Send
+                        </Button>
+                    </FieldRow>
                 </InterviewForm>
-                <div className={"field-row" }>Questions : {count}/15</div>
-            </div>
+                <FieldRow>Questions : {count}/15</FieldRow>
+            </ChatContainer>
         </Modal>
     );
 };

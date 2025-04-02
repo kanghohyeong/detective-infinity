@@ -20,10 +20,34 @@ const ModalDiv = styled.div`
   max-width: 500px;
   max-height: 70%;
   z-index: 100;
+  border: 1px solid #000;
+`
+
+const InnerBorder = styled.div`
+  border: 1px solid #000;
+  padding: 10px;
+`
+
+const ModalContents = styled.div`
+  padding: 10px;
+`
+
+const ModalTitle = styled.h1`
+  margin: 0;
+  font-size: 1.2em;
+`
+
+const Separator = styled.div`
+  border-top: 1px solid #000;
+  margin: 10px 0;
+`
+
+const ScrollableContent = styled.div`
+  overflow-y: scroll;
+  max-height: 500px;
 `
 
 const Modal = ({children, offModal, title = "title"}) => {
-
     const closeModal = (e) => {
         e.stopPropagation();
         offModal();
@@ -31,18 +55,18 @@ const Modal = ({children, offModal, title = "title"}) => {
 
     return (
         <BackgroundPanel onClick={closeModal}>
-            <ModalDiv className={"modal-dialog outer-border"} onClick={(e) => {
+            <ModalDiv onClick={(e) => {
                 e.stopPropagation();
             }}>
-                <div className={"inner-border"}>
-                    <div className={"modal-contents"}>
-                        <h1 className="modal-text">{title}</h1>
-                        <div className="separator"></div>
-                        <div className={"modeless-dialog"} style={{overflowY: "scroll", maxHeight: "500px"}}>
+                <InnerBorder>
+                    <ModalContents>
+                        <ModalTitle>{title}</ModalTitle>
+                        <Separator />
+                        <ScrollableContent>
                             {children}
-                        </div>
-                    </div>
-                </div>
+                        </ScrollableContent>
+                    </ModalContents>
+                </InnerBorder>
             </ModalDiv>
         </BackgroundPanel>
     );

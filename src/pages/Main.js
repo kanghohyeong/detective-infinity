@@ -41,9 +41,28 @@ const InputContainer = styled.div`
   }
 `
 
+const TitleBar = styled.div`
+  background: #000;
+  color: #fff;
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
+
+const Title = styled.h1`
+  margin: 0;
+  font-size: 1.2em;
+`
+
+const Separator = styled.div`
+  border-top: 1px solid #000;
+`
+
 const StartBtn = styled.button`
   width: 100px;
   height: 30px;
+  margin-top: 20px;
 `
 
 const Main = () => {
@@ -80,14 +99,12 @@ const Main = () => {
             const story = await writerChat('Describe the story, alibi, of the other three suspects, excluding the murderer, among the four suspects defined above. The suspects had a chance to commit the crime and a motive for the murder, but they did not actually kill.');
             setProgress(75);
 
-            // Create a model with structured output capability
             const model = new ChatOpenAI({
                 openAIApiKey: apiKey,
                 temperature: 0,
                 model: "gpt-4o-mini-2024-07-18"
             }).withStructuredOutput(ScenarioScheme);
 
-            // Generate the final structured output directly
             const scenarioJson = await model.invoke(`
                 Based on the following story elements, generate a structured scenario in ${language}:
                 
@@ -119,35 +136,35 @@ const Main = () => {
             <h2>100% AI generated game powered by chatGPT</h2>
             <p>You become a detective and investigate a murder case.</p>
             <p>Nobody knows the truth of the case. Every time you face a new incident that no one has ever seen.</p>
-            <InputContainer className={"window"}>
-                <div className="title-bar">
-                    <h1 className="title">API KEY</h1>
-                </div>
-                <div className="separator"></div>
+            <InputContainer>
+                <TitleBar>
+                    <Title>API KEY</Title>
+                </TitleBar>
+                <Separator />
                 <p>You need OpenAi API Key. You can create API Key <a
                     href="https://platform.openai.com/account/api-keys">HERE</a></p>
                 <input type={"text"} placeholder={"sk-xxxx.."} value={apiKey}
                     onChange={(e) => updateApiKey(e.target.value)} />
             </InputContainer>
-            <InputContainer className={"window"}>
-                <div className="title-bar">
-                    <h1 className="title">CUSTOM SCENE</h1>
-                </div>
-                <div className="separator"></div>
+            <InputContainer>
+                <TitleBar>
+                    <Title>CUSTOM SCENE</Title>
+                </TitleBar>
+                <Separator />
                 <p>You can set the background for the case you're investigating if you want</p>
                 <input type={"text"} placeholder={"ex> school, office, airplane, chosun dynasty..?"} value={background}
                     onChange={(e) => setBackground(e.target.value)} />
             </InputContainer>
-            <InputContainer className={"window"}>
-                <div className="title-bar">
-                    <h1 className="title">LANGUAGE</h1>
-                </div>
-                <div className="separator"></div>
+            <InputContainer>
+                <TitleBar>
+                    <Title>LANGUAGE</Title>
+                </TitleBar>
+                <Separator />
                 <p>Select the language for the game (e.g., English, Korean, Japanese)</p>
                 <input type={"text"} placeholder={"ex> English, Korean, Japanese"} value={language}
                     onChange={(e) => setLanguage(e.target.value)} />
             </InputContainer>
-            <StartBtn className={"btn"} type={"button"} onClick={handlePlayBtn}>START</StartBtn>
+            <StartBtn type={"button"} onClick={handlePlayBtn}>START</StartBtn>
         </MainContainer>
     );
 };

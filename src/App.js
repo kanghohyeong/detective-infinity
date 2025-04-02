@@ -1,4 +1,3 @@
-import '@sakun/system.css'
 import {useEffect} from "react";
 import {GAME_STATUS} from "./model/enums";
 import Main from "./pages/Main";
