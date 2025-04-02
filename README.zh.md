@@ -2,6 +2,8 @@
 
 > *在AI驱动的神秘冒险中，成为属于你的福尔摩斯！*
 
+[English](https://github.com/kanghohyeong/detective-infinity/blob/master/README.md) | [한국어](https://github.com/kanghohyeong/detective-infinity/blob/master/README.ko.md) | [中文](https://github.com/kanghohyeong/detective-infinity/blob/master/README.zh.md)
+
 欢迎来到 **DETECTIVE INFINITY**！在这里，每个案件都是独特的，每个嫌疑人都有自己的故事，每个谜题都由尖端AI精心打造。在这款沉浸式聊天冒险游戏中，开启你的侦探之旅吧。
 
 ## 🎮 特色亮点

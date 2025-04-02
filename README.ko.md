@@ -2,6 +2,8 @@
 
 > *AI가 만드는 미스터리 모험에서 당신만의 셜록 홈즈가 되어보세요!*
 
+[English](https://github.com/kanghohyeong/detective-infinity/blob/master/README.md) | [한국어](https://github.com/kanghohyeong/detective-infinity/blob/master/README.ko.md) | [中文](https://github.com/kanghohyeong/detective-infinity/blob/master/README.zh.md)
+
 **DETECTIVE INFINITY**에 오신 것을 환영합니다! 매번 새로운 사건, 새로운 용의자, 그리고 AI가 만드는 독특한 미스터리가 여러분을 기다립니다. 채팅 기반의 몰입감 있는 모험 게임에서 당신만의 추리 여정을 시작해보세요.
 
 ## 🎮 특별한 점

@@ -2,6 +2,8 @@
 
 > *Unleash your inner Sherlock Holmes in an AI-powered mystery adventure!*
 
+[English](https://github.com/kanghohyeong/detective-infinity/blob/master/README.md) | [한국어](https://github.com/kanghohyeong/detective-infinity/blob/master/README.ko.md) | [中文](https://github.com/kanghohyeong/detective-infinity/blob/master/README.zh.md)
+
 Welcome to **DETECTIVE INFINITY**, where every case is unique, every suspect has a story, and every mystery is crafted by cutting-edge AI. Step into the shoes of a brilliant detective and solve endless mysteries in this immersive chat-based adventure game.
 
 ## 🎮 What Makes It Special?
