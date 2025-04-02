@@ -6,60 +6,36 @@ import styled, { css } from "styled-components";
 import Watson from "../components/Watson";
 import Guessing from "../components/Guessing";
 
-const AccordionContainer = styled.div`
+const Container = styled.div`
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
 `;
 
-const AccordionItem = styled.div`
-  margin-bottom: 10px;
-  width: 100%;
-  border: 1px solid #000;
-`;
-
-const AccordionHeader = styled.div`
-  cursor: pointer;
-  background: #000;
-  color: #fff;
-  padding: 5px;
+const TabHeader = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  width: 100%;
+  border-bottom: 1px solid #000;
 `;
 
-const AccordionTitle = styled.h1`
-  margin: 0;
-  font-size: 1.2em;
-`;
-
-const ResizeButton = styled.button`
-  background: none;
-  border: none;
-  color: #fff;
+const Tab = styled.div`
+  padding: 15px 20px;
   cursor: pointer;
-  padding: 0 5px;
+  border-right: 1px solid #000;
+  background: ${props => props.isActive ? '#000' : '#fff'};
+  color: ${props => props.isActive ? '#fff' : '#000'};
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: ${props => props.isActive ? '#000' : '#f0f0f0'};
+  }
 `;
 
-const Separator = styled.div`
-  border-top: 1px solid #000;
-`;
-
-const AccordionContent = styled.div`
-  opacity: 0;
-  height: 0;
-  overflow: hidden;
-  transition: opacity 0.3s ease, height 0.8s ease;
+const ContentArea = styled.div`
+  flex: 1;
   padding: 20px;
-
-  ${(props) =>
-    props.isOpen &&
-    css`
-      opacity: 1;
-      height: auto;
-    `}
+  overflow-y: auto;
 `;
 
 const VictimInfoDiv = styled.div`
@@ -77,70 +53,68 @@ const Playing = () => {
         setActiveTab(actived);
     }
 
+    const renderContent = () => {
+        switch (activeTab) {
+            case GAME_TABS.PROLOGUE:
+                return (
+                    <>
+                        <h1>{scenario.title}</h1>
+                        <p>{scenario.prologue}</p>
+                        <h2>VICTIM</h2>
+                        <h3>{scenario.victim.name} / {scenario.victim.age} / {scenario.victim.gender}</h3>
+                        <VictimInfoDiv>
+                            <span>occupation</span>
+                            <p>{scenario.victim.occupation}</p>
+                            <span>appearance</span>
+                            <p>{scenario.victim.appearance}</p>
+                            <span>description</span>
+                            <p>{scenario.victim.description}</p>
+                            <span>cause of death</span>
+                            <p>{scenario.victim.causeOfDeath}</p>
+                        </VictimInfoDiv>
+                        <h2>CRIME SCENE</h2>
+                        <p>{scenario.crimeScene}</p>
+                    </>
+                );
+            case GAME_TABS.SUSPECTS:
+                return (
+                    <>
+                        <p>Click suspect..</p>
+                        {scenario.suspects.map((suspect, index) =>
+                            <Suspect key={index} info={suspect} />
+                        )}
+                    </>
+                );
+            case GAME_TABS.WATSON:
+                return <Watson />;
+            case GAME_TABS.GUESSING:
+                return <Guessing suspects={scenario.suspects} />;
+            default:
+                return null;
+        }
+    };
+
     return (
         scenario &&
-        <AccordionContainer>
-            <AccordionItem>
-                <AccordionHeader onClick={() => changeActiveTab(GAME_TABS.PROLOGUE)}>
-                    <AccordionTitle>Prologue</AccordionTitle>
-                    <ResizeButton aria-label="Resize"></ResizeButton>
-                </AccordionHeader>
-                <Separator />
-                <AccordionContent isOpen={activeTab === GAME_TABS.PROLOGUE}>
-                    <h1>{scenario.title}</h1>
-                    <p>{scenario.prologue}</p>
-                    <Separator />
-                    <h2>VICTIM</h2>
-                    <h3>{scenario.victim.name} / {scenario.victim.age} / {scenario.victim.gender}</h3>
-                    <VictimInfoDiv>
-                        <span>occupation</span>
-                        <p>{scenario.victim.occupation}</p>
-                        <span>appearance</span>
-                        <p>{scenario.victim.appearance}</p>
-                        <span>description</span>
-                        <p>{scenario.victim.description}</p>
-                        <span>cause of death</span>
-                        <p>{scenario.victim.causeOfDeath}</p>
-                    </VictimInfoDiv>
-                    <Separator />
-                    <h2>CRIME SCENE</h2>
-                    <p>{scenario.crimeScene}</p>
-                </AccordionContent>
-            </AccordionItem>
-            <AccordionItem>
-                <AccordionHeader onClick={() => changeActiveTab(GAME_TABS.SUSPECTS)}>
-                    <AccordionTitle>Suspects - interview</AccordionTitle>
-                    <ResizeButton aria-label="Resize"></ResizeButton>
-                </AccordionHeader>
-                <Separator />
-                <AccordionContent isOpen={activeTab === GAME_TABS.SUSPECTS}>
-                    <p>Click suspect..</p>
-                    {scenario.suspects.map((suspect, index) =>
-                        <Suspect key={index} info={suspect} />
-                    )}
-                </AccordionContent>
-            </AccordionItem>
-            <AccordionItem>
-                <AccordionHeader onClick={() => changeActiveTab(GAME_TABS.WATSON)}>
-                    <AccordionTitle>Watson - helpful assistant</AccordionTitle>
-                    <ResizeButton aria-label="Resize"></ResizeButton>
-                </AccordionHeader>
-                <Separator />
-                <AccordionContent style={{ textAlign: "center" }} isOpen={activeTab === GAME_TABS.WATSON}>
-                    <Watson />
-                </AccordionContent>
-            </AccordionItem>
-            <AccordionItem>
-                <AccordionHeader onClick={() => changeActiveTab(GAME_TABS.GUESSING)}>
-                    <AccordionTitle>I got it!!!</AccordionTitle>
-                    <ResizeButton aria-label="Resize"></ResizeButton>
-                </AccordionHeader>
-                <Separator />
-                <AccordionContent isOpen={activeTab === GAME_TABS.GUESSING}>
-                    <Guessing suspects={scenario.suspects} />
-                </AccordionContent>
-            </AccordionItem>
-        </AccordionContainer>
+        <Container>
+            <TabHeader>
+                <Tab isActive={activeTab === GAME_TABS.PROLOGUE} onClick={() => changeActiveTab(GAME_TABS.PROLOGUE)}>
+                    Prologue
+                </Tab>
+                <Tab isActive={activeTab === GAME_TABS.SUSPECTS} onClick={() => changeActiveTab(GAME_TABS.SUSPECTS)}>
+                    Suspects
+                </Tab>
+                <Tab isActive={activeTab === GAME_TABS.WATSON} onClick={() => changeActiveTab(GAME_TABS.WATSON)}>
+                    Watson
+                </Tab>
+                <Tab isActive={activeTab === GAME_TABS.GUESSING} onClick={() => changeActiveTab(GAME_TABS.GUESSING)}>
+                    I got it!!!
+                </Tab>
+            </TabHeader>
+            <ContentArea>
+                {renderContent()}
+            </ContentArea>
+        </Container>
     );
 };
 
