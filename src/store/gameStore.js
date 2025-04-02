@@ -6,6 +6,7 @@ const useGameStore = create((set) => ({
     progress: 0,
     setGameStatus: (status) => set({ gameStatus: status }),
     setProgress: (progress) => set({ progress }),
+    finishGame: () => set({ gameStatus: GAME_STATUS.FINISH }),
 }));
 
 export default useGameStore; 

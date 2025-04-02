@@ -1,11 +1,10 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Suspect from "../components/Suspect";
 import useScenarioStore from "../store/scenarioStore";
-import {GAME_STATUS, GAME_TABS} from "../model/enums";
-import styled, {css} from "styled-components";
+import { GAME_TABS } from "../model/enums";
+import styled, { css } from "styled-components";
 import Watson from "../components/Watson";
 import Guessing from "../components/Guessing";
-import useGameStore from "../store/gameStore";
 
 const AccordionContainer = styled.div`
   width: 100%;
@@ -28,13 +27,13 @@ const AccordionContent = styled.div`
   opacity: 0;
   height: 0;
   overflow: hidden;
-    // display: ${({isOpen}) => (isOpen ? 'block' : 'none')};
+    // display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
 
   transition: opacity 0.3s ease, height 0.8s ease;
 
   ${(props) =>
-          props.isOpen &&
-          css`
+        props.isOpen &&
+        css`
             opacity: 1;
             height: auto;
           `}
@@ -49,7 +48,6 @@ const VictimInfoDiv = styled.div`
 const Playing = () => {
     const scenario = useScenarioStore((state) => state.scenario);
     const [activeTab, setActiveTab] = useState(GAME_TABS.PROLOGUE);
-    const { setGameStatus } = useGameStore();
 
     const changeActiveTab = (tab) => {
         const actived = Object.values(GAME_TABS).find(value => value === tab) ?? GAME_TABS.PROLOGUE;
@@ -61,7 +59,7 @@ const Playing = () => {
         <AccordionContainer>
             <AccordionItem key={1} className={"window"}>
                 <AccordionHeader className={"title-bar"}
-                                 onClick={() => changeActiveTab(GAME_TABS.PROLOGUE)}>
+                    onClick={() => changeActiveTab(GAME_TABS.PROLOGUE)}>
                     <h1 className={"title"}>Prologue</h1>
                     <button aria-label="Resize" className="resize"></button>
                 </AccordionHeader>
@@ -89,7 +87,7 @@ const Playing = () => {
             </AccordionItem>
             <AccordionItem key={2} className={"window"}>
                 <AccordionHeader className={"title-bar"}
-                                 onClick={() => changeActiveTab(GAME_TABS.SUSPECTS)}>
+                    onClick={() => changeActiveTab(GAME_TABS.SUSPECTS)}>
                     <h1 className={"title"}>Suspects - interview</h1>
                     <button aria-label="Resize" className="resize"></button>
                 </AccordionHeader>
@@ -97,31 +95,31 @@ const Playing = () => {
                 <AccordionContent className={"window-pane"} isOpen={activeTab === GAME_TABS.SUSPECTS}>
                     <p>Click suspect..</p>
                     {scenario.suspects.map((suspect, index) =>
-                        <Suspect key={index} info={suspect}/>
+                        <Suspect key={index} info={suspect} />
                     )}
                 </AccordionContent>
             </AccordionItem>
             <AccordionItem key={3} className={"window"}>
                 <AccordionHeader className={"title-bar"}
-                                 onClick={() => changeActiveTab(GAME_TABS.WATSON)}>
+                    onClick={() => changeActiveTab(GAME_TABS.WATSON)}>
                     <h1 className={"title"}>Watson - helpful assistant</h1>
                     <button aria-label="Resize" className="resize"></button>
                 </AccordionHeader>
                 <div className="separator"></div>
-                <AccordionContent className={"window-pane"} style={{textAlign: "center"}}
-                                  isOpen={activeTab === GAME_TABS.WATSON}>
-                    <Watson/>
+                <AccordionContent className={"window-pane"} style={{ textAlign: "center" }}
+                    isOpen={activeTab === GAME_TABS.WATSON}>
+                    <Watson />
                 </AccordionContent>
             </AccordionItem>
             <AccordionItem key={4} className={"window"}>
                 <AccordionHeader className={"title-bar"}
-                                 onClick={() => changeActiveTab(GAME_TABS.GUESSING)}>
+                    onClick={() => changeActiveTab(GAME_TABS.GUESSING)}>
                     <h1 className={"title"}>I got it!!!</h1>
                     <button aria-label="Resize" className="resize"></button>
                 </AccordionHeader>
                 <div className="separator"></div>
                 <AccordionContent className={"window-pane"} isOpen={activeTab === GAME_TABS.GUESSING}>
-                    <Guessing suspects={scenario.suspects} finishGame={() => setGameStatus(GAME_STATUS.FINISH)}/>
+                    <Guessing suspects={scenario.suspects} />
                 </AccordionContent>
             </AccordionItem>
         </AccordionContainer>

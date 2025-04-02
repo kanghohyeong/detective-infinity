@@ -4,6 +4,7 @@ import {GuessingParser} from "../model/GuessingScheme";
 import styled from "styled-components";
 import {ApiKeyContext} from "../context/ApiKeyContextProvider";
 import useScenarioStore from "../store/scenarioStore";
+import useGameStore from "../store/gameStore";
 import {useChatGpt} from "../hooks/useChatGpt";
 import {getScorerSystemMessage} from "../prompt/prompt";
 
@@ -51,10 +52,10 @@ const GuessingInputContainer = styled.div`
   margin-bottom: 10px;
 `
 
-const Guessing = ({suspects, finishGame}) => {
-
+const Guessing = ({suspects}) => {
     const {apiKey} = useContext(ApiKeyContext);
     const scenario = useScenarioStore((state) => state.scenario);
+    const { finishGame } = useGameStore();
     const {count, chat} = useChatGpt(apiKey, getScorerSystemMessage(scenario), 0.4);
 
     const [who, setWho] = useState(suspects[0].name);
@@ -108,7 +109,7 @@ const Guessing = ({suspects, finishGame}) => {
             finishGame();
         }
 
-    }, [count]);
+    }, [count, finishGame]);
 
     return (
         <div className={"modal-dialog"}>
