@@ -18,6 +18,10 @@ const WatsonAscii = styled.pre`
   cursor: pointer;
   margin: 0;
   font-family: monospace;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 `
 
 const Watson = () => {
