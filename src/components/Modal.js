@@ -21,6 +21,7 @@ const ModalDiv = styled.div`
   max-height: 70%;
   z-index: 100;
   border: 1px solid #000;
+  background-color: white;
 `
 
 const InnerBorder = styled.div`
