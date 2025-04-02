@@ -57,6 +57,7 @@ const Playing = () => {
     }
 
     return (
+        scenario &&
         <AccordionContainer>
             <AccordionItem key={1} className={"window"}>
                 <AccordionHeader className={"title-bar"}

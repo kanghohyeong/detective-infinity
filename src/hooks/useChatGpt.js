@@ -15,7 +15,10 @@ export const useChatGpt = (apiKey, systemMessage, temperature = 0.8) => {
             // model: "gpt-4o-2024-08-06"
             model: "gpt-4o-mini-2024-07-18"
         });
-    }, [apiKey, temperature]);
+        // Reset chat log when model is created
+        chatLog.current = [new SystemMessage(systemMessage)];
+        setChatCnt(0);
+    }, [apiKey, temperature, systemMessage]);
 
     const executeHumanQuestion = async (message) => {
         try {

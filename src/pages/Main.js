@@ -51,7 +51,8 @@ const Main = () => {
     const { apiKey, updateApiKey } = useContext(ApiKeyContext)
     const { updateScenario } = useContext(ScenarioContext)
     const [background, setBackground] = useState("")
-    const { chat: writerChat } = useChatGpt(apiKey, getStoryWriterSystemMessage());
+    const [language, setLanguage] = useState("English")
+    const { chat: writerChat } = useChatGpt(apiKey, getStoryWriterSystemMessage(language));
     const { setGameStatus, setProgress } = useGameStore();
 
     const handlePlayBtn = async () => {
@@ -89,7 +90,7 @@ const Main = () => {
 
             // Generate the final structured output directly
             const scenarioJson = await model.invoke(`
-                Based on the following story elements, generate a structured scenario:
+                Based on the following story elements, generate a structured scenario in ${language}:
                 
                 Victim: ${victim}
                 ----
@@ -100,7 +101,7 @@ const Main = () => {
                 Suspects' Stories: ${story}
             `);
 
-            console.log(`scenario parse ok`);
+            console.log(`scenario parse ok - ${JSON.stringify(scenarioJson)}`);
             setProgress(100);
             updateScenario(scenarioJson);
             setGameStatus(GAME_STATUS.PLAYING);
@@ -137,6 +138,15 @@ const Main = () => {
                 <p>You can set the background for the case you're investigating if you want</p>
                 <input type={"text"} placeholder={"ex> school, office, airplane, chosun dynasty..?"} value={background}
                     onChange={(e) => setBackground(e.target.value)} />
+            </InputContainer>
+            <InputContainer className={"window"}>
+                <div className="title-bar">
+                    <h1 className="title">LANGUAGE</h1>
+                </div>
+                <div className="separator"></div>
+                <p>Select the language for the game (e.g., English, Korean, Japanese)</p>
+                <input type={"text"} placeholder={"ex> English, Korean, Japanese"} value={language}
+                    onChange={(e) => setLanguage(e.target.value)} />
             </InputContainer>
             <StartBtn className={"btn"} type={"button"} onClick={handlePlayBtn}>START</StartBtn>
         </MainContainer>

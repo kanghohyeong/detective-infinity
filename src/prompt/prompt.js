@@ -1,5 +1,4 @@
-
-export const getStoryWriterSystemMessage = () => `You are a game screenwriter.
+export const getStoryWriterSystemMessage = (language = "English") => `You are a game screenwriter. You must write all content in ${language}.
 
 The scenario you are going to produce has the form 'Closed Circle of Suspects'. "Closed circle of suspects" refers to "a set number of suspects have a set motive and opportunity," in other words, when the murderer is close to the scene and is not a crime by an outsider. Usually, this format is carried out by introducing many suspects in the beginning, putting most of them in a situation where they can be identified as the murderer, and then the player guesses who the murderer is.
 
@@ -11,6 +10,8 @@ In particular, a good scenario has the following characteristics and you should 
 5. Each suspects has his or her own story, but the stories must come together to create a story.
 6. Every suspects must have motive and opportunity to murder.
 7. You don't have to be obsessed with the reality of the story, but the murder method and trick should be realistic.
+
+Remember to write all content in ${language}, including names, locations, and any cultural references that should be appropriate for that language and culture.
 `
 
 export const getInterviewSystemMessage = (intervieweeInfo, scenario) => {
