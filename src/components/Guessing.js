@@ -3,7 +3,7 @@ import {useContext} from "react";
 import {GuessingParser} from "../model/GuessingScheme";
 import styled from "styled-components";
 import {ApiKeyContext} from "../context/ApiKeyContextProvider";
-import {ScenarioContext} from "../context/ScenarioContextProvider";
+import useScenarioStore from "../store/scenarioStore";
 import {useChatGpt} from "../hooks/useChatGpt";
 import {getScorerSystemMessage} from "../prompt/prompt";
 
@@ -54,7 +54,7 @@ const GuessingInputContainer = styled.div`
 const Guessing = ({suspects, finishGame}) => {
 
     const {apiKey} = useContext(ApiKeyContext);
-    const {scenario} = useContext(ScenarioContext);
+    const scenario = useScenarioStore((state) => state.scenario);
     const {count, chat} = useChatGpt(apiKey, getScorerSystemMessage(scenario), 0.4);
 
     const [who, setWho] = useState(suspects[0].name);

@@ -1,10 +1,10 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {GAME_STATUS} from "../model/enums";
-import {ScenarioContext} from "../context/ScenarioContextProvider";
+import useScenarioStore from "../store/scenarioStore";
 import useGameStore from "../store/gameStore";
 
 const Ending = () => {
-    const {scenario} = useContext(ScenarioContext);
+    const scenario = useScenarioStore((state) => state.scenario);
     const { setGameStatus } = useGameStore();
 
     return (

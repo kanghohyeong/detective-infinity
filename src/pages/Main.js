@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { GAME_STATUS } from "../model/enums";
 import { ApiKeyContext } from "../context/ApiKeyContextProvider";
-import { ScenarioContext } from "../context/ScenarioContextProvider";
+import useScenarioStore from "../store/scenarioStore";
 import { ScenarioScheme } from "../model/ScenarioScheme";
 import testScenario from "../test_scenario.json";
 import { getStoryWriterSystemMessage } from "../prompt/prompt";
@@ -49,7 +49,7 @@ const StartBtn = styled.button`
 
 const Main = () => {
     const { apiKey, updateApiKey } = useContext(ApiKeyContext)
-    const { updateScenario } = useContext(ScenarioContext)
+    const updateScenario = useScenarioStore((state) => state.updateScenario)
     const [background, setBackground] = useState("")
     const [language, setLanguage] = useState("English")
     const { chat: writerChat } = useChatGpt(apiKey, getStoryWriterSystemMessage(language));

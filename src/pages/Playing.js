@@ -1,6 +1,6 @@
-import React, {useContext, useState} from 'react';
+import React, {useState} from 'react';
 import Suspect from "../components/Suspect";
-import {ScenarioContext} from "../context/ScenarioContextProvider";
+import useScenarioStore from "../store/scenarioStore";
 import {GAME_STATUS, GAME_TABS} from "../model/enums";
 import styled, {css} from "styled-components";
 import Watson from "../components/Watson";
@@ -47,7 +47,7 @@ const VictimInfoDiv = styled.div`
 `
 
 const Playing = () => {
-    const {scenario} = useContext(ScenarioContext);
+    const scenario = useScenarioStore((state) => state.scenario);
     const [activeTab, setActiveTab] = useState(GAME_TABS.PROLOGUE);
     const { setGameStatus } = useGameStore();
 
