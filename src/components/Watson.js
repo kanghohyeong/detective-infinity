@@ -1,9 +1,8 @@
 import React from 'react';
 import {useState} from "react";
 import WatsonSurvey from "./WatsonSurvey";
-import {useContext} from "react";
-import {ApiKeyContext} from "../context/ApiKeyContextProvider";
 import useScenarioStore from "../store/scenarioStore";
+import useGameStore from "../store/gameStore";
 import {useChatGpt} from "../hooks/useChatGpt";
 import {getWatsonSystemMessage} from "../prompt/prompt";
 
@@ -11,7 +10,7 @@ const Watson = () => {
 
     const [onSurvey, setOnSurvey] = useState(false);
     const [messages, setMessages] = useState([]);
-    const {apiKey} = useContext(ApiKeyContext);
+    const { apiKey } = useGameStore();
     const scenario = useScenarioStore((state) => state.scenario);
     const {count, chat} = useChatGpt(apiKey, getWatsonSystemMessage(scenario));
 

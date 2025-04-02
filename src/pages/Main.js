@@ -1,6 +1,5 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { GAME_STATUS } from "../model/enums";
-import { ApiKeyContext } from "../context/ApiKeyContextProvider";
 import useScenarioStore from "../store/scenarioStore";
 import { ScenarioScheme } from "../model/ScenarioScheme";
 import testScenario from "../test_scenario.json";
@@ -48,7 +47,7 @@ const StartBtn = styled.button`
 `
 
 const Main = () => {
-    const { apiKey, updateApiKey } = useContext(ApiKeyContext)
+    const { apiKey, updateApiKey } = useGameStore();
     const updateScenario = useScenarioStore((state) => state.updateScenario)
     const [background, setBackground] = useState("")
     const [language, setLanguage] = useState("English")

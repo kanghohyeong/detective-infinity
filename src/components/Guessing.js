@@ -1,12 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import {useContext} from "react";
-import {GuessingParser} from "../model/GuessingScheme";
+import React, { useEffect, useState } from 'react';
+import { GuessingParser } from "../model/GuessingScheme";
 import styled from "styled-components";
-import {ApiKeyContext} from "../context/ApiKeyContextProvider";
 import useScenarioStore from "../store/scenarioStore";
 import useGameStore from "../store/gameStore";
-import {useChatGpt} from "../hooks/useChatGpt";
-import {getScorerSystemMessage} from "../prompt/prompt";
+import { useChatGpt } from "../hooks/useChatGpt";
+import { getScorerSystemMessage } from "../prompt/prompt";
 
 const HistoryDiv = styled.div`
   border: 1px solid #000000;
@@ -52,11 +50,11 @@ const GuessingInputContainer = styled.div`
   margin-bottom: 10px;
 `
 
-const Guessing = ({suspects}) => {
-    const {apiKey} = useContext(ApiKeyContext);
+const Guessing = ({ suspects }) => {
+    const { apiKey } = useGameStore();
     const scenario = useScenarioStore((state) => state.scenario);
     const { finishGame } = useGameStore();
-    const {count, chat} = useChatGpt(apiKey, getScorerSystemMessage(scenario), 0.4);
+    const { count, chat } = useChatGpt(apiKey, getScorerSystemMessage(scenario), 0.4);
 
     const [who, setWho] = useState(suspects[0].name);
     const [reasoning, setReasoning] = useState('');
@@ -134,7 +132,7 @@ const Guessing = ({suspects}) => {
                 <GuessingInputContainer className={"modal-contents"}>
                     <label>reasoning</label>
                     <textarea value={reasoning} onChange={e => setReasoning(e.target.value)}
-                              placeholder="your reasoning"/>
+                        placeholder="your reasoning" />
                 </GuessingInputContainer>
                 <div>
                     <button className={"btn"} type="button" onClick={finishGame}>give up..</button>

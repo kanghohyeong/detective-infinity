@@ -1,9 +1,8 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
 import SuspectInterview from "./SuspectInterview";
-import {useContext} from "react";
-import {ApiKeyContext} from "../context/ApiKeyContextProvider";
 import useScenarioStore from "../store/scenarioStore";
+import useGameStore from "../store/gameStore";
 import {useChatGpt} from "../hooks/useChatGpt";
 import {getInterviewSystemMessage} from "../prompt/prompt";
 
@@ -13,10 +12,9 @@ const SuspectDiv = styled.div`
 `
 
 const Suspect = ({info}) => {
-
     const [onInterview, setOnInterview] = useState(false);
     const [messages, setMessages] = useState([]);
-    const {apiKey} = useContext(ApiKeyContext);
+    const { apiKey } = useGameStore();
     const scenario = useScenarioStore((state) => state.scenario);
     const {count, chat} = useChatGpt(apiKey, getInterviewSystemMessage(info, scenario));
 
