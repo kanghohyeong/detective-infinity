@@ -3,15 +3,16 @@ import useGameStore from "../store/gameStore";
 import styled from "styled-components";
 
 const Window = styled.div`
-  border: 1px solid #000;
+  border: 1px solid #333333;
   margin: 20px auto;
   max-width: 600px;
   width: 90%;
+  background-color: #2d2d2d;
 `
 
 const TitleBar = styled.div`
-  background: #000;
-  color: #fff;
+  background: #333333;
+  color: #ffffff;
   padding: 5px;
   display: flex;
   justify-content: space-between;
@@ -24,12 +25,13 @@ const Title = styled.h1`
 `
 
 const Separator = styled.div`
-  border-top: 1px solid #000;
+  border-top: 1px solid #333333;
 `
 
 const WindowPane = styled.div`
   padding: 20px;
   text-align: center;
+  color: #ffffff;
 `
 
 const Loading = () => {

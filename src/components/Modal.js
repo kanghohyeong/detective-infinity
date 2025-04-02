@@ -7,7 +7,7 @@ const BackgroundPanel = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.7);
   z-index: 50;
 `
 
@@ -20,32 +20,53 @@ const ModalDiv = styled.div`
   max-width: 500px;
   max-height: 70%;
   z-index: 100;
-  border: 1px solid #000;
-  background-color: white;
+  border: 1px solid #333333;
+  background-color: #2d2d2d;
+  border-radius: 4px;
 `
 
 const InnerBorder = styled.div`
-  border: 1px solid #000;
+  border: 1px solid #333333;
   padding: 10px;
 `
 
 const ModalContents = styled.div`
   padding: 10px;
+  color: #ffffff;
 `
 
 const ModalTitle = styled.h1`
   margin: 0;
   font-size: 1.2em;
+  color: #ffffff;
 `
 
 const Separator = styled.div`
-  border-top: 1px solid #000;
+  border-top: 1px solid #333333;
   margin: 10px 0;
 `
 
 const ScrollableContent = styled.div`
   overflow-y: scroll;
   max-height: 500px;
+  color: #ffffff;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #2d2d2d;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #4d4d4d;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #5d5d5d;
+  }
 `
 
 const Modal = ({children, offModal, title = "title"}) => {

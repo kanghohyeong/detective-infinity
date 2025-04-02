@@ -18,32 +18,46 @@ const MainContainer = styled.div`
   max-width: 1000px;
   min-width: 300px;
   margin: auto;
+  background-color: #1a1a1a;
+  color: #ffffff;
+  min-height: 100vh;
+  padding: 20px;
 `
 
 const InputContainer = styled.div`
   width: 80%;
-  border: 1px solid #000000;
+  border: 1px solid #333333;
   padding-bottom: 10px;
   margin-bottom: 20px;
   text-align: center;
+  background-color: #2d2d2d;
 
   label {
-    border: 1px solid #ffffff;
+    border: 1px solid #333333;
     margin-right: 10px;
   }
 
   input {
     width: 60%;
+    background-color: #3d3d3d;
+    border: 1px solid #4d4d4d;
+    color: #ffffff;
+    padding: 8px;
+    border-radius: 4px;
+
+    &::placeholder {
+      color: #888888;
+    }
   }
 
   a {
-    color: blue;
+    color: #4a9eff;
   }
 `
 
 const TitleBar = styled.div`
-  background: #000;
-  color: #fff;
+  background: #333333;
+  color: #ffffff;
   padding: 5px;
   display: flex;
   justify-content: space-between;
@@ -56,13 +70,23 @@ const Title = styled.h1`
 `
 
 const Separator = styled.div`
-  border-top: 1px solid #000;
+  border-top: 1px solid #333333;
 `
 
 const StartBtn = styled.button`
   width: 100px;
   height: 30px;
   margin-top: 20px;
+  background-color: #4a9eff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #357abd;
+  }
 `
 
 const Main = () => {

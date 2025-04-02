@@ -11,24 +11,26 @@ const Container = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
+  background-color: #1a1a1a;
+  color: #ffffff;
 `;
 
 const TabHeader = styled.div`
   display: flex;
   width: 100%;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid #333333;
 `;
 
 const Tab = styled.div`
   padding: 15px 20px;
   cursor: pointer;
-  border-right: 1px solid #000;
-  background: ${props => props.isActive ? '#000' : '#fff'};
-  color: ${props => props.isActive ? '#fff' : '#000'};
+  border-right: 1px solid #333333;
+  background: ${props => props.isActive ? '#333333' : '#2d2d2d'};
+  color: ${props => props.isActive ? '#ffffff' : '#cccccc'};
   transition: all 0.3s ease;
 
   &:hover {
-    background: ${props => props.isActive ? '#000' : '#f0f0f0'};
+    background: ${props => props.isActive ? '#333333' : '#3d3d3d'};
   }
 `;
 
@@ -36,12 +38,17 @@ const ContentArea = styled.div`
   flex: 1;
   padding: 20px;
   overflow-y: auto;
+  background-color: #2d2d2d;
 `;
 
 const VictimInfoDiv = styled.div`
   p {
     margin: 5px;
   }
+  background-color: #3d3d3d;
+  padding: 15px;
+  border-radius: 4px;
+  border: 1px solid #4d4d4d;
 `;
 
 const Playing = () => {

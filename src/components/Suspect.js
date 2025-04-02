@@ -9,9 +9,20 @@ import {getInterviewSystemMessage} from "../prompt/prompt";
 const SuspectDiv = styled.div`
   margin: 10px 0px;
   cursor: pointer;
-  border: 1px solid #000;
+  border: 1px solid #333333;
   padding: 10px;
-  background: #fff;
+  background: #3d3d3d;
+  color: #ffffff;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background: #4d4d4d;
+  }
+
+  p {
+    margin: 5px 0;
+  }
 `
 
 const Suspect = ({info}) => {
