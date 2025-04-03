@@ -1,10 +1,12 @@
-import {useEffect} from "react";
-import {GAME_STATUS} from "./model/enums";
+import React, { useEffect } from 'react';
+import { GAME_STATUS } from "./model/enums";
 import Main from "./pages/Main";
 import Loading from "./pages/Loading";
 import Playing from "./pages/Playing";
 import Ending from "./pages/Ending";
 import useGameStore from "./store/gameStore";
+import './styles/theme.css';
+import './styles/global.css';
 
 function App() {
     const { gameStatus } = useGameStore();

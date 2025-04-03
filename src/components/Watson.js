@@ -5,24 +5,7 @@ import useScenarioStore from "../store/scenarioStore";
 import useGameStore from "../store/gameStore";
 import {useChatGpt} from "../hooks/useChatGpt";
 import {getWatsonSystemMessage} from "../prompt/prompt";
-import styled from "styled-components";
-
-const WatsonContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-`
-
-const WatsonAscii = styled.pre`
-  cursor: pointer;
-  margin: 0;
-  font-family: monospace;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-`
+import styles from '../styles/components/Watson.module.css';
 
 const Watson = () => {
     const [onSurvey, setOnSurvey] = useState(false);
@@ -34,9 +17,9 @@ const Watson = () => {
     const setMessages = updateWatsonChatHistory;
 
     return (
-        <WatsonContainer>
-            <WatsonAscii>
-                <code onClick={() => setOnSurvey(true)}>{`
+        <div className={styles.container}>
+            <pre className={styles.ascii} onClick={() => setOnSurvey(true)}>
+                <code>{`
   ___
 /     \\
 /_______\\
@@ -58,13 +41,19 @@ const Watson = () => {
 \\\\____/\\\\____/
 `}
                 </code>
-            </WatsonAscii>
-            <h3>What shall we investigate, detective?</h3>
-            <p>crime scene investigation, surrounding investigation, etc..</p>
-            {onSurvey &&
-                <WatsonSurvey messages={messages} setMessages={setMessages} offSurvey={() => setOnSurvey(false)}
-                              chat={chat} count={count}/>}
-        </WatsonContainer>
+            </pre>
+            <h3 className={styles.title}>What shall we investigate, detective?</h3>
+            <p className={styles.description}>crime scene investigation, surrounding investigation, etc..</p>
+            {onSurvey && (
+                <WatsonSurvey
+                    messages={messages}
+                    setMessages={setMessages}
+                    offSurvey={() => setOnSurvey(false)}
+                    chat={chat}
+                    count={count}
+                />
+            )}
+        </div>
     );
 };
 

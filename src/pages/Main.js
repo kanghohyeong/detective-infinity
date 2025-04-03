@@ -6,88 +6,8 @@ import testScenario from "../test_scenario.json";
 import { getStoryWriterSystemMessage } from "../prompt/prompt";
 import { useChatGpt } from "../hooks/useChatGpt";
 import { ChatOpenAI } from "@langchain/openai";
-import styled from "styled-components";
 import useGameStore from "../store/gameStore";
-
-const MainContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  max-width: 1000px;
-  min-width: 300px;
-  margin: auto;
-  background-color: #1a1a1a;
-  color: #ffffff;
-  min-height: 100vh;
-  padding: 20px;
-`
-
-const InputContainer = styled.div`
-  width: 80%;
-  border: 1px solid #333333;
-  padding-bottom: 10px;
-  margin-bottom: 20px;
-  text-align: center;
-  background-color: #2d2d2d;
-
-  label {
-    border: 1px solid #333333;
-    margin-right: 10px;
-  }
-
-  input {
-    width: 60%;
-    background-color: #3d3d3d;
-    border: 1px solid #4d4d4d;
-    color: #ffffff;
-    padding: 8px;
-    border-radius: 4px;
-
-    &::placeholder {
-      color: #888888;
-    }
-  }
-
-  a {
-    color: #4a9eff;
-  }
-`
-
-const TitleBar = styled.div`
-  background: #333333;
-  color: #ffffff;
-  padding: 5px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`
-
-const Title = styled.h1`
-  margin: 0;
-  font-size: 1.2em;
-`
-
-const Separator = styled.div`
-  border-top: 1px solid #333333;
-`
-
-const StartBtn = styled.button`
-  width: 100px;
-  height: 30px;
-  margin-top: 20px;
-  background-color: #4a9eff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-
-  &:hover {
-    background-color: #357abd;
-  }
-`
+import styles from '../styles/Main.module.css';
 
 const Main = () => {
     const { apiKey, updateApiKey } = useGameStore();
@@ -155,41 +75,45 @@ const Main = () => {
     }
 
     return (
-        <MainContainer>
-            <h1 style={{ color: '#8b0000' }}>DETECTIVE INFINITY</h1>
-            <h2>100% AI generated game powered by chatGPT</h2>
+        <div className={styles.mainContainer}>
+            <img 
+                className={styles.titleImage}
+                src={`${process.env.PUBLIC_URL}/assets/detective-infinity-title-black.png`} 
+                alt="Detective Infinity" 
+            />
+            <h2>Unleash your inner Sherlock Holmes in an Al-powered mystery adventure!</h2>
             <p>You become a detective and investigate a murder case.</p>
             <p>Nobody knows the truth of the case. Every time you face a new incident that no one has ever seen.</p>
-            <InputContainer>
-                <TitleBar>
-                    <Title>API KEY</Title>
-                </TitleBar>
-                <Separator />
+            <div className={styles.inputContainer}>
+                <div className={styles.titleBar}>
+                    <h1 className={styles.title}>API KEY</h1>
+                </div>
+                <div className={styles.separator} />
                 <p>You need OpenAi API Key. You can create API Key <a
                     href="https://platform.openai.com/account/api-keys">HERE</a></p>
-                <input type={"text"} placeholder={"sk-xxxx.."} value={apiKey}
+                <input type="text" placeholder="sk-xxxx.." value={apiKey}
                     onChange={(e) => updateApiKey(e.target.value)} />
-            </InputContainer>
-            <InputContainer>
-                <TitleBar>
-                    <Title>CUSTOM SCENE</Title>
-                </TitleBar>
-                <Separator />
+            </div>
+            <div className={styles.inputContainer}>
+                <div className={styles.titleBar}>
+                    <h1 className={styles.title}>CUSTOM SCENE ( optional )</h1>
+                </div>
+                <div className={styles.separator} />
                 <p>You can set the background for the case you're investigating if you want</p>
-                <input type={"text"} placeholder={"ex> school, office, airplane, chosun dynasty..?"} value={background}
+                <input type="text" placeholder="ex> school, office, airplane, chosun dynasty..?" value={background}
                     onChange={(e) => setBackground(e.target.value)} />
-            </InputContainer>
-            <InputContainer>
-                <TitleBar>
-                    <Title>LANGUAGE</Title>
-                </TitleBar>
-                <Separator />
+            </div>
+            <div className={styles.inputContainer}>
+                <div className={styles.titleBar}>
+                    <h1 className={styles.title}>LANGUAGE ( optional )</h1>
+                </div>
+                <div className={styles.separator} />
                 <p>Select the language for the game (e.g., English, Korean, Japanese)</p>
-                <input type={"text"} placeholder={"ex> English, Korean, Japanese"} value={language}
+                <input type="text" placeholder="ex> English, Korean, Japanese" value={language}
                     onChange={(e) => setLanguage(e.target.value)} />
-            </InputContainer>
-            <StartBtn type={"button"} onClick={handlePlayBtn}>START</StartBtn>
-        </MainContainer>
+            </div>
+            <button className={styles.startBtn} type="button" onClick={handlePlayBtn}>START</button>
+        </div>
     );
 };
 

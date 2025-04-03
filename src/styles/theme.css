@@ -1,0 +1,31 @@
+:root {
+  /* Colors */
+  --color-background: rgb(10 8 8);
+  --color-primary: #8b0000;
+  --color-primary-hover: #a61212;
+  --color-text: #c0b3a9;
+  --color-text-secondary: #857971;
+  --color-surface: rgb(18 15 15);
+  --color-surface-dark: rgb(15 12 12);
+  --color-border: #2b1f1f;
+  --color-header-bg: #1a1212;
+
+  /* Shadows */
+  --shadow-small: 0 2px 4px rgba(0, 0, 0, 0.3);
+  --shadow-medium: 0 4px 8px rgba(139, 0, 0, 0.3);
+  --shadow-text: 1px 1px 2px rgba(0, 0, 0, 0.8);
+
+  /* Transitions */
+  --transition-default: all 0.2s;
+  --transition-button: all 0.3s;
+
+  /* Spacing */
+  --spacing-small: 5px;
+  --spacing-medium: 10px;
+  --spacing-large: 20px;
+
+  /* Layout */
+  --layout-max-width: 1000px;
+  --layout-min-width: 300px;
+  --layout-container-width: 80%;
+} 

@@ -1,0 +1,117 @@
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  max-width: var(--layout-max-width);
+  min-width: var(--layout-min-width);
+  margin: auto;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  min-height: 100vh;
+  padding: var(--spacing-large);
+}
+
+.mainContainer h2 {
+  margin-top: 0;
+  color: var(--color-primary);
+  text-shadow: var(--shadow-text);
+}
+
+.mainContainer p {
+  color: var(--color-text-secondary);
+  text-align: center;
+  line-height: 1.6;
+}
+
+.titleImage {
+  width: 100%;
+  max-width: 600px;
+  margin: var(--spacing-large) auto;
+  display: block;
+}
+
+.inputContainer {
+  width: var(--layout-container-width);
+  border: 1px solid var(--color-border);
+  padding-bottom: var(--spacing-medium);
+  margin-bottom: var(--spacing-large);
+  text-align: center;
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-small);
+}
+
+.inputContainer label {
+  border: 1px solid var(--color-border);
+  margin-right: var(--spacing-medium);
+}
+
+.inputContainer input {
+  width: 60%;
+  background-color: var(--color-surface-dark);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.inputContainer input::placeholder {
+  color: var(--color-text-secondary);
+}
+
+.inputContainer a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: var(--transition-default);
+}
+
+.inputContainer a:hover {
+  color: var(--color-primary-hover);
+  text-shadow: 0 0 8px rgba(139, 0, 0, 0.3);
+}
+
+.titleBar {
+  background: var(--color-header-bg);
+  color: var(--color-text);
+  padding: var(--spacing-small);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.title {
+  margin: 0;
+  font-size: 1.2em;
+  color: var(--color-primary);
+  text-shadow: var(--shadow-text);
+}
+
+.separator {
+  border-top: 1px solid var(--color-border);
+}
+
+.startBtn {
+  width: 100px;
+  height: 30px;
+  margin-top: var(--spacing-large);
+  background-color: var(--color-primary);
+  color: var(--color-text);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: var(--transition-button);
+  box-shadow: var(--shadow-small);
+}
+
+.startBtn:hover {
+  background-color: var(--color-primary-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-medium);
+}
+
+.startBtn:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-small);
+} 

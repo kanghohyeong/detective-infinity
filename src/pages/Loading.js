@@ -1,38 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import useGameStore from "../store/gameStore";
-import styled from "styled-components";
-
-const Window = styled.div`
-  border: 1px solid #333333;
-  margin: 20px auto;
-  max-width: 600px;
-  width: 90%;
-  background-color: #2d2d2d;
-`
-
-const TitleBar = styled.div`
-  background: #333333;
-  color: #ffffff;
-  padding: 5px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`
-
-const Title = styled.h1`
-  margin: 0;
-  font-size: 1.2em;
-`
-
-const Separator = styled.div`
-  border-top: 1px solid #333333;
-`
-
-const WindowPane = styled.div`
-  padding: 20px;
-  text-align: center;
-  color: #ffffff;
-`
+import styles from '../styles/Loading.module.css';
 
 const Loading = () => {
     const [loadingText, setLoadingText] = useState("Please wait..");
@@ -76,16 +44,16 @@ const Loading = () => {
     }, [progress]);
 
     return (
-        <Window>
-            <TitleBar>
-                <Title>Loading</Title>
-            </TitleBar>
-            <Separator />
-            <WindowPane>
+        <div className={styles.window}>
+            <div className={styles.titleBar}>
+                <h1 className={styles.title}>Loading</h1>
+            </div>
+            <div className={styles.separator} />
+            <div className={styles.windowPane}>
                 <h3>{loadingText}</h3>
                 <p>{progressText}</p>
-            </WindowPane>
-        </Window>
+            </div>
+        </div>
     );
 };
 

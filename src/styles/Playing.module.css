@@ -1,0 +1,72 @@
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface);
+  color: var(--color-text);
+}
+
+.tabHeader {
+  display: flex;
+  width: 100%;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.tab {
+  padding: 15px 20px;
+  cursor: pointer;
+  border-right: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
+  transition: var(--transition-default);
+}
+
+.tab:hover {
+  background: var(--color-surface-dark);
+}
+
+.tabActive {
+  composes: tab;
+  background: var(--color-primary);
+  color: var(--color-text);
+}
+
+.contentArea {
+  flex: 1;
+  padding: var(--spacing-large);
+  overflow-y: auto;
+  background-color: var(--color-surface);
+}
+
+.victimInfo {
+  background-color: var(--color-surface-dark);
+  padding: 15px;
+  border-radius: 4px;
+  border: 1px solid var(--color-border);
+}
+
+.victimInfo p {
+  margin: 5px;
+}
+
+.victimInfo span {
+  color: var(--color-text-secondary);
+}
+
+.contentArea h1 {
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-large);
+  text-shadow: var(--shadow-text);
+}
+
+.contentArea h2 {
+  color: var(--color-primary);
+  margin: var(--spacing-large) 0 var(--spacing-medium);
+  text-shadow: var(--shadow-text);
+}
+
+.contentArea h3 {
+  color: var(--color-text);
+  margin-bottom: var(--spacing-medium);
+} 

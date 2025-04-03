@@ -1,0 +1,43 @@
+.window {
+  border: 1px solid var(--color-border);
+  margin: var(--spacing-large) auto;
+  max-width: 600px;
+  width: 90%;
+  background-color: var(--color-surface);
+}
+
+.titleBar {
+  background: var(--color-header-bg);
+  color: var(--color-text);
+  padding: var(--spacing-small);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.2em;
+  color: var(--color-primary);
+  text-shadow: var(--shadow-text);
+}
+
+.separator {
+  border-top: 1px solid var(--color-border);
+}
+
+.windowPane {
+  padding: var(--spacing-large);
+  text-align: center;
+  color: var(--color-text);
+}
+
+.windowPane h3 {
+  margin-bottom: var(--spacing-medium);
+  color: var(--color-text);
+}
+
+.windowPane p {
+  font-family: monospace;
+  color: var(--color-text-secondary);
+} 
