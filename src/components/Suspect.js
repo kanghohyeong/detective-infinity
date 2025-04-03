@@ -27,10 +27,12 @@ const SuspectDiv = styled.div`
 
 const Suspect = ({info}) => {
     const [onInterview, setOnInterview] = useState(false);
-    const [messages, setMessages] = useState([]);
-    const { apiKey } = useGameStore();
+    const { apiKey, suspectChatHistory, updateSuspectChatHistory } = useGameStore();
     const scenario = useScenarioStore((state) => state.scenario);
     const {count, chat} = useChatGpt(apiKey, getInterviewSystemMessage(info, scenario));
+
+    const messages = suspectChatHistory[info.name] || [];
+    const setMessages = (newMessages) => updateSuspectChatHistory(info.name, newMessages);
 
     return (
         <SuspectDiv onClick={() => {

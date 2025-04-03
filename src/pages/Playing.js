@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Suspect from "../components/Suspect";
 import useScenarioStore from "../store/scenarioStore";
 import { GAME_TABS } from "../model/enums";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import Watson from "../components/Watson";
 import Guessing from "../components/Guessing";
 

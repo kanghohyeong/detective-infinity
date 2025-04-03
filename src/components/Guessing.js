@@ -75,7 +75,7 @@ const GuessingContainer = styled.div`
 `
 
 const Guessing = ({ suspects }) => {
-    const { apiKey } = useGameStore();
+    const { apiKey, guessingHistory, updateGuessingHistory } = useGameStore();
     const scenario = useScenarioStore((state) => state.scenario);
     const { finishGame } = useGameStore();
     const { count, chat } = useChatGpt(apiKey, getScorerSystemMessage(scenario), 0.4);
@@ -83,7 +83,6 @@ const Guessing = ({ suspects }) => {
     const [who, setWho] = useState(suspects[0].name);
     const [reasoning, setReasoning] = useState('');
     const [waiting, setWaiting] = useState(false);
-    const [guessHistory, setGuessHistory] = useState([]);
 
     const handleSend = async (e) => {
         e.preventDefault();
@@ -107,12 +106,13 @@ const Guessing = ({ suspects }) => {
                 finishGame();
                 return;
             }
-            setGuessHistory(guessHistory.concat({
+            const newHistory = guessingHistory.concat({
                 "name": who,
                 "reasoning": reasoning,
                 "grade": guessingJson.grade,
                 "hint": guessingJson.hint
-            }));
+            });
+            updateGuessingHistory(newHistory);
         } catch (e) {
             window.alert("Ai Error. retry.");
         } finally {
@@ -132,7 +132,7 @@ const Guessing = ({ suspects }) => {
     return (
         <GuessingContainer>
             <h1>Max Try : {count}/5</h1>
-            {guessHistory.map((history, index) => (
+            {guessingHistory.map((history, index) => (
                 <HistoryDiv key={index}>
                     <h3>try {index + 1}</h3>
                     <p>name: {history.name}</p>

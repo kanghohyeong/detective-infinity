@@ -26,10 +26,12 @@ const WatsonAscii = styled.pre`
 
 const Watson = () => {
     const [onSurvey, setOnSurvey] = useState(false);
-    const [messages, setMessages] = useState([]);
-    const { apiKey } = useGameStore();
+    const { apiKey, watsonChatHistory, updateWatsonChatHistory } = useGameStore();
     const scenario = useScenarioStore((state) => state.scenario);
     const {count, chat} = useChatGpt(apiKey, getWatsonSystemMessage(scenario));
+
+    const messages = watsonChatHistory;
+    const setMessages = updateWatsonChatHistory;
 
     return (
         <WatsonContainer>
