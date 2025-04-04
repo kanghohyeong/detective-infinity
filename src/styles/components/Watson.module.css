@@ -1,16 +1,31 @@
 .container {
   display: flex;
+  height: 100vh;
+  max-height: 800px;
+  gap: var(--spacing-large);
+  padding: var(--spacing-large);
+  box-sizing: border-box;
+}
+
+.watsonInfo {
+  flex: 0 0 300px;
+  display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--spacing-large);
-  padding: var(--spacing-medium);
+  padding: var(--spacing-large);
+  background-color: var(--color-surface);
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  height: 100%;
+  overflow-y: auto;
+  box-sizing: border-box;
 }
 
 .character {
-  cursor: pointer;
-  margin: 0;
-  width: 500px;
-  height: 500px;
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  margin-bottom: var(--spacing-large);
 }
 
 .ascii {
@@ -32,12 +47,26 @@
 
 .title {
   color: var(--color-text);
-  margin: 0;
   text-shadow: var(--shadow-text);
+  margin-bottom: var(--spacing-medium);
+  text-align: center;
 }
 
 .description {
   color: var(--color-text-secondary);
-  margin: 0;
   text-align: center;
+  font-size: 0.9rem;
+}
+
+.chatArea {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-surface);
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-small);
+  height: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
 }

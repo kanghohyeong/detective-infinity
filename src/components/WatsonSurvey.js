@@ -1,11 +1,7 @@
-import React from 'react';
-import {useEffect, useRef, useState} from "react";
-import Modal from "./Modal";
+import React, {useEffect, useRef, useState} from "react";
 import styles from '../styles/components/WatsonSurvey.module.css';
 
-const WatsonSurvey = ({messages, setMessages, offSurvey, chat, count}) => {
-    // const {executeHumanQuestion, addAIMessage} = useContext(AIChatContext);
-
+const WatsonSurvey = ({messages, setMessages, chat, count}) => {
     const [input, setInput] = useState('');
     const [waiting, setWaiting] = useState(false);
     const endOfMessages = useRef(null);
@@ -36,42 +32,43 @@ const WatsonSurvey = ({messages, setMessages, offSurvey, chat, count}) => {
     }
 
     return (
-        <Modal offModal={offSurvey} title="Watson">
-            <div className={styles.chatContainer}>
-                <div className={styles.chatMessages}>
-                    {messages.map((msg, index) => (
-                        <div className={styles.chatMessage} key={index}>
-                            <strong className={`${styles.messageType} ${msg.type === 'user' ? styles.messageTypeUser : styles.messageTypeWatson}`}>
-                                {msg.type}
-                            </strong>
-                            <span className={styles.messageContent}>{msg.message}</span>
-                        </div>
-                    ))}
-                    <div ref={endOfMessages}></div>
-                </div>
-                <form className={styles.form} onSubmit={handleSend}>
-                    <div className={styles.fieldRow}>
-                        <input
-                            className={styles.input}
-                            value={input}
-                            onChange={e => setInput(e.target.value)}
-                            placeholder={count >= 15 ? "No more questions" : "Type a survey question"}
-                            disabled={waiting}
-                        />
-                        <button
-                            className={styles.button}
-                            type="submit"
-                            disabled={waiting || count >= 15}
-                        >
-                            Send
-                        </button>
-                    </div>
-                </form>
-                <div className={styles.fieldRow}>
-                    <span className={styles.questionCount}>Questions: {count}/15</span>
-                </div>
+        <div className={styles.chatContainer}>
+            <div className={styles.chatHeader}>
+                <h3>Investigation Chat</h3>
             </div>
-        </Modal>
+            <div className={styles.chatMessages}>
+                {messages.map((msg, index) => (
+                    <div className={styles.chatMessage} key={index}>
+                        <strong className={`${styles.messageType} ${msg.type === 'user' ? styles.messageTypeUser : styles.messageTypeWatson}`}>
+                            {msg.type}
+                        </strong>
+                        <span className={styles.messageContent}>{msg.message}</span>
+                    </div>
+                ))}
+                <div ref={endOfMessages}></div>
+            </div>
+            <form className={styles.form} onSubmit={handleSend}>
+                <div className={styles.fieldRow}>
+                    <input
+                        className={styles.input}
+                        value={input}
+                        onChange={e => setInput(e.target.value)}
+                        placeholder={count >= 15 ? "No more questions" : "Type a survey question"}
+                        disabled={waiting}
+                    />
+                    <button
+                        className={styles.button}
+                        type="submit"
+                        disabled={waiting || count >= 15}
+                    >
+                        Send
+                    </button>
+                </div>
+            </form>
+            <div className={styles.fieldRow}>
+                <span className={styles.questionCount}>Questions: {count}/15</span>
+            </div>
+        </div>
     );
 };
 
