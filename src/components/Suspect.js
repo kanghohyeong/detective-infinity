@@ -1,22 +1,12 @@
-import React, {useState} from 'react';
-import SuspectInterview from "./SuspectInterview";
-import useScenarioStore from "../store/scenarioStore";
-import useGameStore from "../store/gameStore";
-import {useChatGpt} from "../hooks/useChatGpt";
-import {getInterviewSystemMessage} from "../prompt/prompt";
+import React from 'react';
 import styles from '../styles/components/Suspect.module.css';
 
-const Suspect = ({info}) => {
-    const [onInterview, setOnInterview] = useState(false);
-    const { apiKey, suspectChatHistory, updateSuspectChatHistory } = useGameStore();
-    const scenario = useScenarioStore((state) => state.scenario);
-    const {count, chat} = useChatGpt(apiKey, getInterviewSystemMessage(info, scenario));
-
-    const messages = suspectChatHistory[info.name] || [];
-    const setMessages = (newMessages) => updateSuspectChatHistory(info.name, newMessages);
-
+const Suspect = ({ info, isSelected, onSelect }) => {
     return (
-        <div className={styles.suspectCard} onClick={() => setOnInterview(true)}>
+        <div 
+            className={`${styles.suspectCard} ${isSelected ? styles.selected : ''}`} 
+            onClick={onSelect}
+        >
             <p className={styles.suspectInfo}>
                 <span className={styles.label}>Name:</span> {info.name}
             </p>
@@ -32,16 +22,6 @@ const Suspect = ({info}) => {
             <p className={styles.suspectInfo}>
                 <span className={styles.label}>Appearance:</span> {info.appearance}
             </p>
-            {onInterview && (
-                <SuspectInterview
-                    name={info.name}
-                    messages={messages}
-                    setMessages={setMessages}
-                    offInterview={() => setOnInterview(false)}
-                    chat={chat}
-                    count={count}
-                />
-            )}
         </div>
     );
 };
