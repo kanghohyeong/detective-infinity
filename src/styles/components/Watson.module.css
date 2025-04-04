@@ -6,6 +6,13 @@
   padding: var(--spacing-medium);
 }
 
+.character {
+  cursor: pointer;
+  margin: 0;
+  width: 500px;
+  height: 500px;
+}
+
 .ascii {
   cursor: pointer;
   margin: 0;
@@ -33,4 +40,4 @@
   color: var(--color-text-secondary);
   margin: 0;
   text-align: center;
-} 
+}
