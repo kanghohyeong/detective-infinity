@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import Suspect from "../components/Suspect";
 import useScenarioStore from "../store/scenarioStore";
 import { GAME_TABS } from "../model/enums";
 import Watson from "../components/Watson";
 import Guessing from "../components/Guessing";
+import Prologue from "../components/Prologue";
+import Suspects from "../components/Suspects";
 import styles from '../styles/Playing.module.css';
 
 const Playing = () => {
@@ -18,35 +19,9 @@ const Playing = () => {
     const renderContent = () => {
         switch (activeTab) {
             case GAME_TABS.PROLOGUE:
-                return (
-                    <>
-                        <h1>{scenario.title}</h1>
-                        <p>{scenario.prologue}</p>
-                        <h2>VICTIM</h2>
-                        <h3>{scenario.victim.name} / {scenario.victim.age} / {scenario.victim.gender}</h3>
-                        <div className={styles.victimInfo}>
-                            <span>occupation</span>
-                            <p>{scenario.victim.occupation}</p>
-                            <span>appearance</span>
-                            <p>{scenario.victim.appearance}</p>
-                            <span>description</span>
-                            <p>{scenario.victim.description}</p>
-                            <span>cause of death</span>
-                            <p>{scenario.victim.causeOfDeath}</p>
-                        </div>
-                        <h2>CRIME SCENE</h2>
-                        <p>{scenario.crimeScene}</p>
-                    </>
-                );
+                return <Prologue scenario={scenario} />;
             case GAME_TABS.SUSPECTS:
-                return (
-                    <>
-                        <p>Click suspect..</p>
-                        {scenario.suspects.map((suspect, index) =>
-                            <Suspect key={index} info={suspect} />
-                        )}
-                    </>
-                );
+                return <Suspects suspects={scenario.suspects} />;
             case GAME_TABS.WATSON:
                 return <Watson />;
             case GAME_TABS.GUESSING:
