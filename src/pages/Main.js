@@ -32,15 +32,26 @@ const Main = () => {
 
         try {
             console.log("start generate");
+            let writerChatHistory = [];
+            
             const victim = await writerChat(`From now on, let's make a story in order according to my request step by step considering the following keywords.
         keywords : ${background}
-        First, Define the victim. The victim's name, age, personality, occupation, appearance etc`);
+        First, Define the victim. The victim's name, age, personality, occupation, appearance etc`, writerChatHistory);
+            writerChatHistory = [...writerChatHistory, {type: 'user', message: `From now on, let's make a story in order according to my request step by step considering the following keywords.
+        keywords : ${background}
+        First, Define the victim. The victim's name, age, personality, occupation, appearance etc`}, {type: 'assistant', message: victim}];
             setProgress(20);
-            const suspects = await writerChat(`Define the suspect. There are a total of four suspects. Name, personality, age, occupation, appearance etc. of the suspect. Every suspect must have an motive for murder the victim.`);
+
+            const suspects = await writerChat(`Define the suspect. There are a total of four suspects. Name, personality, age, occupation, appearance etc. of the suspect. Every suspect must have an motive for murder the victim.`, writerChatHistory);
+            writerChatHistory = [...writerChatHistory, {type: 'user', message: `Define the suspect. There are a total of four suspects. Name, personality, age, occupation, appearance etc. of the suspect. Every suspect must have an motive for murder the victim.`}, {type: 'assistant', message: suspects}];
             setProgress(35);
-            const murderer = await writerChat('Define one killer who actually committed a murder among the suspects defined above. Describe the method of murder, the trick to escape the suspect, and the loophole in the trick. The loophole in deception should not be due to evidence such as cctv, dna, but rather the logical error of the alibi claimed by the killer or traces left at the crime scene.');
+
+            const murderer = await writerChat('Define one killer who actually committed a murder among the suspects defined above. Describe the method of murder, the trick to escape the suspect, and the loophole in the trick. The loophole in deception should not be due to evidence such as cctv, dna, but rather the logical error of the alibi claimed by the killer or traces left at the crime scene.', writerChatHistory);
+            writerChatHistory = [...writerChatHistory, {type: 'user', message: 'Define one killer who actually committed a murder among the suspects defined above. Describe the method of murder, the trick to escape the suspect, and the loophole in the trick. The loophole in deception should not be due to evidence such as cctv, dna, but rather the logical error of the alibi claimed by the killer or traces left at the crime scene.'}, {type: 'assistant', message: murderer}];
             setProgress(50);
-            const story = await writerChat('Describe the story, alibi, of the other three suspects, excluding the murderer, among the four suspects defined above. The suspects had a chance to commit the crime and a motive for the murder, but they did not actually kill.');
+
+            const story = await writerChat('Describe the story, alibi, of the other three suspects, excluding the murderer, among the four suspects defined above. The suspects had a chance to commit the crime and a motive for the murder, but they did not actually kill.', writerChatHistory);
+            writerChatHistory = [...writerChatHistory, {type: 'user', message: 'Describe the story, alibi, of the other three suspects, excluding the murderer, among the four suspects defined above. The suspects had a chance to commit the crime and a motive for the murder, but they did not actually kill.'}, {type: 'assistant', message: story}];
             setProgress(75);
 
             const model = new ChatOpenAI({

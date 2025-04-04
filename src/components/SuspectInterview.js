@@ -1,10 +1,12 @@
 import React, {useEffect, useRef, useState} from "react";
+import useGameStore from "../store/gameStore";
 import styles from '../styles/components/SuspectInterview.module.css';
 
-const SuspectInterview = ({name, messages, setMessages, offInterview, chat, count}) => {
+const SuspectInterview = ({name, messages, setMessages, offInterview, chat}) => {
     const [input, setInput] = useState('');
     const [waiting, setWaiting] = useState(false);
     const endOfMessages = useRef(null);
+    const { chatCounts, incrementChatCount } = useGameStore();
 
     const scrollToBottom = () => {
         endOfMessages.current.scrollIntoView({behavior: 'smooth'});
@@ -24,11 +26,12 @@ const SuspectInterview = ({name, messages, setMessages, offInterview, chat, coun
         const interviewQuestion = `
         Interviewee: ${name} 
         Question: ${input}`;
-        const aiMessage = await chat(interviewQuestion);
+        const aiMessage = await chat(interviewQuestion, messages);
         if (aiMessage == null) {
             setMessages(currentMessages.concat({type: "error", message: "AI Error"}));
         } else {
             setMessages(currentMessages.concat({type: name, message: aiMessage}));
+            incrementChatCount('suspect', name);
         }
         setWaiting(false);
         setInput('');
@@ -57,20 +60,20 @@ const SuspectInterview = ({name, messages, setMessages, offInterview, chat, coun
                         className={styles.input}
                         value={input}
                         onChange={e => setInput(e.target.value)}
-                        placeholder={count >= 15 ? "No more questions" : "Type an interview question"}
+                        placeholder={(chatCounts.suspects[name] || 0) >= 15 ? "No more questions" : "Type an interview question"}
                         disabled={waiting}
                     />
                     <button
                         className={styles.button}
                         type="submit"
-                        disabled={waiting || count >= 15}
+                        disabled={waiting || (chatCounts.suspects[name] || 0) >= 15}
                     >
                         Send
                     </button>
                 </div>
             </form>
             <div className={styles.fieldRow}>
-                <span className={styles.questionCount}>Questions: {count}/15</span>
+                <span className={styles.questionCount}>Questions: {(chatCounts.suspects[name] || 0)}/15</span>
             </div>
         </div>
     );

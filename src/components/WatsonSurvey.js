@@ -1,10 +1,12 @@
 import React, {useEffect, useRef, useState} from "react";
+import useGameStore from "../store/gameStore";
 import styles from '../styles/components/WatsonSurvey.module.css';
 
-const WatsonSurvey = ({messages, setMessages, chat, count}) => {
+const WatsonSurvey = ({messages, setMessages, chat}) => {
     const [input, setInput] = useState('');
     const [waiting, setWaiting] = useState(false);
     const endOfMessages = useRef(null);
+    const { chatCounts, incrementChatCount } = useGameStore();
 
     const scrollToBottom = () => {
         endOfMessages.current.scrollIntoView({behavior: 'smooth'});
@@ -21,11 +23,12 @@ const WatsonSurvey = ({messages, setMessages, chat, count}) => {
         setMessages(currentMessages);
         setWaiting(true);
 
-        const aiMessage = await chat(input);
+        const aiMessage = await chat(input, messages);
         if (aiMessage == null) {
             setMessages(currentMessages.concat({type: "error", message: "AI Error"}));
         } else {
             setMessages(currentMessages.concat({type: "watson", message: aiMessage}));
+            incrementChatCount('watson');
         }
         setWaiting(false);
         setInput('');
@@ -53,20 +56,20 @@ const WatsonSurvey = ({messages, setMessages, chat, count}) => {
                         className={styles.input}
                         value={input}
                         onChange={e => setInput(e.target.value)}
-                        placeholder={count >= 15 ? "No more questions" : "Type a survey question"}
+                        placeholder={chatCounts.watson >= 15 ? "No more questions" : "Type a survey question"}
                         disabled={waiting}
                     />
                     <button
                         className={styles.button}
                         type="submit"
-                        disabled={waiting || count >= 15}
+                        disabled={waiting || chatCounts.watson >= 15}
                     >
                         Send
                     </button>
                 </div>
             </form>
             <div className={styles.fieldRow}>
-                <span className={styles.questionCount}>Questions: {count}/15</span>
+                <span className={styles.questionCount}>Questions: {chatCounts.watson}/15</span>
             </div>
         </div>
     );

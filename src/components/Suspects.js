@@ -12,7 +12,7 @@ const Suspects = ({ suspects }) => {
     const { apiKey, suspectChatHistory, updateSuspectChatHistory } = useGameStore();
     const scenario = useScenarioStore((state) => state.scenario);
 
-    const { count, chat } = useChatGpt(
+    const { chat } = useChatGpt(
         apiKey,
         selectedSuspect ? getInterviewSystemMessage(selectedSuspect, scenario) : ''
     );
@@ -46,7 +46,6 @@ const Suspects = ({ suspects }) => {
                         setMessages={(newMessages) => updateSuspectChatHistory(selectedSuspect.name, newMessages)}
                         offInterview={handleCloseInterview}
                         chat={chat}
-                        count={count}
                     />
                 ) : (
                     <div className={styles.noSelection}>

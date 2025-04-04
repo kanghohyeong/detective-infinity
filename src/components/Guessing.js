@@ -7,10 +7,9 @@ import { getScorerSystemMessage } from "../prompt/prompt";
 import styles from '../styles/components/Guessing.module.css';
 
 const Guessing = ({ suspects }) => {
-    const { apiKey, guessingHistory, updateGuessingHistory } = useGameStore();
+    const { apiKey, guessingHistory, updateGuessingHistory, chatCounts, incrementChatCount, finishGame } = useGameStore();
     const scenario = useScenarioStore((state) => state.scenario);
-    const { finishGame } = useGameStore();
-    const { count, chat } = useChatGpt(apiKey, getScorerSystemMessage(scenario), 0.4);
+    const { chat } = useChatGpt(apiKey, getScorerSystemMessage(scenario), 0.4);
 
     const [who, setWho] = useState(suspects[0].name);
     const [reasoning, setReasoning] = useState('');
@@ -45,6 +44,7 @@ const Guessing = ({ suspects }) => {
                 "hint": guessingJson.hint
             });
             updateGuessingHistory(newHistory);
+            incrementChatCount('guessing');
         } catch (e) {
             window.alert("Ai Error. retry.");
         } finally {
@@ -55,15 +55,15 @@ const Guessing = ({ suspects }) => {
     };
 
     useEffect(() => {
-        if (count >= 5) {
+        if ((chatCounts.guessing || 0) >= 5) {
             window.alert("No more try..");
             finishGame();
         }
-    }, [count, finishGame]);
+    }, [chatCounts.guessing, finishGame]);
 
     return (
         <div className={styles.container}>
-            <h1 className={styles.title}>Max Try : {count}/5</h1>
+            <h1 className={styles.title}>Max Try : {(chatCounts.guessing || 0)}/5</h1>
             {guessingHistory.map((history, index) => (
                 <div className={styles.history} key={index}>
                     <h3 className={styles.historyTitle}>try {index + 1}</h3>
@@ -114,7 +114,7 @@ const Guessing = ({ suspects }) => {
                     <button
                         className={styles.button}
                         type="submit"
-                        disabled={waiting}
+                        disabled={waiting || (chatCounts.guessing || 0) >= 5}
                     >
                         Busted!
                     </button>
