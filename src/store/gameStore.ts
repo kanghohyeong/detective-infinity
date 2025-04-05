@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { GAME_STATUS, CHAT_TYPE, ChatType, GameStatus } from '../model/enums';
+import { ChatMessage } from '../hooks/useChatGpt';
 
 interface ChatCounts {
     watson: number;
@@ -7,21 +8,28 @@ interface ChatCounts {
     guessing: number;
 }
 
+interface GuessingHistory {
+    name: string;
+    reasoning: string;
+    grade: string;
+    hint: string;
+}
+
 interface GameState {
     gameStatus: GameStatus;
     progress: number;
     apiKey: string;
-    suspectChatHistory: Record<string, any[]>;
-    watsonChatHistory: any[];
-    guessingHistory: any[];
+    suspectChatHistory: Record<string, ChatMessage[]>;
+    watsonChatHistory: ChatMessage[];
+    guessingHistory: GuessingHistory[];
     chatCounts: ChatCounts;
     setGameStatus: (status: GameStatus) => void;
     setProgress: (progress: number) => void;
     finishGame: () => void;
     updateApiKey: (newApiKey: string) => void;
-    updateSuspectChatHistory: (suspectName: string, messages: any[]) => void;
-    updateWatsonChatHistory: (messages: any[]) => void;
-    updateGuessingHistory: (history: any[]) => void;
+    updateSuspectChatHistory: (suspectName: string, messages: ChatMessage[]) => void;
+    updateWatsonChatHistory: (messages: ChatMessage[]) => void;
+    updateGuessingHistory: (history: GuessingHistory[]) => void;
     incrementChatCount: (type: ChatType, suspectName?: string) => void;
     resetChatCounts: () => void;
 }

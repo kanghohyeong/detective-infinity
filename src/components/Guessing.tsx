@@ -57,10 +57,10 @@ const Guessing: React.FC<GuessingProps> = ({ suspects }) => {
                 return;
             }
             const newHistory = guessingHistory.concat({
-                "name": who,
-                "reasoning": reasoning,
-                "grade": guessingJson.grade,
-                "hint": guessingJson.hint
+                name: who,
+                reasoning: reasoning,
+                grade: guessingJson.grade,
+                hint: guessingJson.hint
             });
             updateGuessingHistory(newHistory);
             incrementChatCount(CHAT_TYPE.GUESSING);
