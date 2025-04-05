@@ -1,13 +1,13 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import useGameStore from "../store/gameStore";
 import styles from '../styles/Loading.module.css';
 
-const Loading = () => {
-    const [loadingText, setLoadingText] = useState("Please wait..");
-    const [progressText, setProgressText] = useState("XXXXXXXXXXXXXXXXXXXX");
+const Loading: React.FC = () => {
+    const [loadingText, setLoadingText] = useState<string>("Please wait..");
+    const [progressText, setProgressText] = useState<string>("XXXXXXXXXXXXXXXXXXXX");
     const { progress } = useGameStore();
 
-    const loadingTextArray = [
+    const loadingTextArray: string[] = [
         'Deciphering clues...',
         'Sleuthing mysteries...',
         'Setting up the crime scene...',
@@ -22,10 +22,10 @@ const Loading = () => {
         'Shuffling case files...'
     ];
 
-    const pickRandomText = () => {
+    const pickRandomText = (): string => {
         const randomIndex = Math.floor(Math.random() * loadingTextArray.length);
         return loadingTextArray[randomIndex];
-    }
+    };
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -35,7 +35,7 @@ const Loading = () => {
         setProgressText("XXXXXXXXXXXXXXXXXXXX");
 
         return () => clearInterval(interval);
-    },[]);
+    }, []);
 
     useEffect(() => {
         const ok = Math.floor((progress / 5) + 0.5);
@@ -57,4 +57,4 @@ const Loading = () => {
     );
 };
 
-export default Loading;
+export default Loading; 
