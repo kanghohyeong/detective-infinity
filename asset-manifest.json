@@ -1,33 +1,15 @@
 {
   "files": {
-    "main.css": "/detective-infinity/static/css/main.e0a2691c.css",
-    "main.js": "/detective-infinity/static/js/main.bd2c37fc.js",
-    "static/js/714.bb631b46.chunk.js": "/detective-infinity/static/js/714.bb631b46.chunk.js",
-    "static/js/794.219bfbe6.chunk.js": "/detective-infinity/static/js/794.219bfbe6.chunk.js",
-    "static/js/33.316bf49b.chunk.js": "/detective-infinity/static/js/33.316bf49b.chunk.js",
-    "static/js/668.472229f0.chunk.js": "/detective-infinity/static/js/668.472229f0.chunk.js",
+    "main.css": "/detective-infinity/static/css/main.ca2eea35.css",
+    "main.js": "/detective-infinity/static/js/main.6ad2c5ba.js",
     "static/js/787.8e4701c1.chunk.js": "/detective-infinity/static/js/787.8e4701c1.chunk.js",
-    "static/media/ChicagoFLF.woff": "/detective-infinity/static/media/ChicagoFLF.1fc01d6b69fad63e3bf5.woff",
-    "static/media/ChicagoFLF.woff2": "/detective-infinity/static/media/ChicagoFLF.835bc739763a639988e2.woff2",
-    "static/media/ChiKareGo2.woff": "/detective-infinity/static/media/ChiKareGo2.3bf61dbb305fae41689f.woff",
-    "static/media/FindersKeepers.woff": "/detective-infinity/static/media/FindersKeepers.ac2f921ef4c3c63107a9.woff",
-    "static/media/ChiKareGo2.woff2": "/detective-infinity/static/media/ChiKareGo2.fa52657afa2f46da97b5.woff2",
-    "static/media/monaco.woff": "/detective-infinity/static/media/monaco.1533e461f14a5d071443.woff",
-    "static/media/FindersKeepers.woff2": "/detective-infinity/static/media/FindersKeepers.a04bc38817a829a7b4f7.woff2",
-    "static/media/monaco.woff2": "/detective-infinity/static/media/monaco.9f0c755ba32552ecfd97.woff2",
-    "static/media/button-default.svg": "/detective-infinity/static/media/button-default.33d9fa956730ecacb13b.svg",
     "index.html": "/detective-infinity/index.html",
-    "static/media/button.svg": "/detective-infinity/static/media/button.692d8269c01a5c4053ec.svg",
-    "main.e0a2691c.css.map": "/detective-infinity/static/css/main.e0a2691c.css.map",
-    "main.bd2c37fc.js.map": "/detective-infinity/static/js/main.bd2c37fc.js.map",
-    "714.bb631b46.chunk.js.map": "/detective-infinity/static/js/714.bb631b46.chunk.js.map",
-    "794.219bfbe6.chunk.js.map": "/detective-infinity/static/js/794.219bfbe6.chunk.js.map",
-    "33.316bf49b.chunk.js.map": "/detective-infinity/static/js/33.316bf49b.chunk.js.map",
-    "668.472229f0.chunk.js.map": "/detective-infinity/static/js/668.472229f0.chunk.js.map",
+    "main.ca2eea35.css.map": "/detective-infinity/static/css/main.ca2eea35.css.map",
+    "main.6ad2c5ba.js.map": "/detective-infinity/static/js/main.6ad2c5ba.js.map",
     "787.8e4701c1.chunk.js.map": "/detective-infinity/static/js/787.8e4701c1.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e0a2691c.css",
-    "static/js/main.bd2c37fc.js"
+    "static/css/main.ca2eea35.css",
+    "static/js/main.6ad2c5ba.js"
   ]
 }
