@@ -1,5 +1,7 @@
 # 🔍 DETECTIVE INFINITY
 
+![DETECTIVE INFINITY Title](https://github.com/user-attachments/assets/ed489838-8788-487d-8c17-53241b297ca5)
+
 > *在AI驱动的神秘冒险中，成为属于你的福尔摩斯！*
 
 [English](https://github.com/kanghohyeong/detective-infinity/blob/master/README.md) | [한국어](https://github.com/kanghohyeong/detective-infinity/blob/master/README.ko.md) | [中文](https://github.com/kanghohyeong/detective-infinity/blob/master/README.zh.md)
@@ -11,7 +13,6 @@
 - **无限谜题**：每次游戏都是全新的案件、嫌疑人和转折
 - **沉浸式体验**：通过聊天进行调查，审讯嫌疑人，组合线索
 - **AI驱动剧情**：根据你的选择和推理动态变化的故事情节
-- **无需后端**：直接在浏览器中游玩，确保完全隐私
 - **沃森AI助手**：你值得信赖的AI搭档，协助你破解案件
 - **🌍 全球语言支持**：支持英语、中文、日语、法语等多种语言！
 
@@ -23,19 +24,17 @@
 
 ## 📸 案件档案（截图）
 
-### 开始
-![序幕](https://github.com/kanghohyeong/detective-infinity/assets/63776725/d74d1d1e-592a-47ba-a788-aba358f4705e)
+### 犯罪现场
+![序幕](https://github.com/user-attachments/assets/349ec8ca-b3da-4417-9e2c-71d1b193dd88)
 
 ### 审讯室
-![嫌疑人审讯 1](https://github.com/kanghohyeong/detective-infinity/assets/63776725/50576213-dc5c-4158-95b2-7b73196d8f4b)
-![嫌疑人审讯 2](https://github.com/kanghohyeong/detective-infinity/assets/63776725/e7d527f7-d0d7-4e49-8fb6-7e7eb8e9322e)
+![嫌疑人审讯](https://github.com/user-attachments/assets/29f73ee9-df62-4bb1-9c8f-a322a89f69c2)
 
 ### AI搭档
-![沃森 1](https://github.com/kanghohyeong/detective-infinity/assets/63776725/7d605adc-4af3-491f-a29d-d085c215527b)
-![沃森 2](https://github.com/kanghohyeong/detective-infinity/assets/63776725/3e369f80-f1cf-42af-898b-3def8f91d139)
+![沃森](https://github.com/user-attachments/assets/e55cb7f1-6a3a-4417-86c1-8909cd53a4d8)
 
-### 真相揭晓
-![推理](https://github.com/kanghohyeong/detective-infinity/assets/63776725/668d746e-d692-48b2-afae-c9a55eeb63f2)
+### 解决案件
+![推理](https://github.com/user-attachments/assets/b4e865eb-dfaa-4774-8391-2535e1266f11)
 
 ## 🤝 加入我们！
 

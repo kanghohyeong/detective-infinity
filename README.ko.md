@@ -1,5 +1,7 @@
 # 🔍 DETECTIVE INFINITY
 
+![DETECTIVE INFINITY Title](https://github.com/user-attachments/assets/ed489838-8788-487d-8c17-53241b297ca5)
+
 > *AI가 만드는 미스터리 모험에서 당신만의 셜록 홈즈가 되어보세요!*
 
 [English](https://github.com/kanghohyeong/detective-infinity/blob/master/README.md) | [한국어](https://github.com/kanghohyeong/detective-infinity/blob/master/README.ko.md) | [中文](https://github.com/kanghohyeong/detective-infinity/blob/master/README.zh.md)
@@ -11,7 +13,6 @@
 - **무한한 미스터리**: 매 플레이마다 새로운 사건, 용의자, 그리고 반전이 펼쳐집니다
 - **몰입감 있는 경험**: 채팅을 통해 수사를 진행하고, 용의자를 심문하며, 단서를 조합하세요
 - **AI 기반 스토리텔링**: 여러분의 선택과 추리에 따라 변화하는 동적인 이야기
-- **백엔드 불필요**: 브라우저에서 즉시 플레이 가능하며, 완벽한 개인정보 보호
 - **왓슨 AI 조수**: 사건 해결을 도와주는 믿음직한 AI 동반자
 - **🌍 전 세계 언어 지원**: 영어, 한국어, 일본어, 프랑스어 등 원하는 언어로 플레이 가능!
 
@@ -23,19 +24,17 @@
 
 ## 📸 사건 기록 (스크린샷)
 
-### 시작
-![프롤로그](https://github.com/kanghohyeong/detective-infinity/assets/63776725/d74d1d1e-592a-47ba-a788-aba358f4705e)
+### 범죄 현장
+![프롤로그](https://github.com/user-attachments/assets/349ec8ca-b3da-4417-9e2c-71d1b193dd88)
 
 ### 심문실
-![용의자 심문 1](https://github.com/kanghohyeong/detective-infinity/assets/63776725/50576213-dc5c-4158-95b2-7b73196d8f4b)
-![용의자 심문 2](https://github.com/kanghohyeong/detective-infinity/assets/63776725/e7d527f7-d0d7-4e49-8fb6-7e7eb8e9322e)
+![용의자 심문](https://github.com/user-attachments/assets/29f73ee9-df62-4bb1-9c8f-a322a89f69c2)
 
 ### AI 파트너
-![왓슨 1](https://github.com/kanghohyeong/detective-infinity/assets/63776725/7d605adc-4af3-491f-a29d-d085c215527b)
-![왓슨 2](https://github.com/kanghohyeong/detective-infinity/assets/63776725/3e369f80-f1cf-42af-898b-3def8f91d139)
+![왓슨](https://github.com/user-attachments/assets/e55cb7f1-6a3a-4417-86c1-8909cd53a4d8)
 
-### 진실 공개
-![추리](https://github.com/kanghohyeong/detective-infinity/assets/63776725/668d746e-d692-48b2-afae-c9a55eeb63f2)
+### 사건 해결
+![추리](https://github.com/user-attachments/assets/b4e865eb-dfaa-4774-8391-2535e1266f11)
 
 ## 🤝 함께 만들어가기!
 
