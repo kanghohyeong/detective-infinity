@@ -27,6 +27,7 @@ interface GameState {
     setProgress: (progress: number) => void;
     finishGame: () => void;
     updateApiKey: (newApiKey: string) => void;
+    resetGameState: () => void;
     updateSuspectChatHistory: (suspectName: string, messages: ChatMessage[]) => void;
     updateWatsonChatHistory: (messages: ChatMessage[]) => void;
     updateGuessingHistory: (history: GuessingHistory[]) => void;
@@ -50,6 +51,16 @@ const useGameStore = create<GameState>((set) => ({
     setProgress: (progress) => set({ progress }),
     finishGame: () => set({ gameStatus: GAME_STATUS.FINISH }),
     updateApiKey: (newApiKey) => set({ apiKey: newApiKey }),
+    resetGameState: () => set({
+        suspectChatHistory: {},
+        watsonChatHistory: [],
+        guessingHistory: [],
+        chatCounts: {
+            watson: 0,
+            suspects: {},
+            guessing: 0
+        }
+    }),
     updateSuspectChatHistory: (suspectName, messages) => set((state) => ({
         suspectChatHistory: {
             ...state.suspectChatHistory,

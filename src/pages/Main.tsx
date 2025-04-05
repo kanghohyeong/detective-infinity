@@ -15,7 +15,7 @@ const Main: React.FC = () => {
     const [language, setLanguage] = useState<string>("English");
     const { chat: writerChat } = useChatGpt(apiKey, getStoryWriterSystemMessage(language));
     const { chat: parserChat } = useChatGpt(apiKey, "You are OutputParser.", 0);
-    const { setGameStatus, setProgress } = useGameStore();
+    const { setGameStatus, setProgress, resetGameState } = useGameStore();
 
     const handlePlayBtn = async () => {
         if (apiKey === '') {
@@ -23,6 +23,7 @@ const Main: React.FC = () => {
             return;
         }
         setGameStatus(GAME_STATUS.LOADING);
+        resetGameState();
 
         if (background === "skip generate") {
             updateScenario(testScenario);
