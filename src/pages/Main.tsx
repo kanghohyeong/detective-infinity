@@ -5,7 +5,6 @@ import { ScenarioScheme } from "../model/ScenarioScheme";
 import testScenario from "../test_scenario.json";
 import { getStoryWriterSystemMessage } from "../prompt/prompt";
 import { useChatGpt } from "../hooks/useChatGpt";
-import { ChatOpenAI } from "@langchain/openai";
 import useGameStore from "../store/gameStore";
 import styles from '../styles/Main.module.css';
 
@@ -15,6 +14,7 @@ const Main: React.FC = () => {
     const [background, setBackground] = useState<string>("");
     const [language, setLanguage] = useState<string>("English");
     const { chat: writerChat } = useChatGpt(apiKey, getStoryWriterSystemMessage(language));
+    const { chat: parserChat } = useChatGpt(apiKey, "You are OutputParser.", 0);
     const { setGameStatus, setProgress } = useGameStore();
 
     const handlePlayBtn = async () => {
@@ -67,13 +67,7 @@ const Main: React.FC = () => {
             writerChatHistory = [...writerChatHistory, { type: 'user', message: 'Describe the story, alibi, of the other three suspects, excluding the murderer, among the four suspects defined above. The suspects had a chance to commit the crime and a motive for the murder, but they did not actually kill.' }, { type: 'assistant', message: story }];
             setProgress(75);
 
-            const model = new ChatOpenAI({
-                openAIApiKey: apiKey,
-                temperature: 0,
-                model: "gpt-4o-mini-2024-07-18"
-            }).withStructuredOutput(ScenarioScheme);
-
-            const scenarioJson = await model.invoke(`
+            const scenarioJson = await parserChat(`
                 Based on the following story elements, generate a structured scenario in ${language}:
                 
                 Victim: ${victim}
@@ -83,9 +77,9 @@ const Main: React.FC = () => {
                 Murderer: ${murderer}
                 ----
                 Suspects' Stories: ${story}
-            `);
+            `, [], ScenarioScheme);
 
-            console.log(`scenario parse ok - ${JSON.stringify(scenarioJson)}`);
+            // console.log(`scenario parse ok - ${JSON.stringify(scenarioJson)}`);
             setProgress(100);
             updateScenario(scenarioJson);
             setGameStatus(GAME_STATUS.PLAYING);

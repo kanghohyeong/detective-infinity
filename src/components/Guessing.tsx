@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { GuessingParser } from "../model/GuessingScheme";
+import { GuessingScheme } from "../model/GuessingScheme";
 import useScenarioStore from "../store/scenarioStore";
 import useGameStore from "../store/gameStore";
 import { useChatGpt } from "../hooks/useChatGpt";
@@ -38,20 +38,17 @@ const Guessing: React.FC<GuessingProps> = ({ suspects }) => {
         const guessPrompt = `This is my reasoning.
         - murderer: ${who}
         - reasoning: ${reasoning}
-        ---
-        ${GuessingParser.getFormatInstructions()}
         `;
-        const aiMessage = await chat(guessPrompt);
+        const guessScore = await chat(guessPrompt, [], GuessingScheme);
 
-        if (aiMessage === null) {
+        if (guessScore === null) {
             window.alert("Ai Error. retry.");
             setWaiting(false);
             return;
         }
 
         try {
-            const guessingJson = await GuessingParser.parse(aiMessage);
-            if (guessingJson.grade === "S") {
+            if (guessScore.grade === "S") {
                 window.alert('Congratulation!!');
                 finishGame();
                 return;
@@ -59,8 +56,8 @@ const Guessing: React.FC<GuessingProps> = ({ suspects }) => {
             const newHistory = guessingHistory.concat({
                 name: who,
                 reasoning: reasoning,
-                grade: guessingJson.grade,
-                hint: guessingJson.hint
+                grade: guessScore.grade,
+                hint: guessScore.hint
             });
             updateGuessingHistory(newHistory);
             incrementChatCount(CHAT_TYPE.GUESSING);

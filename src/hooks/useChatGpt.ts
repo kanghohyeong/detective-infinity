@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { ChatOpenAI } from "@langchain/openai";
 import { AIMessage, HumanMessage, SystemMessage } from "@langchain/core/messages";
+import { ZodType } from "zod";
 
 export interface ChatMessage {
     type: 'user' | 'assistant' | 'error' | string;
@@ -8,7 +9,7 @@ export interface ChatMessage {
 }
 
 interface UseChatGptReturn {
-    chat: (message: string, chatHistory?: ChatMessage[]) => Promise<string | null>;
+    chat: (message: string, chatHistory?: ChatMessage[], structuredOutput?: ZodType) => Promise<string | any | null>;
 }
 
 export const useChatGpt = (
@@ -29,8 +30,9 @@ export const useChatGpt = (
 
     const executeHumanQuestion = async (
         message: string,
-        chatHistory: ChatMessage[] = []
-    ): Promise<string | null> => {
+        chatHistory: ChatMessage[] = [],
+        structuredOutput: ZodType | null = null
+    ): Promise<any | string | null> => {
         let messages;
         try {
             messages = [
@@ -49,9 +51,18 @@ export const useChatGpt = (
                 throw new Error('Chat model not initialized');
             }
 
-            const response = await model.current.invoke(messages);
-            console.log(`chat ok. ${response.content}`);
-            return typeof response.content === 'string' ? response.content : null;
+            let pipedModel;
+            if (structuredOutput !== null) {
+                pipedModel = model.current.withStructuredOutput(structuredOutput);
+            } else {
+                pipedModel = model.current;
+            }
+
+            const response = await pipedModel.invoke(message);
+            console.log("chat ok");
+            console.log(response);
+
+            return structuredOutput !== null ? response : response.content;
         } catch (e) {
             console.error(e);
             return null;
