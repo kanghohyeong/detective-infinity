@@ -56,26 +56,11 @@ const useGameStore = create<GameState>((set) => ({
     resetGameState: () => set({
         suspectChatHistory: {},
         watsonChatHistory: [],
-        guessingHistory: [{
-            name: "sdf",
-            method: "just",
-            motive: "just",
-            evidence: "just",
-            grade: "C",
-            hint: "do it"
-        },
-        {
-            name: "2",
-            method: "just",
-            motive: "just",
-            evidence: "just",
-            grade: "B",
-            hint: "do it"
-        }],
+        guessingHistory: [],
         chatCounts: {
             watson: 0,
             suspects: {},
-            guessing: 2
+            guessing: 0
         }
     }),
     updateSuspectChatHistory: (suspectName, messages) => set((state) => ({
