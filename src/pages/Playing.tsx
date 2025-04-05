@@ -40,7 +40,7 @@ const Playing: React.FC = () => {
                     className={activeTab === GAME_TABS.PROLOGUE ? styles.tabActive : styles.tab}
                     onClick={() => changeActiveTab(GAME_TABS.PROLOGUE)}
                 >
-                    Prologue
+                    The Crime Scene
                 </div>
                 <div 
                     className={activeTab === GAME_TABS.SUSPECTS ? styles.tabActive : styles.tab}
@@ -58,7 +58,7 @@ const Playing: React.FC = () => {
                     className={activeTab === GAME_TABS.GUESSING ? styles.tabActive : styles.tab}
                     onClick={() => changeActiveTab(GAME_TABS.GUESSING)}
                 >
-                    I got it!!!
+                    Solve the Case
                 </div>
             </div>
             <div className={styles.contentArea}>

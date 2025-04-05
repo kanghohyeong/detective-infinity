@@ -12,7 +12,6 @@ export const GAME_TABS = {
     WATSON: 'watson',
     SUSPECTS: 'suspects',
     GUESSING: 'guessing',
-    EPILOGUE: 'epilogue'
 } as const;
 
 export type GameTab = typeof GAME_TABS[keyof typeof GAME_TABS];
