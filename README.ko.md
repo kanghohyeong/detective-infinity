@@ -1,6 +1,6 @@
 # 🔍 DETECTIVE INFINITY
 
-![DETECTIVE INFINITY Title](https://github.com/user-attachments/assets/ed489838-8788-487d-8c17-53241b297ca5)
+![DETECTIVE INFINITY Title](./screenshots/detective-infinity-title-black.png)
 
 > *AI가 만드는 미스터리 모험에서 당신만의 셜록 홈즈가 되어보세요!*
 
@@ -25,16 +25,16 @@
 ## 📸 사건 기록 (스크린샷)
 
 ### 범죄 현장
-![프롤로그](https://github.com/user-attachments/assets/349ec8ca-b3da-4417-9e2c-71d1b193dd88)
+![프롤로그](./screenshots/prologue.png)
 
 ### 심문실
-![용의자 심문](https://github.com/user-attachments/assets/29f73ee9-df62-4bb1-9c8f-a322a89f69c2)
+![용의자 심문](./screenshots/suspects.png)
 
 ### AI 파트너
-![왓슨](https://github.com/user-attachments/assets/e55cb7f1-6a3a-4417-86c1-8909cd53a4d8)
+![왓슨](./screenshots/watson.png)
 
 ### 사건 해결
-![추리](https://github.com/user-attachments/assets/b4e865eb-dfaa-4774-8391-2535e1266f11)
+![추리](./screenshots/guessing.png)
 
 ## 🤝 함께 만들어가기!
 

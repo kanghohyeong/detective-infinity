@@ -1,6 +1,6 @@
 # 🔍 DETECTIVE INFINITY
 
-![DETECTIVE INFINITY Title](https://github.com/user-attachments/assets/ed489838-8788-487d-8c17-53241b297ca5)
+![DETECTIVE INFINITY Title](./screenshots/detective-infinity-title-black.png)
 
 > *在AI驱动的神秘冒险中，成为属于你的福尔摩斯！*
 
@@ -25,16 +25,16 @@
 ## 📸 案件档案（截图）
 
 ### 犯罪现场
-![序幕](https://github.com/user-attachments/assets/349ec8ca-b3da-4417-9e2c-71d1b193dd88)
+![序幕](./screenshots/prologue.png)
 
 ### 审讯室
-![嫌疑人审讯](https://github.com/user-attachments/assets/29f73ee9-df62-4bb1-9c8f-a322a89f69c2)
+![嫌疑人审讯](./screenshots/suspects.png)
 
 ### AI搭档
-![沃森](https://github.com/user-attachments/assets/e55cb7f1-6a3a-4417-86c1-8909cd53a4d8)
+![沃森](./screenshots/watson.png)
 
 ### 解决案件
-![推理](https://github.com/user-attachments/assets/b4e865eb-dfaa-4774-8391-2535e1266f11)
+![推理](./screenshots/guessing.png)
 
 ## 🤝 加入我们！
 

@@ -1,6 +1,6 @@
 # 🔍 DETECTIVE INFINITY
 
-![DETECTIVE INFINITY Title](https://github.com/user-attachments/assets/ed489838-8788-487d-8c17-53241b297ca5)
+![DETECTIVE INFINITY Title](./screenshots/detective-infinity-title-black.png)
 
 > *Unleash your inner Sherlock Holmes in an AI-powered mystery adventure!*
 
@@ -25,16 +25,16 @@ Want to tinker with the code? Clone the repository and start exploring!
 ## 📸 Case Files (Screenshots)
 
 ### The Crime Scene
-![Prologue](https://github.com/user-attachments/assets/349ec8ca-b3da-4417-9e2c-71d1b193dd88)
+![Prologue](./screenshots/prologue.png)
 
 ### Interrogation Room
-![Suspect Interview](https://github.com/user-attachments/assets/29f73ee9-df62-4bb1-9c8f-a322a89f69c2)
+![Suspect Interview](./screenshots/suspects.png)
 
 ### Your AI Partner
-![Watson](https://github.com/user-attachments/assets/e55cb7f1-6a3a-4417-86c1-8909cd53a4d8)
+![Watson](./screenshots/watson.png)
 
 ### Solve the Case
-![Guessing](https://github.com/user-attachments/assets/b4e865eb-dfaa-4774-8391-2535e1266f11)
+![Guessing](./screenshots/guessing.png)
 
 
 ## 🤝 Join the Investigation!
