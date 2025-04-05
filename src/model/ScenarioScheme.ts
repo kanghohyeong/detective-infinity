@@ -33,7 +33,7 @@ const TruthScheme = z.object({
 export const ScenarioScheme = z.object({
     title: z.string().describe("title of scenario"),
     victim: VictimScheme.describe("information of the victim"),
-    crimeScene: z.string().describe("Describe the crime scene"),
+    crimeScene: z.string().describe("Describe the crime scene—only what’s visible"),
     suspects: z.array(SuspectScheme).describe("information of the suspects. One of the suspects must be a murderer(set 'isMurderer: true')."),
     truth: TruthScheme.describe("The truth of the murder that the player (== detective role) must reveal"),
     prologue: z.string().describe("prologue of the game."),

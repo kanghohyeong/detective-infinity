@@ -25,6 +25,7 @@ export const useChatGpt = (
             temperature: temperature,
             openAIApiKey: apiKey,
             model: "gpt-4o-mini-2024-07-18"
+            // model: "gpt-4o-2024-11-20"
         });
     }, [apiKey, temperature]);
 
@@ -46,6 +47,8 @@ export const useChatGpt = (
                 }),
                 new HumanMessage(message)
             ];
+            console.log('chat start')
+            console.log(messages);
 
             if (!model.current) {
                 throw new Error('Chat model not initialized');
@@ -58,7 +61,7 @@ export const useChatGpt = (
                 pipedModel = model.current;
             }
 
-            const response = await pipedModel.invoke(message);
+            const response = await pipedModel.invoke(messages);
             console.log("chat ok");
             console.log(response);
 
