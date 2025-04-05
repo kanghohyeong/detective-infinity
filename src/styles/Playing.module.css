@@ -22,9 +22,9 @@
   transition: var(--transition-default);
 }
 
-.tab:hover {
-  background: var(--color-surface-dark);
-}
+/* .tab:hover { */
+  /* background: var(--color-surface-dark); */
+/* } */
 
 .tabActive {
   composes: tab;

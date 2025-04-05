@@ -17,7 +17,7 @@ const WatsonSurvey: React.FC<WatsonSurveyProps> = ({ messages, setMessages, chat
     const { chatCounts, incrementChatCount } = useGameStore();
 
     const scrollToBottom = () => {
-        endOfMessages.current?.scrollIntoView({ behavior: 'smooth' });
+        endOfMessages.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
     };
 
     useEffect(scrollToBottom, [messages]);

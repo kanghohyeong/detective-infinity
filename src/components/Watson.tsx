@@ -23,7 +23,7 @@ const Watson: React.FC = () => {
                     className={styles.character}
                 />
                 <h3 className={styles.title}>What shall we investigate, detective?</h3>
-                <p className={styles.description}>crime scene investigation, surrounding investigation, etc..</p>
+                <p className={styles.description}>Watson at your service! Just give me a shout if you need a hand solving this mystery!</p>
             </div>
             <div className={styles.chatArea}>
                 <WatsonSurvey

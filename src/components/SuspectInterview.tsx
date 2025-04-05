@@ -12,12 +12,12 @@ interface SuspectInterviewProps {
     chat: (message: string, chatHistory?: ChatMessage[]) => Promise<string | null>;
 }
 
-const SuspectInterview: React.FC<SuspectInterviewProps> = ({ 
-    name, 
-    messages, 
-    setMessages, 
-    offInterview, 
-    chat 
+const SuspectInterview: React.FC<SuspectInterviewProps> = ({
+    name,
+    messages,
+    setMessages,
+    offInterview,
+    chat
 }) => {
     const [input, setInput] = useState('');
     const [waiting, setWaiting] = useState(false);
@@ -25,7 +25,7 @@ const SuspectInterview: React.FC<SuspectInterviewProps> = ({
     const { chatCounts, incrementChatCount } = useGameStore();
 
     const scrollToBottom = () => {
-        endOfMessages.current?.scrollIntoView({ behavior: 'smooth' });
+        endOfMessages.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
 
     useEffect(scrollToBottom, [messages]);
