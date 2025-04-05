@@ -6,6 +6,7 @@ import { useChatGpt } from "../hooks/useChatGpt";
 import { getScorerSystemMessage } from "../prompt/prompt";
 import styles from '../styles/components/Guessing.module.css';
 import { Suspect } from '../model/ScenarioScheme';
+import { CHAT_TYPE } from '../model/enums';
 
 interface GuessingProps {
     suspects: Suspect[];
@@ -62,7 +63,7 @@ const Guessing: React.FC<GuessingProps> = ({ suspects }) => {
                 "hint": guessingJson.hint
             });
             updateGuessingHistory(newHistory);
-            incrementChatCount('guessing');
+            incrementChatCount(CHAT_TYPE.GUESSING);
         } catch (e) {
             window.alert("Ai Error. retry.");
         } finally {

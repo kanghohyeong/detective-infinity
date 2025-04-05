@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import useGameStore from "../store/gameStore";
 import styles from '../styles/components/SuspectInterview.module.css';
 import { ChatMessage } from '../hooks/useChatGpt';
+import { CHAT_TYPE } from '../model/enums';
 
 interface SuspectInterviewProps {
     name: string;
@@ -46,7 +47,7 @@ const SuspectInterview: React.FC<SuspectInterviewProps> = ({
             setMessages(currentMessages.concat({ type: "error", message: "AI Error" }));
         } else {
             setMessages(currentMessages.concat({ type: name, message: aiMessage }));
-            incrementChatCount('suspect', name);
+            incrementChatCount(CHAT_TYPE.SUSPECT, name);
         }
         setWaiting(false);
         setInput('');

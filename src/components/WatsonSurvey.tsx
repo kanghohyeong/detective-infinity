@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import useGameStore from "../store/gameStore";
 import { ChatMessage } from '../hooks/useChatGpt';
+import { CHAT_TYPE } from '../model/enums';
 import styles from '../styles/components/WatsonSurvey.module.css';
 
 interface WatsonSurveyProps {
@@ -35,7 +36,7 @@ const WatsonSurvey: React.FC<WatsonSurveyProps> = ({ messages, setMessages, chat
             setMessages(currentMessages.concat({ type: "error", message: "AI Error" }));
         } else {
             setMessages(currentMessages.concat({ type: "watson", message: aiMessage }));
-            incrementChatCount('watson');
+            incrementChatCount(CHAT_TYPE.WATSON);
         }
         setWaiting(false);
         setInput('');
