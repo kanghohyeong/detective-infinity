@@ -14,7 +14,9 @@ interface GuessingProps {
 
 interface GuessingHistory {
     name: string;
-    reasoning: string;
+    method: string;
+    motive: string;
+    evidence: string;
     grade: string;
     hint: string;
 }
@@ -25,19 +27,23 @@ const Guessing: React.FC<GuessingProps> = ({ suspects }) => {
     const { chat } = useChatGpt(apiKey, getScorerSystemMessage(scenario), 0.4);
 
     const [who, setWho] = useState(suspects[0].name);
-    const [reasoning, setReasoning] = useState('');
+    const [method, setMethod] = useState('');
+    const [motive, setMotive] = useState('');
+    const [evidence, setEvidence] = useState('');
     const [waiting, setWaiting] = useState(false);
 
     const handleSend = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        if (who === '' || reasoning === '') return;
+        if (who === '' || method === '' || motive === '' || evidence === '') return;
 
         setWaiting(true);
 
         const guessPrompt = `This is my reasoning.
         - murderer: ${who}
-        - reasoning: ${reasoning}
+        - method: ${method}
+        - motive: ${motive}
+        - evidence: ${evidence}
         `;
         const guessScore = await chat(guessPrompt, [], GuessingScheme);
 
@@ -55,7 +61,9 @@ const Guessing: React.FC<GuessingProps> = ({ suspects }) => {
             }
             const newHistory = guessingHistory.concat({
                 name: who,
-                reasoning: reasoning,
+                method: method,
+                motive: motive,
+                evidence: evidence,
                 grade: guessScore.grade,
                 hint: guessScore.hint
             });
@@ -66,7 +74,9 @@ const Guessing: React.FC<GuessingProps> = ({ suspects }) => {
         } finally {
             setWaiting(false);
             setWho(suspects[0].name);
-            setReasoning('');
+            setMethod('');
+            setMotive('');
+            setEvidence('');
         }
     };
 
@@ -79,24 +89,22 @@ const Guessing: React.FC<GuessingProps> = ({ suspects }) => {
 
     return (
         <div className={styles.container}>
-            <h1 className={styles.title}>Max Try : {(chatCounts.guessing || 0)}/5</h1>
-            {guessingHistory.map((history: GuessingHistory, index: number) => (
-                <div className={styles.history} key={index}>
-                    <h3 className={styles.historyTitle}>try {index + 1}</h3>
-                    <p className={styles.historyContent}>
-                        <span className={styles.historyLabel}>name:</span> {history.name}
-                    </p>
-                    <p className={styles.historyContent}>
-                        <span className={styles.historyLabel}>reasoning:</span> {history.reasoning}
-                    </p>
-                    <p className={styles.historyContent}>
-                        <span className={styles.historyLabel}>grade:</span> {history.grade}
-                    </p>
-                    <p className={styles.historyContent}>
-                        <span className={styles.historyLabel}>hint:</span> {history.hint}
-                    </p>
+            <div className={styles.tryContainer}>
+                <div className={styles.tryTitle}>Max Try</div>
+                <div className={styles.tryProgress}>
+                    <div className={styles.tryCount}>{(chatCounts.guessing || 0)}/5</div>
+                    <div className={styles.tryBar}>
+                        <div 
+                            className={styles.tryBarFill} 
+                            style={{ width: `${((chatCounts.guessing || 0) / 5) * 100}%` }}
+                        />
+                    </div>
                 </div>
-            ))}
+            </div>
+            <p className={styles.instruction}>
+                So, who's the murderer? Reveal the killer, the method of the crime, their motive—and the evidence to back it all up!
+            </p>
+
             <form className={styles.form} onSubmit={handleSend}>
                 <div className={styles.inputContainer}>
                     <label className={styles.label}>murderer</label>
@@ -111,12 +119,30 @@ const Guessing: React.FC<GuessingProps> = ({ suspects }) => {
                     </select>
                 </div>
                 <div className={styles.inputContainer}>
-                    <label className={styles.label}>reasoning</label>
+                    <label className={styles.label}>method</label>
                     <textarea
                         className={styles.textarea}
-                        value={reasoning}
-                        onChange={e => setReasoning(e.target.value)}
-                        placeholder="your reasoning"
+                        value={method}
+                        onChange={e => setMethod(e.target.value)}
+                        placeholder="How was the crime committed?"
+                    />
+                </div>
+                <div className={styles.inputContainer}>
+                    <label className={styles.label}>motive</label>
+                    <textarea
+                        className={styles.textarea}
+                        value={motive}
+                        onChange={e => setMotive(e.target.value)}
+                        placeholder="Why did they commit the crime?"
+                    />
+                </div>
+                <div className={styles.inputContainer}>
+                    <label className={styles.label}>evidence</label>
+                    <textarea
+                        className={styles.textarea}
+                        value={evidence}
+                        onChange={e => setEvidence(e.target.value)}
+                        placeholder="What evidence supports your theory?"
                     />
                 </div>
                 <div className={styles.buttonContainer}>
@@ -136,6 +162,29 @@ const Guessing: React.FC<GuessingProps> = ({ suspects }) => {
                     </button>
                 </div>
             </form>
+            {[...guessingHistory].reverse().map((history: GuessingHistory, index: number) => (
+                <div className={styles.history} key={index}>
+                    <h3 className={styles.historyTitle}># {guessingHistory.length - index}</h3>
+                    <p className={styles.historyContent}>
+                        <span className={styles.historyLabel}>name:</span> {history.name}
+                    </p>
+                    <p className={styles.historyContent}>
+                        <span className={styles.historyLabel}>method:</span> {history.method}
+                    </p>
+                    <p className={styles.historyContent}>
+                        <span className={styles.historyLabel}>motive:</span> {history.motive}
+                    </p>
+                    <p className={styles.historyContent}>
+                        <span className={styles.historyLabel}>evidence:</span> {history.evidence}
+                    </p>
+                    <p className={styles.historyContent}>
+                        <span className={styles.historyLabel}>grade:</span> {history.grade}
+                    </p>
+                    <p className={styles.historyContent}>
+                        <span className={styles.historyLabel}>hint:</span> {history.hint}
+                    </p>
+                </div>
+            ))}
         </div>
     );
 };

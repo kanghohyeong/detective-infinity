@@ -10,7 +10,9 @@ interface ChatCounts {
 
 interface GuessingHistory {
     name: string;
-    reasoning: string;
+    method: string;
+    motive: string;
+    evidence: string;
     grade: string;
     hint: string;
 }
@@ -54,11 +56,26 @@ const useGameStore = create<GameState>((set) => ({
     resetGameState: () => set({
         suspectChatHistory: {},
         watsonChatHistory: [],
-        guessingHistory: [],
+        guessingHistory: [{
+            name: "sdf",
+            method: "just",
+            motive: "just",
+            evidence: "just",
+            grade: "C",
+            hint: "do it"
+        },
+        {
+            name: "2",
+            method: "just",
+            motive: "just",
+            evidence: "just",
+            grade: "B",
+            hint: "do it"
+        }],
         chatCounts: {
             watson: 0,
             suspects: {},
-            guessing: 0
+            guessing: 2
         }
     }),
     updateSuspectChatHistory: (suspectName, messages) => set((state) => ({

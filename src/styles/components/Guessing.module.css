@@ -15,19 +15,26 @@
 
 .historyTitle {
   color: var(--color-text);
-  margin-bottom: var(--spacing-small);
+  margin-bottom: var(--spacing-medium);
   font-size: 1.1em;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: var(--spacing-small);
 }
 
 .historyContent {
   color: var(--color-text);
   margin: var(--spacing-small) 0;
+  padding: var(--spacing-small);
+  background: var(--color-surface-dark);
+  border-radius: 4px;
 }
 
 .historyLabel {
   color: var(--color-text-secondary);
   font-weight: 500;
   margin-right: var(--spacing-small);
+  display: inline-block;
+  min-width: 80px;
 }
 
 .form {
@@ -72,7 +79,7 @@
 
 .textarea {
   width: 60%;
-  height: 100px;
+  height: 60px;
   resize: none;
   padding: var(--spacing-small);
   background: var(--color-surface-dark);
@@ -117,4 +124,57 @@
   color: var(--color-text);
   margin-bottom: var(--spacing-medium);
   text-shadow: var(--shadow-text);
+}
+
+.instruction {
+  color: var(--color-text-secondary);
+  font-style: italic;
+  text-align: center;
+  margin-bottom: var(--spacing-medium);
+  line-height: 1.5;
+}
+
+.tryContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-small);
+  margin-bottom: var(--spacing-medium);
+}
+
+.tryTitle {
+  color: var(--color-text);
+  font-size: 1.2em;
+  font-weight: 500;
+  text-align: center;
+}
+
+.tryProgress {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-small);
+}
+
+.tryCount {
+  color: var(--color-text);
+  font-size: 1.1em;
+  font-weight: 500;
+}
+
+.tryBar {
+  width: 200px;
+  height: 8px;
+  background: var(--color-surface-darker);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.tryBarFill {
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 } 
