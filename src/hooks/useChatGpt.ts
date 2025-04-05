@@ -2,8 +2,21 @@ import { useEffect, useRef } from "react";
 import { ChatOpenAI } from "@langchain/openai";
 import { AIMessage, HumanMessage, SystemMessage } from "@langchain/core/messages";
 
-export const useChatGpt = (apiKey, systemMessage, temperature = 0.8) => {
-    const model = useRef(null);
+interface ChatMessage {
+    type: 'user' | 'assistant';
+    message: string;
+}
+
+interface UseChatGptReturn {
+    chat: (message: string, chatHistory?: ChatMessage[]) => Promise<string | null>;
+}
+
+export const useChatGpt = (
+    apiKey: string,
+    systemMessage: string,
+    temperature: number = 0.8
+): UseChatGptReturn => {
+    const model = useRef<ChatOpenAI | null>(null);
 
     useEffect(() => {
         if (apiKey === '') return;
@@ -14,7 +27,10 @@ export const useChatGpt = (apiKey, systemMessage, temperature = 0.8) => {
         });
     }, [apiKey, temperature]);
 
-    const executeHumanQuestion = async (message, chatHistory = []) => {
+    const executeHumanQuestion = async (
+        message: string,
+        chatHistory: ChatMessage[] = []
+    ): Promise<string | null> => {
         let messages;
         try {
             messages = [
@@ -29,14 +45,18 @@ export const useChatGpt = (apiKey, systemMessage, temperature = 0.8) => {
                 new HumanMessage(message)
             ];
 
+            if (!model.current) {
+                throw new Error('Chat model not initialized');
+            }
+
             const response = await model.current.invoke(messages);
             console.log(`chat ok. ${response.content}`);
-            return response.content;
+            return typeof response.content === 'string' ? response.content : null;
         } catch (e) {
             console.error(e);
             return null;
         } finally {
-            if (messages) {
+            if (messages && model.current) {
                 model.current.getNumTokensFromMessages(messages)
                     .then(res => {
                         console.log(res.totalCount);
@@ -49,4 +69,4 @@ export const useChatGpt = (apiKey, systemMessage, temperature = 0.8) => {
     return {
         chat: executeHumanQuestion
     };
-}
+}; 

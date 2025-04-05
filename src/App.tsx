@@ -8,15 +8,13 @@ import useGameStore from "./store/gameStore";
 import './styles/theme.css';
 import './styles/global.css';
 
-function App() {
+const App: React.FC = () => {
     const { gameStatus } = useGameStore();
 
     useEffect(() => {
         if (process.env.NODE_ENV === 'production') {
-            console.log = function no_console() {
-            };
-            console.warn = function no_console() {
-            };
+            console.log = function no_console() {};
+            console.warn = function no_console() {};
         }
     }, []);
 
@@ -28,6 +26,6 @@ function App() {
             {gameStatus === GAME_STATUS.FINISH && <Ending />}
         </div>
     );
-}
+};
 
-export default App;
+export default App; 

@@ -1,7 +1,32 @@
 import { create } from 'zustand';
 import { GAME_STATUS } from '../model/enums';
 
-const useGameStore = create((set) => ({
+interface ChatCounts {
+    watson: number;
+    suspects: Record<string, number>;
+    guessing: number;
+}
+
+interface GameState {
+    gameStatus: typeof GAME_STATUS[keyof typeof GAME_STATUS];
+    progress: number;
+    apiKey: string;
+    suspectChatHistory: Record<string, any[]>;
+    watsonChatHistory: any[];
+    guessingHistory: any[];
+    chatCounts: ChatCounts;
+    setGameStatus: (status: typeof GAME_STATUS[keyof typeof GAME_STATUS]) => void;
+    setProgress: (progress: number) => void;
+    finishGame: () => void;
+    updateApiKey: (newApiKey: string) => void;
+    updateSuspectChatHistory: (suspectName: string, messages: any[]) => void;
+    updateWatsonChatHistory: (messages: any[]) => void;
+    updateGuessingHistory: (history: any[]) => void;
+    incrementChatCount: (type: 'watson' | 'suspect' | 'guessing', suspectName?: string) => void;
+    resetChatCounts: () => void;
+}
+
+const useGameStore = create<GameState>((set) => ({
     gameStatus: GAME_STATUS.INIT,
     progress: 0,
     apiKey: '',
@@ -25,7 +50,7 @@ const useGameStore = create((set) => ({
     })),
     updateWatsonChatHistory: (messages) => set({ watsonChatHistory: messages }),
     updateGuessingHistory: (history) => set({ guessingHistory: history }),
-    incrementChatCount: (type, suspectName = null) => set((state) => {
+    incrementChatCount: (type, suspectName) => set((state) => {
         if (type === 'watson') {
             return {
                 chatCounts: {
