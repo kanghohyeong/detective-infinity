@@ -2,8 +2,8 @@ import { useEffect, useRef } from "react";
 import { ChatOpenAI } from "@langchain/openai";
 import { AIMessage, HumanMessage, SystemMessage } from "@langchain/core/messages";
 
-interface ChatMessage {
-    type: 'user' | 'assistant';
+export interface ChatMessage {
+    type: 'user' | 'assistant' | 'error' | string;
     message: string;
 }
 

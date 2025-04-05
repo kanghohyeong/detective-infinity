@@ -6,9 +6,14 @@ import useGameStore from "../store/gameStore";
 import { useChatGpt } from "../hooks/useChatGpt";
 import { getInterviewSystemMessage } from "../prompt/prompt";
 import styles from '../styles/components/Suspects.module.css';
+import { Suspect as SuspectType } from '../model/ScenarioScheme';
 
-const Suspects = ({ suspects }) => {
-    const [selectedSuspect, setSelectedSuspect] = useState(null);
+interface SuspectsProps {
+    suspects: SuspectType[];
+}
+
+const Suspects: React.FC<SuspectsProps> = ({ suspects }) => {
+    const [selectedSuspect, setSelectedSuspect] = useState<SuspectType | null>(null);
     const { apiKey, suspectChatHistory, updateSuspectChatHistory } = useGameStore();
     const scenario = useScenarioStore((state) => state.scenario);
 
@@ -17,7 +22,7 @@ const Suspects = ({ suspects }) => {
         selectedSuspect ? getInterviewSystemMessage(selectedSuspect, scenario) : ''
     );
 
-    const handleSuspectSelect = (suspect) => {
+    const handleSuspectSelect = (suspect: SuspectType) => {
         setSelectedSuspect(suspect);
     };
 
