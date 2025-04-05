@@ -1,46 +1,54 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState } from 'react';
 import useGameStore from "../store/gameStore";
+import { ChatMessage } from '../hooks/useChatGpt';
+import { CHAT_TYPE } from '../model/enums';
 import styles from '../styles/components/WatsonSurvey.module.css';
 
-const WatsonSurvey = ({messages, setMessages, chat}) => {
+interface WatsonSurveyProps {
+    messages: ChatMessage[];
+    setMessages: (messages: ChatMessage[]) => void;
+    chat: (message: string, chatHistory?: ChatMessage[]) => Promise<string | null>;
+}
+
+const WatsonSurvey: React.FC<WatsonSurveyProps> = ({ messages, setMessages, chat }) => {
     const [input, setInput] = useState('');
     const [waiting, setWaiting] = useState(false);
-    const endOfMessages = useRef(null);
+    const endOfMessages = useRef<HTMLDivElement>(null);
     const { chatCounts, incrementChatCount } = useGameStore();
 
     const scrollToBottom = () => {
-        endOfMessages.current.scrollIntoView({behavior: 'smooth'});
-    }
+        endOfMessages.current?.scrollIntoView({ behavior: 'smooth' });
+    };
 
     useEffect(scrollToBottom, [messages]);
 
-    const handleSend = async (e) => {
+    const handleSend = async (e: React.FormEvent) => {
         e.preventDefault();
 
         if (input === '') return;
 
-        const currentMessages = messages.concat({type: 'user', message: input});
+        const currentMessages = messages.concat({ type: 'user', message: input });
         setMessages(currentMessages);
         setWaiting(true);
 
-        const aiMessage = await chat(input, messages);
+        const aiMessage = await chat(input, currentMessages);
         if (aiMessage == null) {
-            setMessages(currentMessages.concat({type: "error", message: "AI Error"}));
+            setMessages(currentMessages.concat({ type: "error", message: "AI Error" }));
         } else {
-            setMessages(currentMessages.concat({type: "watson", message: aiMessage}));
-            incrementChatCount('watson');
+            setMessages(currentMessages.concat({ type: "watson", message: aiMessage }));
+            incrementChatCount(CHAT_TYPE.WATSON);
         }
         setWaiting(false);
         setInput('');
-    }
+    };
 
     return (
         <div className={styles.chatContainer}>
             <div className={styles.chatHeader}>
-                <h3>Investigation Chat</h3>
+                <h3>Watson Survey</h3>
             </div>
             <div className={styles.chatMessages}>
-                {messages.map((msg, index) => (
+                {messages.map((msg: ChatMessage, index: number) => (
                     <div className={styles.chatMessage} key={index}>
                         <strong className={`${styles.messageType} ${msg.type === 'user' ? styles.messageTypeUser : styles.messageTypeWatson}`}>
                             {msg.type}
@@ -56,23 +64,23 @@ const WatsonSurvey = ({messages, setMessages, chat}) => {
                         className={styles.input}
                         value={input}
                         onChange={e => setInput(e.target.value)}
-                        placeholder={chatCounts.watson >= 15 ? "No more questions" : "Type a survey question"}
+                        placeholder={(chatCounts.watson || 0) >= 20 ? "No more questions" : "Type a question for Watson"}
                         disabled={waiting}
                     />
                     <button
                         className={styles.button}
                         type="submit"
-                        disabled={waiting || chatCounts.watson >= 15}
+                        disabled={waiting || (chatCounts.watson || 0) >= 20}
                     >
                         Send
                     </button>
                 </div>
             </form>
             <div className={styles.fieldRow}>
-                <span className={styles.questionCount}>Questions: {chatCounts.watson}/15</span>
+                <span className={styles.questionCount}>Questions: {(chatCounts.watson || 0)}/20</span>
             </div>
         </div>
     );
 };
 
-export default WatsonSurvey;
+export default WatsonSurvey; 

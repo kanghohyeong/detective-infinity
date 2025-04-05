@@ -1,7 +1,14 @@
 import React from 'react';
 import styles from '../styles/components/Suspect.module.css';
+import { Suspect as SuspectType } from '../model/ScenarioScheme';
 
-const Suspect = ({ info, isSelected, onSelect }) => {
+interface SuspectProps {
+    info: SuspectType;
+    isSelected: boolean;
+    onSelect: () => void;
+}
+
+const Suspect: React.FC<SuspectProps> = ({ info, isSelected, onSelect }) => {
     return (
         <div 
             className={`${styles.suspectCard} ${isSelected ? styles.selected : ''}`} 
@@ -26,4 +33,4 @@ const Suspect = ({ info, isSelected, onSelect }) => {
     );
 };
 
-export default Suspect;
+export default Suspect; 

@@ -6,7 +6,7 @@ import { useChatGpt } from "../hooks/useChatGpt";
 import { getWatsonSystemMessage } from "../prompt/prompt";
 import styles from '../styles/components/Watson.module.css';
 
-const Watson = () => {
+const Watson: React.FC = () => {
     const { apiKey, watsonChatHistory, updateWatsonChatHistory } = useGameStore();
     const scenario = useScenarioStore((state) => state.scenario);
     const { chat } = useChatGpt(apiKey, getWatsonSystemMessage(scenario));
@@ -36,4 +36,4 @@ const Watson = () => {
     );
 };
 
-export default Watson;
+export default Watson; 

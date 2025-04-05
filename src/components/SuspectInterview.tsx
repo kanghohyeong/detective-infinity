@@ -1,25 +1,41 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import useGameStore from "../store/gameStore";
 import styles from '../styles/components/SuspectInterview.module.css';
+import { ChatMessage } from '../hooks/useChatGpt';
+import { CHAT_TYPE } from '../model/enums';
 
-const SuspectInterview = ({name, messages, setMessages, offInterview, chat}) => {
+interface SuspectInterviewProps {
+    name: string;
+    messages: ChatMessage[];
+    setMessages: (messages: ChatMessage[]) => void;
+    offInterview: () => void;
+    chat: (message: string, chatHistory?: ChatMessage[]) => Promise<string | null>;
+}
+
+const SuspectInterview: React.FC<SuspectInterviewProps> = ({ 
+    name, 
+    messages, 
+    setMessages, 
+    offInterview, 
+    chat 
+}) => {
     const [input, setInput] = useState('');
     const [waiting, setWaiting] = useState(false);
-    const endOfMessages = useRef(null);
+    const endOfMessages = useRef<HTMLDivElement>(null);
     const { chatCounts, incrementChatCount } = useGameStore();
 
     const scrollToBottom = () => {
-        endOfMessages.current.scrollIntoView({behavior: 'smooth'});
+        endOfMessages.current?.scrollIntoView({ behavior: 'smooth' });
     }
 
     useEffect(scrollToBottom, [messages]);
 
-    const handleSend = async (e) => {
+    const handleSend = async (e: React.FormEvent) => {
         e.preventDefault();
 
         if (input === '') return;
 
-        const currentMessages = messages.concat({type: 'user', message: input});
+        const currentMessages = messages.concat({ type: 'user', message: input });
         setMessages(currentMessages);
         setWaiting(true);
 
@@ -28,10 +44,10 @@ const SuspectInterview = ({name, messages, setMessages, offInterview, chat}) => 
         Question: ${input}`;
         const aiMessage = await chat(interviewQuestion, messages);
         if (aiMessage == null) {
-            setMessages(currentMessages.concat({type: "error", message: "AI Error"}));
+            setMessages(currentMessages.concat({ type: "error", message: "AI Error" }));
         } else {
-            setMessages(currentMessages.concat({type: name, message: aiMessage}));
-            incrementChatCount('suspect', name);
+            setMessages(currentMessages.concat({ type: name, message: aiMessage }));
+            incrementChatCount(CHAT_TYPE.SUSPECT, name);
         }
         setWaiting(false);
         setInput('');
@@ -79,4 +95,4 @@ const SuspectInterview = ({name, messages, setMessages, offInterview, chat}) => 
     );
 };
 
-export default SuspectInterview;
+export default SuspectInterview; 

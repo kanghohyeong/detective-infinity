@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { GAME_STATUS } from "../model/enums";
+import { GAME_STATUS } from '../model/enums';
 import useScenarioStore from "../store/scenarioStore";
 import { ScenarioScheme } from "../model/ScenarioScheme";
 import testScenario from "../test_scenario.json";
@@ -9,11 +9,11 @@ import { ChatOpenAI } from "@langchain/openai";
 import useGameStore from "../store/gameStore";
 import styles from '../styles/Main.module.css';
 
-const Main = () => {
+const Main: React.FC = () => {
     const { apiKey, updateApiKey } = useGameStore();
-    const updateScenario = useScenarioStore((state) => state.updateScenario)
-    const [background, setBackground] = useState("")
-    const [language, setLanguage] = useState("English")
+    const updateScenario = useScenarioStore((state) => state.updateScenario);
+    const [background, setBackground] = useState<string>("");
+    const [language, setLanguage] = useState<string>("English");
     const { chat: writerChat } = useChatGpt(apiKey, getStoryWriterSystemMessage(language));
     const { setGameStatus, setProgress } = useGameStore();
 
@@ -32,26 +32,39 @@ const Main = () => {
 
         try {
             console.log("start generate");
-            let writerChatHistory = [];
-            
+            let writerChatHistory: { type: string; message: string }[] = [];
+
             const victim = await writerChat(`From now on, let's make a story in order according to my request step by step considering the following keywords.
         keywords : ${background}
         First, Define the victim. The victim's name, age, personality, occupation, appearance etc`, writerChatHistory);
-            writerChatHistory = [...writerChatHistory, {type: 'user', message: `From now on, let's make a story in order according to my request step by step considering the following keywords.
+            if (victim === null) {
+                throw new Error("Failed to generate victim information");
+            }
+            writerChatHistory = [...writerChatHistory, {
+                type: 'user', message: `From now on, let's make a story in order according to my request step by step considering the following keywords.
         keywords : ${background}
-        First, Define the victim. The victim's name, age, personality, occupation, appearance etc`}, {type: 'assistant', message: victim}];
+        First, Define the victim. The victim's name, age, personality, occupation, appearance etc`}, { type: 'assistant', message: victim }];
             setProgress(20);
 
             const suspects = await writerChat(`Define the suspect. There are a total of four suspects. Name, personality, age, occupation, appearance etc. of the suspect. Every suspect must have an motive for murder the victim.`, writerChatHistory);
-            writerChatHistory = [...writerChatHistory, {type: 'user', message: `Define the suspect. There are a total of four suspects. Name, personality, age, occupation, appearance etc. of the suspect. Every suspect must have an motive for murder the victim.`}, {type: 'assistant', message: suspects}];
+            if (suspects === null) {
+                throw new Error("Failed to generate suspects information");
+            }
+            writerChatHistory = [...writerChatHistory, { type: 'user', message: `Define the suspect. There are a total of four suspects. Name, personality, age, occupation, appearance etc. of the suspect. Every suspect must have an motive for murder the victim.` }, { type: 'assistant', message: suspects }];
             setProgress(35);
 
             const murderer = await writerChat('Define one killer who actually committed a murder among the suspects defined above. Describe the method of murder, the trick to escape the suspect, and the loophole in the trick. The loophole in deception should not be due to evidence such as cctv, dna, but rather the logical error of the alibi claimed by the killer or traces left at the crime scene.', writerChatHistory);
-            writerChatHistory = [...writerChatHistory, {type: 'user', message: 'Define one killer who actually committed a murder among the suspects defined above. Describe the method of murder, the trick to escape the suspect, and the loophole in the trick. The loophole in deception should not be due to evidence such as cctv, dna, but rather the logical error of the alibi claimed by the killer or traces left at the crime scene.'}, {type: 'assistant', message: murderer}];
+            if (murderer === null) {
+                throw new Error("Failed to generate murderer information");
+            }
+            writerChatHistory = [...writerChatHistory, { type: 'user', message: 'Define one killer who actually committed a murder among the suspects defined above. Describe the method of murder, the trick to escape the suspect, and the loophole in the trick. The loophole in deception should not be due to evidence such as cctv, dna, but rather the logical error of the alibi claimed by the killer or traces left at the crime scene.' }, { type: 'assistant', message: murderer }];
             setProgress(50);
 
             const story = await writerChat('Describe the story, alibi, of the other three suspects, excluding the murderer, among the four suspects defined above. The suspects had a chance to commit the crime and a motive for the murder, but they did not actually kill.', writerChatHistory);
-            writerChatHistory = [...writerChatHistory, {type: 'user', message: 'Describe the story, alibi, of the other three suspects, excluding the murderer, among the four suspects defined above. The suspects had a chance to commit the crime and a motive for the murder, but they did not actually kill.'}, {type: 'assistant', message: story}];
+            if (story === null) {
+                throw new Error("Failed to generate suspects' stories");
+            }
+            writerChatHistory = [...writerChatHistory, { type: 'user', message: 'Describe the story, alibi, of the other three suspects, excluding the murderer, among the four suspects defined above. The suspects had a chance to commit the crime and a motive for the murder, but they did not actually kill.' }, { type: 'assistant', message: story }];
             setProgress(75);
 
             const model = new ChatOpenAI({
@@ -83,14 +96,14 @@ const Main = () => {
             setGameStatus(GAME_STATUS.INIT);
             setProgress(0);
         }
-    }
+    };
 
     return (
         <div className={styles.mainContainer}>
-            <img 
+            <img
                 className={styles.titleImage}
-                src={`${process.env.PUBLIC_URL}/assets/detective-infinity-title-black.png`} 
-                alt="Detective Infinity" 
+                src={`${process.env.PUBLIC_URL}/assets/detective-infinity-title-black.png`}
+                alt="Detective Infinity"
             />
             <h2>Unleash your inner Sherlock Holmes in an Al-powered mystery adventure!</h2>
             <p>You become a detective and investigate a murder case.</p>
@@ -128,4 +141,4 @@ const Main = () => {
     );
 };
 
-export default Main;
+export default Main; 

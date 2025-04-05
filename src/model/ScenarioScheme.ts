@@ -1,4 +1,4 @@
-import {z} from "zod";
+import { z } from "zod";
 
 const VictimScheme = z.object({
     name: z.string().describe("name of victim"),
@@ -38,3 +38,8 @@ export const ScenarioScheme = z.object({
     truth: TruthScheme.describe("The truth of the murder that the player (== detective role) must reveal"),
     prologue: z.string().describe("prologue of the game."),
 });
+
+export type Victim = z.infer<typeof VictimScheme>;
+export type Suspect = z.infer<typeof SuspectScheme>;
+export type Truth = z.infer<typeof TruthScheme>;
+export type Scenario = z.infer<typeof ScenarioScheme>; 

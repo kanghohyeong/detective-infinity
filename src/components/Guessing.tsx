@@ -5,8 +5,21 @@ import useGameStore from "../store/gameStore";
 import { useChatGpt } from "../hooks/useChatGpt";
 import { getScorerSystemMessage } from "../prompt/prompt";
 import styles from '../styles/components/Guessing.module.css';
+import { Suspect } from '../model/ScenarioScheme';
+import { CHAT_TYPE } from '../model/enums';
 
-const Guessing = ({ suspects }) => {
+interface GuessingProps {
+    suspects: Suspect[];
+}
+
+interface GuessingHistory {
+    name: string;
+    reasoning: string;
+    grade: string;
+    hint: string;
+}
+
+const Guessing: React.FC<GuessingProps> = ({ suspects }) => {
     const { apiKey, guessingHistory, updateGuessingHistory, chatCounts, incrementChatCount, finishGame } = useGameStore();
     const scenario = useScenarioStore((state) => state.scenario);
     const { chat } = useChatGpt(apiKey, getScorerSystemMessage(scenario), 0.4);
@@ -15,7 +28,7 @@ const Guessing = ({ suspects }) => {
     const [reasoning, setReasoning] = useState('');
     const [waiting, setWaiting] = useState(false);
 
-    const handleSend = async (e) => {
+    const handleSend = async (e: React.FormEvent) => {
         e.preventDefault();
 
         if (who === '' || reasoning === '') return;
@@ -29,6 +42,12 @@ const Guessing = ({ suspects }) => {
         ${GuessingParser.getFormatInstructions()}
         `;
         const aiMessage = await chat(guessPrompt);
+
+        if (aiMessage === null) {
+            window.alert("Ai Error. retry.");
+            setWaiting(false);
+            return;
+        }
 
         try {
             const guessingJson = await GuessingParser.parse(aiMessage);
@@ -44,7 +63,7 @@ const Guessing = ({ suspects }) => {
                 "hint": guessingJson.hint
             });
             updateGuessingHistory(newHistory);
-            incrementChatCount('guessing');
+            incrementChatCount(CHAT_TYPE.GUESSING);
         } catch (e) {
             window.alert("Ai Error. retry.");
         } finally {
@@ -64,7 +83,7 @@ const Guessing = ({ suspects }) => {
     return (
         <div className={styles.container}>
             <h1 className={styles.title}>Max Try : {(chatCounts.guessing || 0)}/5</h1>
-            {guessingHistory.map((history, index) => (
+            {guessingHistory.map((history: GuessingHistory, index: number) => (
                 <div className={styles.history} key={index}>
                     <h3 className={styles.historyTitle}>try {index + 1}</h3>
                     <p className={styles.historyContent}>
@@ -124,4 +143,4 @@ const Guessing = ({ suspects }) => {
     );
 };
 
-export default Guessing;
+export default Guessing; 

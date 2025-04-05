@@ -1,7 +1,32 @@
 import { create } from 'zustand';
-import { GAME_STATUS } from '../model/enums';
+import { GAME_STATUS, CHAT_TYPE, ChatType, GameStatus } from '../model/enums';
 
-const useGameStore = create((set) => ({
+interface ChatCounts {
+    watson: number;
+    suspects: Record<string, number>;
+    guessing: number;
+}
+
+interface GameState {
+    gameStatus: GameStatus;
+    progress: number;
+    apiKey: string;
+    suspectChatHistory: Record<string, any[]>;
+    watsonChatHistory: any[];
+    guessingHistory: any[];
+    chatCounts: ChatCounts;
+    setGameStatus: (status: GameStatus) => void;
+    setProgress: (progress: number) => void;
+    finishGame: () => void;
+    updateApiKey: (newApiKey: string) => void;
+    updateSuspectChatHistory: (suspectName: string, messages: any[]) => void;
+    updateWatsonChatHistory: (messages: any[]) => void;
+    updateGuessingHistory: (history: any[]) => void;
+    incrementChatCount: (type: ChatType, suspectName?: string) => void;
+    resetChatCounts: () => void;
+}
+
+const useGameStore = create<GameState>((set) => ({
     gameStatus: GAME_STATUS.INIT,
     progress: 0,
     apiKey: '',
@@ -25,15 +50,15 @@ const useGameStore = create((set) => ({
     })),
     updateWatsonChatHistory: (messages) => set({ watsonChatHistory: messages }),
     updateGuessingHistory: (history) => set({ guessingHistory: history }),
-    incrementChatCount: (type, suspectName = null) => set((state) => {
-        if (type === 'watson') {
+    incrementChatCount: (type, suspectName) => set((state) => {
+        if (type === CHAT_TYPE.WATSON) {
             return {
                 chatCounts: {
                     ...state.chatCounts,
                     watson: state.chatCounts.watson + 1
                 }
             };
-        } else if (type === 'suspect' && suspectName) {
+        } else if (type === CHAT_TYPE.SUSPECT && suspectName) {
             return {
                 chatCounts: {
                     ...state.chatCounts,
@@ -43,7 +68,7 @@ const useGameStore = create((set) => ({
                     }
                 }
             };
-        } else if (type === 'guessing') {
+        } else if (type === CHAT_TYPE.GUESSING) {
             return {
                 chatCounts: {
                     ...state.chatCounts,

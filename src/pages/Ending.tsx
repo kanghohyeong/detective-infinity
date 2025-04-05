@@ -3,9 +3,10 @@ import { GAME_STATUS } from "../model/enums";
 import useScenarioStore from "../store/scenarioStore";
 import useGameStore from "../store/gameStore";
 import styles from '../styles/Ending.module.css';
+import { Scenario } from '../model/ScenarioScheme';
 
-const Ending = () => {
-    const scenario = useScenarioStore((state) => state.scenario);
+const Ending: React.FC = () => {
+    const scenario = useScenarioStore((state) => state.scenario) as Scenario;
     const { setGameStatus } = useGameStore();
 
     return (
@@ -22,7 +23,7 @@ const Ending = () => {
                     <p>why : {scenario.truth.why}</p>
                     <p>trick : {scenario.truth.trick}</p>
                     <p>loophole : {scenario.truth.loophole}</p>
-                    <p>story : {scenario.suspects.find(suspect => suspect.isMurderer).story}</p>
+                    <p>story : {scenario.suspects.find(suspect => suspect.isMurderer)?.story}</p>
                 </div>
                 <div className={styles.separator} />
                 <h3>Suspects</h3>
@@ -47,4 +48,4 @@ const Ending = () => {
     );
 };
 
-export default Ending;
+export default Ending; 

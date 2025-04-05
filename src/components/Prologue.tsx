@@ -1,7 +1,12 @@
 import React from 'react';
 import styles from '../styles/Playing.module.css';
+import { Scenario } from '../model/ScenarioScheme';
 
-const Prologue = ({ scenario }) => {
+interface PrologueProps {
+    scenario: Scenario;
+}
+
+const Prologue: React.FC<PrologueProps> = ({ scenario }) => {
     return (
         <>
             <h1>{scenario.title}</h1>
